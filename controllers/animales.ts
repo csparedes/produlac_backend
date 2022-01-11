@@ -11,4 +11,9 @@ export const getAnimales = async (req: Request, res: Response) => {
     if (!animales) {
         return res.status(500)
     }
+
+    res.json({
+        msg: "Lista de animales",
+        animales
+    })
 }

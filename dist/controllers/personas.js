@@ -33,7 +33,12 @@ const getPersonas = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.getPersonas = getPersonas;
 const getPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { per_cedula } = req.params;
-    const persona = yield tbl_personas_1.default.findByPk(per_cedula);
+    const persona = yield tbl_personas_1.default.findOne({
+        where: {
+            per_cedula,
+            per_estado: true
+        }
+    });
     if (!persona) {
         return res.status(400).json({
             msg: "No hay ninguna persona con ese id"
