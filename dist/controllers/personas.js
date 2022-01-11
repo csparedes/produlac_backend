@@ -86,19 +86,19 @@ const postPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 });
 exports.postPersona = postPersona;
 const putPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { per_cedula } = req.params;
+    const { per_cedula_url } = req.params;
     const personaActual = yield tbl_personas_1.default.findOne({
         where: {
-            per_cedula,
+            per_cedula: per_cedula_url,
             per_estado: true
         }
     });
     if (!personaActual) {
         return res.status(401).json({
-            msg: `Aquella persona no existe con la cédula: ${per_cedula}`
+            msg: `Aquella persona no existe con la cédula: ${per_cedula_url}`
         });
     }
-    const { per_nombre, per_apellido, per_usuario, per_contraseña, per_imagen, per_correo, per_telefono, per_direccion, rol_id } = req.body;
+    const { per_nombre, per_apellido, per_usuario, per_cedula, per_contraseña, per_imagen, per_correo, per_telefono, per_direccion, rol_id } = req.body;
     const nuevaPersona = {
         per_nombre,
         per_apellido,
