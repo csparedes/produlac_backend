@@ -38,7 +38,7 @@ const Animales = connection_1.default.define("tbl_animales", {
     ani_idmadre: {
         type: sequelize_1.DataTypes.INTEGER,
     },
-    ani_peso_nacer: {
+    ani_pesonacer: {
         type: sequelize_1.DataTypes.STRING,
     },
     ite_idespecieanimal: {
@@ -52,6 +52,7 @@ const Animales = connection_1.default.define("tbl_animales", {
     },
     ani_estado: {
         type: sequelize_1.DataTypes.BOOLEAN,
+        defaultValue: true
     },
 }, {
     freezeTableName: true,

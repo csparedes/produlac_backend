@@ -34,7 +34,7 @@ const Animales = db.define("tbl_animales", {
     ani_idmadre: {
         type: DataTypes.INTEGER,
     },
-    ani_peso_nacer: {
+    ani_pesonacer: {
         type: DataTypes.STRING,
     },
     ite_idespecieanimal: {
@@ -48,6 +48,7 @@ const Animales = db.define("tbl_animales", {
     },
     ani_estado: {
         type: DataTypes.BOOLEAN,
+        defaultValue: true
     },
 },
 {

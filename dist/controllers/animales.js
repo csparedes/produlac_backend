@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAnimales = void 0;
+exports.deleteAnimal = exports.putAnimal = exports.postAnimal = exports.getAnimal = exports.getAnimales = void 0;
 const tbl_animales_1 = __importDefault(require("../models/tbl_animales"));
 const getAnimales = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const animales = yield tbl_animales_1.default.findAll({
@@ -29,4 +29,115 @@ const getAnimales = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     });
 });
 exports.getAnimales = getAnimales;
+const getAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { ani_codigo } = req.params;
+    const animal = yield tbl_animales_1.default.findOne({
+        where: {
+            ani_codigo,
+            ani_estado: true,
+        }
+    });
+    if (!animal) {
+        return res.status(400).json({
+            msg: `No existe el animalito con el código: ${ani_codigo}`
+        });
+    }
+    res.json({
+        msg: `Se encontró al animal`,
+        animal
+    });
+});
+exports.getAnimal = getAnimal;
+const postAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { ani_codigo, ani_nombre, ani_sexo, ani_fechanacimiento, ani_imagen, ani_raza, ani_etapa, ani_idpadre, ani_idmadre, ani_pesonacer, ite_idespecieanimal, fin_id, ite_idtipoestado } = req.body;
+    const animalBuscado = yield tbl_animales_1.default.findOne({
+        where: {
+            ani_codigo,
+            ani_nombre,
+            ani_estado: true
+        }
+    });
+    if (animalBuscado) {
+        return res.status(400).json({
+            msg: `El animal ${ani_nombre}, ya existe en sistema`
+        });
+    }
+    const nuevoAnimal = {
+        ani_codigo,
+        ani_nombre,
+        ani_sexo,
+        ani_fechanacimiento,
+        ani_imagen,
+        ani_raza,
+        ani_etapa,
+        ani_idpadre,
+        ani_idmadre,
+        ani_pesonacer,
+        ite_idespecieanimal,
+        fin_id,
+        ite_idtipoestado
+    };
+    const animal = yield tbl_animales_1.default.build(nuevoAnimal);
+    animal.save();
+    res.json({
+        msg: `Se ha ingresado un nuevo animal`,
+        animal
+    });
+});
+exports.postAnimal = postAnimal;
+const putAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { ani_codigo_url } = req.params;
+    const animalActual = yield tbl_animales_1.default.findOne({
+        where: {
+            ani_codigo: ani_codigo_url,
+            ani_estado: true
+        }
+    });
+    if (!animalActual) {
+        return res.status(400).json({
+            msg: `El animal con el codigo ${ani_codigo_url} no existe en esta base de datos`
+        });
+    }
+    const { ani_codigo, ani_nombre, ani_sexo, ani_fechanacimiento, ani_imagen, ani_raza, ani_etapa, ani_idpadre, ani_idmadre, ani_pesonacer, ite_idespecieanimal, fin_id, ite_idtipoestado } = req.body;
+    const nuevoAnimal = {
+        ani_codigo,
+        ani_nombre,
+        ani_sexo,
+        ani_fechanacimiento,
+        ani_imagen,
+        ani_raza,
+        ani_etapa,
+        ani_idpadre,
+        ani_idmadre,
+        ani_pesonacer,
+        ite_idespecieanimal,
+        fin_id,
+        ite_idtipoestado
+    };
+    yield animalActual.update(nuevoAnimal);
+    res.json({
+        msg: `Se actualizó los datos del animal ${ani_nombre}, de código ${ani_codigo}`,
+        animal: nuevoAnimal
+    });
+});
+exports.putAnimal = putAnimal;
+const deleteAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { ani_codigo } = req.params;
+    const animal = yield tbl_animales_1.default.findOne({
+        where: {
+            ani_codigo,
+            ani_estado: true
+        }
+    });
+    if (!animal) {
+        return res.status(400).json({
+            msg: `No existe un animal con el código: ${ani_codigo}`
+        });
+    }
+    yield animal.update({ ani_estado: false });
+    res.json({
+        msg: `El animal con código ${ani_codigo} ha sido eliminado`
+    });
+});
+exports.deleteAnimal = deleteAnimal;
 //# sourceMappingURL=animales.js.map
