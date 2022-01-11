@@ -22,7 +22,12 @@ export const getPersonas = async (req: Request, res: Response) => {
 
 export const getPersona = async (req: Request, res: Response) => {
     const { per_cedula } = req.params;
-    const persona = await Persona.findByPk(per_cedula);
+    const persona = await Persona.findOne({
+        where: {
+            per_cedula,
+            per_estado: true
+        }    
+    });
 
     if (!persona) {
         return res.status(400).json({

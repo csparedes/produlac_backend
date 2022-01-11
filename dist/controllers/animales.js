@@ -23,6 +23,10 @@ const getAnimales = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     if (!animales) {
         return res.status(500);
     }
+    res.json({
+        msg: "Lista de animales",
+        animales
+    });
 });
 exports.getAnimales = getAnimales;
 //# sourceMappingURL=animales.js.map
