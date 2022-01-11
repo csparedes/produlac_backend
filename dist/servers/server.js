@@ -8,12 +8,16 @@ const cors_1 = __importDefault(require("cors"));
 const personas_1 = __importDefault(require("../routes/personas"));
 const animales_1 = __importDefault(require("../routes/animales"));
 const catalogo_1 = __importDefault(require("../routes/catalogo"));
+const deceso_1 = __importDefault(require("../routes/deceso"));
+const finca_1 = __importDefault(require("../routes/finca"));
 class Server {
     constructor() {
         this.apiPaths = {
             personas: '/api/personas',
             animales: '/api/animales',
-            catalogos: '/api/catalogos'
+            catalogos: '/api/catalogos',
+            decesos: '/api/decesos',
+            fincas: '/api/fincas',
         };
         this.app = express_1.default();
         this.port = process.env.PORT || "3000";
@@ -29,6 +33,8 @@ class Server {
         this.app.use(this.apiPaths.personas, personas_1.default);
         this.app.use(this.apiPaths.animales, animales_1.default);
         this.app.use(this.apiPaths.catalogos, catalogo_1.default);
+        this.app.use(this.apiPaths.decesos, deceso_1.default);
+        this.app.use(this.apiPaths.fincas, finca_1.default);
     }
     listen() {
         this.server.listen(this.port, () => {

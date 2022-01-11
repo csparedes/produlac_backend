@@ -4,6 +4,8 @@ import cors from "cors";
 import rutasPersonas from '../routes/personas';
 import rutasAnimales from '../routes/animales';
 import rutasCatalogos from '../routes/catalogo';
+import rutasDecesos from '../routes/deceso';
+import rutasFincas from '../routes/finca';
 class Server{
     private app: Application;
     private port: string;
@@ -11,7 +13,9 @@ class Server{
     private apiPaths = {
         personas: '/api/personas',
         animales: '/api/animales',
-        catalogos: '/api/catalogos'
+        catalogos: '/api/catalogos',
+        decesos: '/api/decesos',
+        fincas: '/api/fincas',
     };
 
     constructor() {
@@ -32,6 +36,8 @@ class Server{
         this.app.use(this.apiPaths.personas, rutasPersonas);
         this.app.use(this.apiPaths.animales, rutasAnimales);
         this.app.use(this.apiPaths.catalogos, rutasCatalogos);
+        this.app.use(this.apiPaths.decesos, rutasDecesos);
+        this.app.use(this.apiPaths.fincas, rutasFincas);
     }
 
     listen() {
