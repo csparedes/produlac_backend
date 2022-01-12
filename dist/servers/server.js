@@ -14,6 +14,9 @@ const login_1 = __importDefault(require("../routes/login"));
 const finca_persona_1 = __importDefault(require("../routes/finca_persona"));
 const ingreso_egreso_1 = __importDefault(require("../routes/ingreso_egreso"));
 const inseminacion_1 = __importDefault(require("../routes/inseminacion"));
+const item_1 = __importDefault(require("../routes/item"));
+const menu_1 = __importDefault(require("../routes/menu"));
+const parto_aborto_1 = __importDefault(require("../routes/parto_aborto"));
 class Server {
     constructor() {
         this.apiPaths = {
@@ -25,7 +28,10 @@ class Server {
             login: '/api/login',
             fincaPersona: '/api/fincaPersona',
             ingresoEgreso: '/api/ingresosEgresos',
-            inseminacion: '/api/inseminacion'
+            inseminacion: '/api/inseminacion',
+            items: '/api/items',
+            menus: '/api/menus',
+            partoAborto: '/api/partoAborto'
         };
         this.app = express_1.default();
         this.port = process.env.PORT || "3000";
@@ -47,6 +53,9 @@ class Server {
         this.app.use(this.apiPaths.fincaPersona, finca_persona_1.default);
         this.app.use(this.apiPaths.ingresoEgreso, ingreso_egreso_1.default);
         this.app.use(this.apiPaths.inseminacion, inseminacion_1.default);
+        this.app.use(this.apiPaths.items, item_1.default);
+        this.app.use(this.apiPaths.menus, menu_1.default);
+        this.app.use(this.apiPaths.partoAborto, parto_aborto_1.default);
     }
     listen() {
         this.server.listen(this.port, () => {

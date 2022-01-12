@@ -10,6 +10,9 @@ import rutasLogin from '../routes/login';
 import rutasFincaPersona from '../routes/finca_persona';
 import rutasIngresoEgreso from '../routes/ingreso_egreso';
 import rutasInseminacion from '../routes/inseminacion';
+import rutasItems from '../routes/item';
+import rutasMenus from '../routes/menu';
+import rutasPartoAborto from '../routes/parto_aborto';
 
 class Server{
     private app: Application;
@@ -24,7 +27,10 @@ class Server{
         login: '/api/login',
         fincaPersona: '/api/fincaPersona',
         ingresoEgreso: '/api/ingresosEgresos',
-        inseminacion: '/api/inseminacion'
+        inseminacion: '/api/inseminacion',
+        items: '/api/items',
+        menus: '/api/menus',
+        partoAborto: '/api/partoAborto'
     };
 
     constructor() {
@@ -51,6 +57,9 @@ class Server{
         this.app.use(this.apiPaths.fincaPersona, rutasFincaPersona);
         this.app.use(this.apiPaths.ingresoEgreso, rutasIngresoEgreso);
         this.app.use(this.apiPaths.inseminacion, rutasInseminacion);
+        this.app.use(this.apiPaths.items, rutasItems);
+        this.app.use(this.apiPaths.menus, rutasMenus);
+        this.app.use(this.apiPaths.partoAborto, rutasPartoAborto);
     }
 
     listen() {
