@@ -7,6 +7,10 @@ import rutasCatalogos from '../routes/catalogo';
 import rutasDecesos from '../routes/deceso';
 import rutasFincas from '../routes/finca';
 import rutasLogin from '../routes/login';
+import rutasFincaPersona from '../routes/finca_persona';
+import rutasIngresoEgreso from '../routes/ingreso_egreso';
+import rutasInseminacion from '../routes/inseminacion';
+
 class Server{
     private app: Application;
     private port: string;
@@ -18,6 +22,9 @@ class Server{
         decesos: '/api/decesos',
         fincas: '/api/fincas',
         login: '/api/login',
+        fincaPersona: '/api/fincaPersona',
+        ingresoEgreso: '/api/ingresosEgresos',
+        inseminacion: '/api/inseminacion'
     };
 
     constructor() {
@@ -41,12 +48,14 @@ class Server{
         this.app.use(this.apiPaths.decesos, rutasDecesos);
         this.app.use(this.apiPaths.fincas, rutasFincas);
         this.app.use(this.apiPaths.login, rutasLogin);
+        this.app.use(this.apiPaths.fincaPersona, rutasFincaPersona);
+        this.app.use(this.apiPaths.ingresoEgreso, rutasIngresoEgreso);
+        this.app.use(this.apiPaths.inseminacion, rutasInseminacion);
     }
 
     listen() {
         this.server.listen(this.port, () => {
             console.log(`Servidor online en el puerto: `, this.port);
-            
         });
     }
 }
