@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deletePersona = exports.putPersona = exports.postPersona = exports.getPersona = exports.getPersonas = void 0;
+const bcrypt_1 = __importDefault(require("bcrypt"));
 const tbl_personas_1 = __importDefault(require("../models/tbl_personas"));
 const getPersonas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const personas = yield tbl_personas_1.default.findAll({
@@ -65,11 +66,12 @@ const postPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             msg: "Ya existe aquella persona"
         });
     }
+    const salt = bcrypt_1.default.genSaltSync();
     const nuevaPersona = {
         per_nombre,
         per_apellido,
         per_usuario,
-        per_contraseña,
+        per_contraseña: bcrypt_1.default.hashSync(per_contraseña, salt),
         per_imagen,
         per_cedula,
         per_correo,
