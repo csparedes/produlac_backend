@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import bcrypt from "bcrypt";
 import Persona from "../models/tbl_personas";
 
 export const getPersonas = async (req: Request, res: Response) => {
@@ -68,12 +69,12 @@ export const postPersona = async (req: Request, res: Response) => {
             msg: "Ya existe aquella persona"
         });
     }
-
+    const salt = bcrypt.genSaltSync();
     const nuevaPersona = {
         per_nombre,
         per_apellido,
         per_usuario,
-        per_contraseña,
+        per_contraseña: bcrypt.hashSync(per_contraseña, salt),
         per_imagen,
         per_cedula,
         per_correo,

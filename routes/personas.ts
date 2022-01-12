@@ -1,14 +1,14 @@
 import { Router } from 'express'
-import { check } from 'express-validator'
 import { deletePersona, getPersona, getPersonas, postPersona, putPersona } from '../controllers/personas';
+import validarJWT from '../helpers/validarJWT';
 import validarCampos from '../middlewares/validar_campos'
 
 const router = Router();
 
-router.get('/', [validarCampos,], getPersonas);
-router.get('/:per_cedula', [validarCampos], getPersona);
-router.post('/', [validarCampos], postPersona);
-router.put('/:per_cedula', [validarCampos], putPersona);
-router.delete('/:per_cedula', [validarCampos], deletePersona);
+router.get('/', [validarJWT, validarCampos,], getPersonas);
+router.get('/:per_cedula', [validarJWT,validarCampos], getPersona);
+router.post('/', [validarJWT, validarCampos], postPersona);
+router.put('/:per_cedula', [validarJWT, validarCampos], putPersona);
+router.delete('/:per_cedula', [validarJWT, validarCampos], deletePersona);
 
 export default router;

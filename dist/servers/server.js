@@ -10,6 +10,7 @@ const animales_1 = __importDefault(require("../routes/animales"));
 const catalogo_1 = __importDefault(require("../routes/catalogo"));
 const deceso_1 = __importDefault(require("../routes/deceso"));
 const finca_1 = __importDefault(require("../routes/finca"));
+const login_1 = __importDefault(require("../routes/login"));
 class Server {
     constructor() {
         this.apiPaths = {
@@ -18,6 +19,7 @@ class Server {
             catalogos: '/api/catalogos',
             decesos: '/api/decesos',
             fincas: '/api/fincas',
+            login: '/api/login',
         };
         this.app = express_1.default();
         this.port = process.env.PORT || "3000";
@@ -35,6 +37,7 @@ class Server {
         this.app.use(this.apiPaths.catalogos, catalogo_1.default);
         this.app.use(this.apiPaths.decesos, deceso_1.default);
         this.app.use(this.apiPaths.fincas, finca_1.default);
+        this.app.use(this.apiPaths.login, login_1.default);
     }
     listen() {
         this.server.listen(this.port, () => {

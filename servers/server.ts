@@ -6,6 +6,7 @@ import rutasAnimales from '../routes/animales';
 import rutasCatalogos from '../routes/catalogo';
 import rutasDecesos from '../routes/deceso';
 import rutasFincas from '../routes/finca';
+import rutasLogin from '../routes/login';
 class Server{
     private app: Application;
     private port: string;
@@ -16,6 +17,7 @@ class Server{
         catalogos: '/api/catalogos',
         decesos: '/api/decesos',
         fincas: '/api/fincas',
+        login: '/api/login',
     };
 
     constructor() {
@@ -38,6 +40,7 @@ class Server{
         this.app.use(this.apiPaths.catalogos, rutasCatalogos);
         this.app.use(this.apiPaths.decesos, rutasDecesos);
         this.app.use(this.apiPaths.fincas, rutasFincas);
+        this.app.use(this.apiPaths.login, rutasLogin);
     }
 
     listen() {
