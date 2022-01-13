@@ -15,7 +15,8 @@ const validarJWT = async (req: Request, res: Response, next: NextFunction) => {
     try {
         //@ts-ignore
         const uid = jwt.verify(token, secretKey);
-        const per_usuario = uid.uid;
+        const persona = uid.uid + ',';
+        const per_usuario = persona.split(',',1)[0];        
         const usuario = await Persona.findOne({
             where: {
                 per_usuario
@@ -31,7 +32,8 @@ const validarJWT = async (req: Request, res: Response, next: NextFunction) => {
     } catch (err) {
         console.log(`Error validando el jwt: ${err}`);
         res.status(402).json({
-            msg: `Token inválido, quizás caducó`
+            msg: `Token inválido, quizás caducó`,
+            err
         })
         
     }

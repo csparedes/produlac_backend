@@ -25,7 +25,8 @@ const validarJWT = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
     try {
         //@ts-ignore
         const uid = jsonwebtoken_1.default.verify(token, secretKey);
-        const per_usuario = uid.uid;
+        const persona = uid.uid + ',';
+        const per_usuario = persona.split(',', 1)[0];
         const usuario = yield tbl_personas_1.default.findOne({
             where: {
                 per_usuario
@@ -41,7 +42,8 @@ const validarJWT = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
     catch (err) {
         console.log(`Error validando el jwt: ${err}`);
         res.status(402).json({
-            msg: `Token inválido, quizás caducó`
+            msg: `Token inválido, quizás caducó`,
+            err
         });
     }
 });
