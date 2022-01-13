@@ -7,6 +7,19 @@ import rutasCatalogos from '../routes/catalogo';
 import rutasDecesos from '../routes/deceso';
 import rutasFincas from '../routes/finca';
 import rutasLogin from '../routes/login';
+import rutasFincaPersona from '../routes/finca_persona';
+import rutasIngresoEgreso from '../routes/ingreso_egreso';
+import rutasInseminacion from '../routes/inseminacion';
+import rutasItems from '../routes/item';
+import rutasMenus from '../routes/menu';
+import rutasPartoAborto from '../routes/parto_aborto';
+import rutasProdGlobal from '../routes/prod_global';
+import rutasProdIndividual from '../routes/prod_individuales'
+import rutasRol from '../routes/rol'
+import rutasSubMenu from '../routes/sub_menu';
+import rutasTratamiento from '../routes/tratamientos';
+import rutasVacuna from '../routes/vacuna';
+import rutasVenta from '../routes/venta';
 class Server{
     private app: Application;
     private port: string;
@@ -18,6 +31,19 @@ class Server{
         decesos: '/api/decesos',
         fincas: '/api/fincas',
         login: '/api/login',
+        fincaPersona: '/api/fincaPersona',
+        ingresoEgreso: '/api/ingresosEgresos',
+        inseminacion: '/api/inseminacion',
+        items: '/api/items',
+        menus: '/api/menus',
+        partoAborto: '/api/partoAborto',
+        prodGlobal: '/api/prodGlobal',
+        prodIndividual: '/api/prodIndividual',
+        rol: '/api/rol',
+        subMenu: '/api/subMenu',
+        tratamientos: '/api/tratamientos',
+        vacunas: '/api/vacunas',
+        ventas: '/api/ventas'
     };
 
     constructor() {
@@ -41,12 +67,24 @@ class Server{
         this.app.use(this.apiPaths.decesos, rutasDecesos);
         this.app.use(this.apiPaths.fincas, rutasFincas);
         this.app.use(this.apiPaths.login, rutasLogin);
+        this.app.use(this.apiPaths.fincaPersona, rutasFincaPersona);
+        this.app.use(this.apiPaths.ingresoEgreso, rutasIngresoEgreso);
+        this.app.use(this.apiPaths.inseminacion, rutasInseminacion);
+        this.app.use(this.apiPaths.items, rutasItems);
+        this.app.use(this.apiPaths.menus, rutasMenus);
+        this.app.use(this.apiPaths.partoAborto, rutasPartoAborto);
+        this.app.use(this.apiPaths.prodGlobal, rutasProdGlobal);
+        this.app.use(this.apiPaths.prodIndividual, rutasProdIndividual);
+        this.app.use(this.apiPaths.rol, rutasRol);
+        this.app.use(this.apiPaths.subMenu, rutasSubMenu);
+        this.app.use(this.apiPaths.tratamientos, rutasTratamiento);
+        this.app.use(this.apiPaths.vacunas, rutasVacuna);
+        this.app.use(this.apiPaths.ventas, rutasVenta);
     }
 
     listen() {
         this.server.listen(this.port, () => {
             console.log(`Servidor online en el puerto: `, this.port);
-            
         });
     }
 }
