@@ -13,8 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteSubMenu = exports.putSubMenu = exports.postSubMenu = exports.getSubMenu = exports.getSubMenus = void 0;
-const dist_1 = require("sequelize/dist");
-const tbl_rol_1 = __importDefault(require("../models/tbl_rol"));
 const tbl_submenu_1 = __importDefault(require("../models/tbl_submenu"));
 const getSubMenus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const subMenus = yield tbl_submenu_1.default.findAll({
@@ -35,9 +33,9 @@ const getSubMenus = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.getSubMenus = getSubMenus;
 const getSubMenu = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { smen_id } = req.params;
-    const subMenu = yield tbl_rol_1.default.findByPk(smen_id);
+    const subMenu = yield tbl_submenu_1.default.findByPk(smen_id);
     if (!subMenu) {
-        return res.status(400), dist_1.json({
+        return res.status(400).json({
             msg: `No existe submenu con el id: ${smen_id}`
         });
     }
@@ -60,7 +58,7 @@ const postSubMenu = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             msg: `Ya existe el submenu`
         });
     }
-    const subMenu = yield tbl_rol_1.default.build({
+    const subMenu = yield tbl_submenu_1.default.build({
         smen_nombre,
         smen_link,
         men_id
