@@ -66,7 +66,7 @@ export const postPersona = async (req: Request, res: Response) => {
     });
     if (personaBuscada) {
         return res.status(401).json({
-            msg: "Ya existe aquella persona"
+            msg: "Ya existe aquella persona en la base de datos"
         });
     }
     const salt = bcrypt.genSaltSync();
@@ -118,11 +118,12 @@ export const putPersona = async (req: Request, res: Response) => {
         per_direccion,
         rol_id
     } = req.body;
+    const salt = bcrypt.genSaltSync();
     const nuevaPersona = {
         per_nombre,
         per_apellido,
         per_usuario,
-        per_contraseña,
+        per_contraseña: bcrypt.hashSync(per_contraseña, salt),
         per_imagen,
         per_cedula,
         per_correo,

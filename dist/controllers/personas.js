@@ -63,7 +63,7 @@ const postPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     });
     if (personaBuscada) {
         return res.status(401).json({
-            msg: "Ya existe aquella persona"
+            msg: "Ya existe aquella persona en la base de datos"
         });
     }
     const salt = bcrypt_1.default.genSaltSync();
@@ -101,11 +101,12 @@ const putPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         });
     }
     const { per_nombre, per_apellido, per_usuario, per_cedula, per_contraseña, per_imagen, per_correo, per_telefono, per_direccion, rol_id } = req.body;
+    const salt = bcrypt_1.default.genSaltSync();
     const nuevaPersona = {
         per_nombre,
         per_apellido,
         per_usuario,
-        per_contraseña,
+        per_contraseña: bcrypt_1.default.hashSync(per_contraseña, salt),
         per_imagen,
         per_cedula,
         per_correo,

@@ -13,7 +13,13 @@ import rutasInseminacion from '../routes/inseminacion';
 import rutasItems from '../routes/item';
 import rutasMenus from '../routes/menu';
 import rutasPartoAborto from '../routes/parto_aborto';
-
+import rutasProdGlobal from '../routes/prod_global';
+import rutasProdIndividual from '../routes/prod_individuales'
+import rutasRol from '../routes/rol'
+import rutasSubMenu from '../routes/sub_menu';
+import rutasTratamiento from '../routes/tratamientos';
+import rutasVacuna from '../routes/vacuna';
+import rutasVenta from '../routes/venta';
 class Server{
     private app: Application;
     private port: string;
@@ -30,7 +36,14 @@ class Server{
         inseminacion: '/api/inseminacion',
         items: '/api/items',
         menus: '/api/menus',
-        partoAborto: '/api/partoAborto'
+        partoAborto: '/api/partoAborto',
+        prodGlobal: '/api/prodGlobal',
+        prodIndividual: '/api/prodIndividual',
+        rol: '/api/rol',
+        subMenu: '/api/subMenu',
+        tratamientos: '/api/tratamientos',
+        vacunas: '/api/vacunas',
+        ventas: '/api/ventas'
     };
 
     constructor() {
@@ -60,6 +73,13 @@ class Server{
         this.app.use(this.apiPaths.items, rutasItems);
         this.app.use(this.apiPaths.menus, rutasMenus);
         this.app.use(this.apiPaths.partoAborto, rutasPartoAborto);
+        this.app.use(this.apiPaths.prodGlobal, rutasProdGlobal);
+        this.app.use(this.apiPaths.prodIndividual, rutasProdIndividual);
+        this.app.use(this.apiPaths.rol, rutasRol);
+        this.app.use(this.apiPaths.subMenu, rutasSubMenu);
+        this.app.use(this.apiPaths.tratamientos, rutasTratamiento);
+        this.app.use(this.apiPaths.vacunas, rutasVacuna);
+        this.app.use(this.apiPaths.ventas, rutasVenta);
     }
 
     listen() {

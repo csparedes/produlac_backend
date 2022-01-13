@@ -80,7 +80,7 @@ export const putPartoAborto = async (req: Request, res: Response) => {
 }
 
 export const deletePartoAborto = async (req: Request, res: Response) => {
-     const { par_id } = req.params;
+    const { par_id } = req.params;
     const partoAborto = await PartoAborto.findByPk(par_id);
     if (!partoAborto) {
         return res.status(400).json({
