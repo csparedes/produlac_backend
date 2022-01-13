@@ -1,6 +1,4 @@
 import { Request, Response } from "express";
-import { json } from "sequelize/dist";
-import Rol from "../models/tbl_rol";
 import SubMenu from "../models/tbl_submenu";
 
 export const getSubMenus = async (req: Request, res: Response) => {
@@ -22,9 +20,9 @@ export const getSubMenus = async (req: Request, res: Response) => {
 
 export const getSubMenu =async (req:Request, res:Response) => {
     const { smen_id } = req.params;
-    const subMenu = await Rol.findByPk(smen_id);
+    const subMenu = await SubMenu.findByPk(smen_id);
     if (!subMenu) {
-        return res.status(400), json({
+        return res.status(400).json({
             msg: `No existe submenu con el id: ${smen_id}`
         })
     }
@@ -52,7 +50,7 @@ export const postSubMenu = async (req: Request, res: Response) => {
         })
     }
 
-    const subMenu = await Rol.build({
+    const subMenu = await SubMenu.build({
         smen_nombre,
         smen_link,
         men_id
