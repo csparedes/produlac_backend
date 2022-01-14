@@ -1,11 +1,16 @@
 import { Request, Response } from "express";
+import Finca from "../models/tbl_finca";
 import FincaPersona from "../models/tbl_fincapersona";
+import Persona from "../models/tbl_personas";
 
 export const getFincasPersonas = async (req: Request, res: Response) => {
     const fincasPersonas = await FincaPersona.findAll({
         where: {
             fper_estado: true
-        }
+        },
+        // include: [
+        //     {model: Persona},{model:Finca}
+        // ]
     });
     if (!fincasPersonas) {
         return res.status(400).json({

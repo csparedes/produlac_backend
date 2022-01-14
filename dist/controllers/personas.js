@@ -15,10 +15,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deletePersona = exports.putPersona = exports.postPersona = exports.getPersona = exports.getPersonas = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const tbl_personas_1 = __importDefault(require("../models/tbl_personas"));
+const tbl_rol_1 = __importDefault(require("../models/tbl_rol"));
+require('../models/asociaciones');
 const getPersonas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const personas = yield tbl_personas_1.default.findAll({
         where: {
             per_estado: true
+        },
+        include: {
+            model: tbl_rol_1.default
         }
     });
     if (!personas) {
@@ -77,7 +82,8 @@ const postPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         per_correo,
         per_telefono,
         per_direccion,
-        rol_id
+        rol_id,
+        tblRolRolId: rol_id
     };
     const persona = yield tbl_personas_1.default.build(nuevaPersona);
     persona.save();
