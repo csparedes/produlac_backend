@@ -18,7 +18,10 @@ const getFincasPersonas = (req, res) => __awaiter(void 0, void 0, void 0, functi
     const fincasPersonas = yield tbl_fincapersona_1.default.findAll({
         where: {
             fper_estado: true
-        }
+        },
+        // include: [
+        //     {model: Persona},{model:Finca}
+        // ]
     });
     if (!fincasPersonas) {
         return res.status(400).json({
