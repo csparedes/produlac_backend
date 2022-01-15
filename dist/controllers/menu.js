@@ -14,10 +14,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteMenu = exports.putMenu = exports.postMenu = exports.getMenu = exports.getMenus = void 0;
 const tbl_menu_1 = __importDefault(require("../models/tbl_menu"));
+const tbl_rol_1 = __importDefault(require("../models/tbl_rol"));
 const getMenus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const menus = yield tbl_menu_1.default.findAll({
         where: {
             men_estado: true
+        },
+        include: {
+            model: tbl_rol_1.default
         }
     });
     if (!menus) {
@@ -33,7 +37,11 @@ const getMenus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.getMenus = getMenus;
 const getMenu = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { men_id } = req.params;
-    const menu = yield tbl_menu_1.default.findByPk(men_id);
+    const menu = yield tbl_menu_1.default.findByPk(men_id, {
+        include: {
+            model: tbl_rol_1.default
+        }
+    });
     if (!menu) {
         return res.status(400).json({
             msg: `No existe menú con el id: ${men_id}`

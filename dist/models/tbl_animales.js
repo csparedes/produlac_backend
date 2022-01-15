@@ -41,7 +41,7 @@ const Animales = connection_1.default.define("tbl_animales", {
     ani_pesonacer: {
         type: sequelize_1.DataTypes.STRING,
     },
-    ite_idespecieanimal: {
+    esp_id: {
         type: sequelize_1.DataTypes.INTEGER,
     },
     fin_id: {

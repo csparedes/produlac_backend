@@ -1,10 +1,14 @@
 import { Request, Response } from "express";
+import Animales from "../models/tbl_animales";
 import Deceso from "../models/tbl_deceso";
 
 export const getDecesos = async (req: Request, res: Response) => {
     const decesos = await Deceso.findAll({
         where: {
             dec_estado: true
+        },
+        include: {
+            model: Animales
         }
     });
     if (!decesos) {
@@ -21,7 +25,7 @@ export const getDecesos = async (req: Request, res: Response) => {
 
 export const getDeceso = async (req: Request, res: Response) => {
     const { dec_id } = req.params;
-    const deceso = await Deceso.findByPk(dec_id);
+    const deceso = await Deceso.findByPk(dec_id, { include: { model: Animales } });
     if (!deceso) {
         return res.status(400).json({
             msg: `No existe ningún registro con el id: ${dec_id}`

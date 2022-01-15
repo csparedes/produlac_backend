@@ -13,11 +13,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteTratamiento = exports.putTratamiento = exports.postTratamiento = exports.getTratamiento = exports.getTratamientos = void 0;
+const tbl_animales_1 = __importDefault(require("../models/tbl_animales"));
 const tbl_tratamiento_1 = __importDefault(require("../models/tbl_tratamiento"));
 const getTratamientos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const tratamientos = yield tbl_tratamiento_1.default.findAll({
         where: {
             tra_estado: true
+        },
+        include: {
+            model: tbl_animales_1.default
         }
     });
     if (!tratamientos) {
@@ -33,7 +37,7 @@ const getTratamientos = (req, res) => __awaiter(void 0, void 0, void 0, function
 exports.getTratamientos = getTratamientos;
 const getTratamiento = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { tra_id } = req.params;
-    const tratamiento = yield tbl_tratamiento_1.default.findByPk(tra_id);
+    const tratamiento = yield tbl_tratamiento_1.default.findByPk(tra_id, { include: { model: tbl_animales_1.default } });
     if (!tratamiento) {
         return res.status(400).json({
             msg: `No existe tratamiento con el id: ${tra_id}`

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Animales from '../models/tbl_animales';
+import Especie from "../models/tbl_especies";
 import Finca from "../models/tbl_finca";
 import Item from "../models/tbl_item";
 
@@ -10,7 +11,8 @@ export const getAnimales = async (req: Request, res: Response) => {
         },
         include: [
             { model: Finca },
-            { model: Item}
+            { model: Item },
+            { model: Especie}
         ]
             
         
@@ -37,7 +39,8 @@ export const getAnimal = async (req: Request, res: Response) => {
         },
         include: [
             { model: Finca },
-            { model: Item}
+            { model: Item },
+            { model: Especie}
         ]
     });
 
@@ -75,7 +78,8 @@ export const postAnimal = async (req: Request, res: Response) => {
             ani_codigo,
             ani_nombre,
             ani_estado: true
-        }
+        },
+        
     });
 
     if (animalBuscado) {

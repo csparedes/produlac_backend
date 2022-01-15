@@ -30,7 +30,7 @@ export const postLogin = async (req: Request, res: Response) => {
        //@ts-ignore
        const token = await generarJWT([usuario.per_usuario ,usuario.per_nombre, usuario.per_apellido, usuario.per_correo, usuario.per_telefono]);
        res.json({
-           usuario,
+           dato: [usuario],
            token
        })
    } catch (error) {

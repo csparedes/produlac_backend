@@ -37,7 +37,11 @@ const getItems = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.getItems = getItems;
 const getItem = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { ite_id } = req.params;
-    const item = yield tbl_item_1.default.findByPk(ite_id);
+    const item = yield tbl_item_1.default.findByPk(ite_id, {
+        include: {
+            model: tbl_catalogo_1.default
+        }
+    });
     if (!item) {
         return res.status(400).json({
             msg: ` No se encontró ningún detalle de item con el id: ${ite_id}`

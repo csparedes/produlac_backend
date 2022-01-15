@@ -1,10 +1,14 @@
 import { Request, Response } from 'express';
+import Catalogo from '../models/tbl_catalogo';
 import Especie from '../models/tbl_especies';
 
 export const getEspecies = async (req: Request, res: Response) => {
     const especies = await Especie.findAll({
         where: {
             esp_estado: true
+        },
+        include: {
+            model: Catalogo
         }
     });
     if (!especies) {
@@ -21,7 +25,7 @@ export const getEspecies = async (req: Request, res: Response) => {
 
 export const getEspecie = async (req: Request, res: Response) => {
     const { esp_id } = req.params;
-    const especie = await Especie.findByPk(esp_id);
+    const especie = await Especie.findByPk(esp_id, { include: { model: Catalogo } });
     if (!especie) {
         return res.status(400).json({
             msg: `No existe ninguna especie con el id: ${esp_id}`

@@ -36,7 +36,7 @@ class Server{
         ingresoEgreso: '/api/ingresosEgresos',
         inseminacion: '/api/inseminacion',
         items: '/api/items',
-        menus: '/api/menus',
+        menu: '/api/menu',
         partoAborto: '/api/partoAborto',
         prodGlobal: '/api/prodGlobal',
         prodIndividual: '/api/prodIndividual',
@@ -73,7 +73,7 @@ class Server{
         this.app.use(this.apiPaths.ingresoEgreso, rutasIngresoEgreso);
         this.app.use(this.apiPaths.inseminacion, rutasInseminacion);
         this.app.use(this.apiPaths.items, rutasItems);
-        this.app.use(this.apiPaths.menus, rutasMenus);
+        this.app.use(this.apiPaths.menu, rutasMenus);
         this.app.use(this.apiPaths.partoAborto, rutasPartoAborto);
         this.app.use(this.apiPaths.prodGlobal, rutasProdGlobal);
         this.app.use(this.apiPaths.prodIndividual, rutasProdIndividual);

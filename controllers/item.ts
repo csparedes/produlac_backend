@@ -24,7 +24,11 @@ export const getItems = async (req: Request, res: Response) => {
 
 export const getItem = async (req: Request, res: Response) => {
     const { ite_id } = req.params;
-    const item = await Item.findByPk(ite_id);
+    const item = await Item.findByPk(ite_id, {
+        include: {
+            model: Catalogo
+        }
+    });
     if (!item) {
         return res.status(400).json({
             msg: ` No se encontró ningún detalle de item con el id: ${ite_id}`

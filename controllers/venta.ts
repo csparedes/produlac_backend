@@ -1,11 +1,17 @@
 import { Request, Response } from "express";
+import Animales from "../models/tbl_animales";
+import Persona from "../models/tbl_personas";
 import Venta from "../models/tbl_venta";
 
 export const getVentas = async (req: Request, res: Response) => {
     const ventas = await Venta.findAll({
         where: {
             ven_estado: true
-        }
+        },
+        include: [
+            { model: Animales },
+            { model: Persona }
+        ]
     });
     if (!ventas) {
         return res.status(400).json({
@@ -21,7 +27,12 @@ export const getVentas = async (req: Request, res: Response) => {
 
 export const getVenta = async (req: Request, res: Response) => {
     const { ven_id } = req.params;
-    const venta = await Venta.findByPk(ven_id);
+    const venta = await Venta.findByPk(ven_id, {
+        include: [
+            { model: Animales },
+            { model: Persona }
+        ]
+    });
     if (!venta) {
         return res.status(400).json({
             msg: `No existe venta con el id: ${ven_id}`

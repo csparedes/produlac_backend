@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteAnimal = exports.putAnimal = exports.postAnimal = exports.getAnimal = exports.getAnimales = void 0;
 const tbl_animales_1 = __importDefault(require("../models/tbl_animales"));
+const tbl_especies_1 = __importDefault(require("../models/tbl_especies"));
 const tbl_finca_1 = __importDefault(require("../models/tbl_finca"));
 const tbl_item_1 = __importDefault(require("../models/tbl_item"));
 const getAnimales = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -23,7 +24,8 @@ const getAnimales = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         },
         include: [
             { model: tbl_finca_1.default },
-            { model: tbl_item_1.default }
+            { model: tbl_item_1.default },
+            { model: tbl_especies_1.default }
         ]
     });
     if (!animales) {
@@ -46,7 +48,8 @@ const getAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         },
         include: [
             { model: tbl_finca_1.default },
-            { model: tbl_item_1.default }
+            { model: tbl_item_1.default },
+            { model: tbl_especies_1.default }
         ]
     });
     if (!animal) {
@@ -67,7 +70,7 @@ const postAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             ani_codigo,
             ani_nombre,
             ani_estado: true
-        }
+        },
     });
     if (animalBuscado) {
         return res.status(400).json({

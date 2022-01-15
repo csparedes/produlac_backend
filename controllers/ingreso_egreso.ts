@@ -1,11 +1,17 @@
 import { Request, Response } from "express";
+import Finca from "../models/tbl_finca";
 import IngresoEgreso from "../models/tbl_ingresoegreso";
+import Item from "../models/tbl_item";
 
 export const getIngresosEgresos = async (req: Request, res: Response) => {
     const ingresosEgresos = await IngresoEgreso.findAll({
         where: {
             ing_estado: true
-        }
+        },
+        include: [
+            { model: Finca },
+            { model: Item }
+        ]
     });
     if (!ingresosEgresos) {
         return res.status(400).json({
@@ -21,7 +27,11 @@ export const getIngresosEgresos = async (req: Request, res: Response) => {
 
 export const getIngresoEgreso = async (req: Request, res: Response) => {
     const { ing_id } = req.params;
-    const ingresoEgreso = await IngresoEgreso.findByPk(ing_id);
+    const ingresoEgreso = await IngresoEgreso.findByPk(ing_id, {
+        include: [
+            { model: Finca },
+            { model: Item }
+    ]});
     
     if (!ingresoEgreso) {
         return res.status(400).json({

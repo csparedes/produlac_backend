@@ -13,12 +13,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteInseminacion = exports.putInseminacion = exports.postInseminacion = exports.getInseminacion = exports.getInseminaciones = void 0;
+const tbl_animales_1 = __importDefault(require("../models/tbl_animales"));
 const tbl_inseminacion_1 = __importDefault(require("../models/tbl_inseminacion"));
+const tbl_personas_1 = __importDefault(require("../models/tbl_personas"));
 const getInseminaciones = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const inseminaciones = yield tbl_inseminacion_1.default.findAll({
         where: {
             ins_estado: true
-        }
+        },
+        include: [
+            { model: tbl_animales_1.default },
+            { model: tbl_personas_1.default }
+        ]
     });
     if (!inseminaciones) {
         return res.status(400).json({
@@ -33,7 +39,12 @@ const getInseminaciones = (req, res) => __awaiter(void 0, void 0, void 0, functi
 exports.getInseminaciones = getInseminaciones;
 const getInseminacion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { ins_id } = req.params;
-    const inseminacion = yield tbl_inseminacion_1.default.findByPk(ins_id);
+    const inseminacion = yield tbl_inseminacion_1.default.findByPk(ins_id, {
+        include: [
+            { model: tbl_personas_1.default },
+            { model: tbl_animales_1.default }
+        ]
+    });
     if (!inseminacion) {
         return res.status(400).json({
             msg: `No existe el registro de inseminación con el id: ${ins_id}`

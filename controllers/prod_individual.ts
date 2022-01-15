@@ -1,10 +1,14 @@
 import { Request, Response } from "express";
+import Animales from "../models/tbl_animales";
 import ProdIndividual from "../models/tbl_prodindividual";
 
 export const getProdIndividuales = async (req: Request, res: Response) => {
     const prodIndividuales = await ProdIndividual.findAll({
         where: {
             pro_estado: true
+        },
+        include: {
+            model: Animales
         }
     });
     if (!prodIndividuales) {
@@ -21,7 +25,10 @@ export const getProdIndividuales = async (req: Request, res: Response) => {
 
 export const getProdIndividual = async (req: Request, res: Response) => {
     const { pro_id } = req.params;
-    const prodIndividual = await ProdIndividual.findByPk(pro_id);
+    const prodIndividual = await ProdIndividual.findByPk(pro_id, {
+        include: {
+        model: Animales
+    }});
     if (!prodIndividual) {
         return res.status(400).json({
             msg: `No existe ningún prodIndividual con el id: ${pro_id}`

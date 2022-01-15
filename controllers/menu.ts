@@ -1,10 +1,14 @@
 import { Request, Response } from "express";
 import Menu from "../models/tbl_menu";
+import Rol from "../models/tbl_rol";
 
 export const getMenus = async (req: Request, res: Response) => {
     const menus = await Menu.findAll({
         where: {
             men_estado: true
+        },
+        include: {
+            model: Rol
         }
     });
     if (!menus) {
@@ -21,7 +25,11 @@ export const getMenus = async (req: Request, res: Response) => {
 
 export const getMenu = async (req: Request, res: Response) => {
     const { men_id } = req.params;
-    const menu = await Menu.findByPk(men_id);
+    const menu = await Menu.findByPk(men_id, {
+        include: {
+            model: Rol
+        }
+    });
     if (!menu) {
         return res.status(400).json({
             msg: `No existe menú con el id: ${men_id}`

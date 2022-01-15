@@ -37,7 +37,7 @@ const Animales = db.define("tbl_animales", {
     ani_pesonacer: {
         type: DataTypes.STRING,
     },
-    ite_idespecieanimal: {
+    esp_id: {
         type: DataTypes.INTEGER,
     },
     fin_id: {

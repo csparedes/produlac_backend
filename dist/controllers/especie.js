@@ -13,11 +13,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteEspecie = exports.putEspecie = exports.postEspecie = exports.getEspecie = exports.getEspecies = void 0;
+const tbl_catalogo_1 = __importDefault(require("../models/tbl_catalogo"));
 const tbl_especies_1 = __importDefault(require("../models/tbl_especies"));
 const getEspecies = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const especies = yield tbl_especies_1.default.findAll({
         where: {
             esp_estado: true
+        },
+        include: {
+            model: tbl_catalogo_1.default
         }
     });
     if (!especies) {
@@ -33,7 +37,7 @@ const getEspecies = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.getEspecies = getEspecies;
 const getEspecie = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { esp_id } = req.params;
-    const especie = yield tbl_especies_1.default.findByPk(esp_id);
+    const especie = yield tbl_especies_1.default.findByPk(esp_id, { include: { model: tbl_catalogo_1.default } });
     if (!especie) {
         return res.status(400).json({
             msg: `No existe ninguna especie con el id: ${esp_id}`

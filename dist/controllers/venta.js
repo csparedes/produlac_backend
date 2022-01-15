@@ -13,12 +13,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteVenta = exports.putVenta = exports.postVenta = exports.getVenta = exports.getVentas = void 0;
+const tbl_animales_1 = __importDefault(require("../models/tbl_animales"));
+const tbl_personas_1 = __importDefault(require("../models/tbl_personas"));
 const tbl_venta_1 = __importDefault(require("../models/tbl_venta"));
 const getVentas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const ventas = yield tbl_venta_1.default.findAll({
         where: {
             ven_estado: true
-        }
+        },
+        include: [
+            { model: tbl_animales_1.default },
+            { model: tbl_personas_1.default }
+        ]
     });
     if (!ventas) {
         return res.status(400).json({
@@ -33,7 +39,12 @@ const getVentas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.getVentas = getVentas;
 const getVenta = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { ven_id } = req.params;
-    const venta = yield tbl_venta_1.default.findByPk(ven_id);
+    const venta = yield tbl_venta_1.default.findByPk(ven_id, {
+        include: [
+            { model: tbl_animales_1.default },
+            { model: tbl_personas_1.default }
+        ]
+    });
     if (!venta) {
         return res.status(400).json({
             msg: `No existe venta con el id: ${ven_id}`

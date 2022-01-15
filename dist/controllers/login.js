@@ -40,7 +40,7 @@ const postLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         //@ts-ignore
         const token = yield generarJWT_1.default([usuario.per_usuario, usuario.per_nombre, usuario.per_apellido, usuario.per_correo, usuario.per_telefono]);
         res.json({
-            usuario,
+            dato: [usuario],
             token
         });
     }
