@@ -8,9 +8,10 @@ export const getFincasPersonas = async (req: Request, res: Response) => {
         where: {
             fper_estado: true
         },
-        // include: [
-        //     {model: Persona},{model:Finca}
-        // ]
+        include: [
+            { model: Persona },
+            { model: Finca }
+        ]
     });
     if (!fincasPersonas) {
         return res.status(400).json({
@@ -34,7 +35,7 @@ export const getFincaPersona = async (req: Request, res: Response) => {
     }
     res.json({
         msg: `Detalle finca persona`,
-        fincaPersona
+        dato: [fincaPersona]
     })
 }
 
@@ -58,7 +59,7 @@ export const postFincaPersona = async (req: Request, res: Response) => {
 
     res.json({
         msg: `Se ha creado un nuevo ingreso de finca-persona`,
-        fincaPersona
+        dato: [fincaPersona]
     });
 
 }
@@ -76,7 +77,7 @@ export const putFincaPersona = async (req: Request, res: Response) => {
     await fincaPersonaBuscada.update({ per_id, fin_id });
     res.json({
         msg: `Se actualizo la entrada de id: ${fper_id}`,
-        fincaPersona: fincaPersonaBuscada
+        dato: [fincaPersonaBuscada]
     })
 
 }
@@ -92,6 +93,6 @@ export const deleteFincaPersona = async (req: Request, res: Response) => {
     await fincaPersonaBuscada.update({ fper_estado: false });
     res.json({
         msg: `Se ha eliminado el registro de id: ${fper_id}`,
-        fincaPersona: fincaPersonaBuscada
+        dato: [fincaPersonaBuscada]
     });
 }

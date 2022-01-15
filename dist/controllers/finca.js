@@ -14,10 +14,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteFinca = exports.putFinca = exports.postFinca = exports.getFinca = exports.getFincas = void 0;
 const tbl_finca_1 = __importDefault(require("../models/tbl_finca"));
+const tbl_personas_1 = __importDefault(require("../models/tbl_personas"));
 const getFincas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const fincas = yield tbl_finca_1.default.findAll({
         where: {
             fin_estado: true
+        },
+        include: {
+            model: tbl_personas_1.default
         }
     });
     if (!fincas) {
@@ -27,13 +31,13 @@ const getFincas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     res.json({
         msg: `Listado de Fincas`,
-        fincas
+        dato: fincas
     });
 });
 exports.getFincas = getFincas;
 const getFinca = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { fin_id } = req.params;
-    const fincaBuscada = yield tbl_finca_1.default.findByPk(fin_id);
+    const fincaBuscada = yield tbl_finca_1.default.findByPk(fin_id, { include: { model: tbl_personas_1.default } });
     if (!fincaBuscada) {
         return res.status(400).json({
             msg: `No existe ninguna finca con el id: ${fin_id}`
@@ -41,7 +45,7 @@ const getFinca = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     res.json({
         msg: `Detalles de la Finca`,
-        finca: fincaBuscada
+        dato: [fincaBuscada]
     });
 });
 exports.getFinca = getFinca;
@@ -71,7 +75,7 @@ const postFinca = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     finca.save();
     res.json({
         msg: `Se creó una nueva Finca`,
-        finca
+        dato: [finca]
     });
 });
 exports.postFinca = postFinca;
@@ -97,7 +101,7 @@ const putFinca = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     yield finca.update(nuevaFinca);
     res.json({
         msg: `Se actualizó la finca con el id: ${fin_id}`,
-        finca
+        dato: [finca]
     });
 });
 exports.putFinca = putFinca;
@@ -112,7 +116,7 @@ const deleteFinca = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     yield finca.update({ fin_estado: false });
     res.json({
         msg: `Se eliminó la finca con el id: ${fin_id}`,
-        finca
+        dato: [finca]
     });
 });
 exports.deleteFinca = deleteFinca;

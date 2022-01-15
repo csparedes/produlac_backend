@@ -24,6 +24,7 @@ const sub_menu_1 = __importDefault(require("../routes/sub_menu"));
 const tratamientos_1 = __importDefault(require("../routes/tratamientos"));
 const vacuna_1 = __importDefault(require("../routes/vacuna"));
 const venta_1 = __importDefault(require("../routes/venta"));
+const especies_1 = __importDefault(require("../routes/especies"));
 class Server {
     constructor() {
         this.apiPaths = {
@@ -45,7 +46,8 @@ class Server {
             subMenu: '/api/subMenu',
             tratamientos: '/api/tratamientos',
             vacunas: '/api/vacunas',
-            ventas: '/api/ventas'
+            ventas: '/api/ventas',
+            especies: '/api/especies'
         };
         this.app = express_1.default();
         this.port = process.env.PORT || "3000";
@@ -77,6 +79,7 @@ class Server {
         this.app.use(this.apiPaths.tratamientos, tratamientos_1.default);
         this.app.use(this.apiPaths.vacunas, vacuna_1.default);
         this.app.use(this.apiPaths.ventas, venta_1.default);
+        this.app.use(this.apiPaths.especies, especies_1.default);
     }
     listen() {
         this.server.listen(this.port, () => {

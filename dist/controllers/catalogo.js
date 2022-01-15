@@ -27,7 +27,7 @@ const getCatalogos = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
     res.json({
         msg: `Lista de catálogos`,
-        catalogos
+        dato: catalogos
     });
 });
 exports.getCatalogos = getCatalogos;
@@ -41,7 +41,7 @@ const getCatalogo = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
     res.json({
         msg: 'Se encontró el catálogo',
-        catalogo
+        dato: [catalogo]
     });
 });
 exports.getCatalogo = getCatalogo;
@@ -61,7 +61,7 @@ const postCatalogo = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     catalogo.save();
     res.json({
         msg: `Se ha creado en el catálogo: ${cat_nombre}`,
-        catalogo
+        dato: [catalogo]
     });
 });
 exports.postCatalogo = postCatalogo;
@@ -77,7 +77,7 @@ const putCatalogo = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     catalogoBuscado.update({ cat_nombre });
     res.json({
         msg: `Se ha actualizado el catálogo: ${cat_nombre}`,
-        catalogo: catalogoBuscado
+        dato: [catalogoBuscado]
     });
 });
 exports.putCatalogo = putCatalogo;
@@ -92,7 +92,7 @@ const deleteCatalogo = (req, res) => __awaiter(void 0, void 0, void 0, function*
     catalogoBuscado.update({ ani_estado: false });
     res.json({
         msg: `Se ha eliminado del catálogo`,
-        catalogo: catalogoBuscado
+        dato: [catalogoBuscado]
     });
 });
 exports.deleteCatalogo = deleteCatalogo;

@@ -27,7 +27,7 @@ const getPartosAbortos = (req, res) => __awaiter(void 0, void 0, void 0, functio
     }
     res.json({
         msg: `Lista de partos/abortos`,
-        partosAbortos
+        dato: partosAbortos
     });
 });
 exports.getPartosAbortos = getPartosAbortos;
@@ -41,7 +41,7 @@ const getPartoAborto = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
     res.json({
         msg: `Detalle de parto/aborto`,
-        partoAborto
+        dato: [partoAborto]
     });
 });
 exports.getPartoAborto = getPartoAborto;
@@ -56,7 +56,7 @@ const postPartoAborto = (req, res) => __awaiter(void 0, void 0, void 0, function
     partoAborto.save();
     res.json({
         msg: `Se creo un nuevo registo de parto/aborto`,
-        partoAborto
+        dato: [partoAborto]
     });
 });
 exports.postPartoAborto = postPartoAborto;
@@ -77,7 +77,7 @@ const putPartoAborto = (req, res) => __awaiter(void 0, void 0, void 0, function*
     });
     res.json({
         msg: `Se acutalizó el registro parto/aborto con id: ${par_id}`,
-        partoAborto
+        dato: [partoAborto]
     });
 });
 exports.putPartoAborto = putPartoAborto;
@@ -92,7 +92,7 @@ const deletePartoAborto = (req, res) => __awaiter(void 0, void 0, void 0, functi
     yield partoAborto.update({ par_estado: false });
     res.json({
         msg: `Se eliminó el registro parto/aborto con id: ${par_id}`,
-        partoAborto
+        dato: [partoAborto]
     });
 });
 exports.deletePartoAborto = deletePartoAborto;

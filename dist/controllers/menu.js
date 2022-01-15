@@ -27,7 +27,7 @@ const getMenus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     res.json({
         msg: `Lista de menus`,
-        menus
+        dato: menus
     });
 });
 exports.getMenus = getMenus;
@@ -41,7 +41,7 @@ const getMenu = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     res.json({
         msg: `Menú encontrado`,
-        menu
+        dato: [menu]
     });
 });
 exports.getMenu = getMenu;
@@ -62,7 +62,7 @@ const postMenu = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     menu.save();
     res.json({
         msg: `Se creó un nuevo menú`,
-        menu
+        dato: [menu]
     });
 });
 exports.postMenu = postMenu;
@@ -78,7 +78,7 @@ const putMenu = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     yield menu.update({ men_nombre, men_icono, rol_id });
     res.json({
         msg: `Se actualizó el menu de id: ${men_id}`,
-        menu
+        dato: [menu]
     });
 });
 exports.putMenu = putMenu;
@@ -93,7 +93,7 @@ const deleteMenu = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     yield menu.update({ men_estado: false });
     res.json({
         msg: `Se eliminó el menu de id: ${men_id}`,
-        menu
+        dato: [menu]
     });
 });
 exports.deleteMenu = deleteMenu;

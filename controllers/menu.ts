@@ -15,7 +15,7 @@ export const getMenus = async (req: Request, res: Response) => {
 
     res.json({
         msg: `Lista de menus`,
-        menus
+        dato: menus
     })
 }
 
@@ -30,7 +30,7 @@ export const getMenu = async (req: Request, res: Response) => {
 
     res.json({
         msg: `Menú encontrado`,
-        menu
+        dato: [menu]
     });
 }
 
@@ -51,7 +51,7 @@ export const postMenu = async (req: Request, res: Response) => {
     menu.save();
     res.json({
         msg: `Se creó un nuevo menú`,
-        menu
+        dato: [menu]
     });
 }
 
@@ -67,7 +67,7 @@ export const putMenu = async (req: Request, res: Response) => {
     await menu.update({ men_nombre, men_icono, rol_id });
     res.json({
         msg: `Se actualizó el menu de id: ${men_id}`,
-        menu
+        dato: [menu]
     });
 }
 
@@ -82,6 +82,6 @@ export const deleteMenu = async (req: Request, res: Response) => {
     await menu.update({ men_estado: false });
     res.json({
         msg: `Se eliminó el menu de id: ${men_id}`,
-        menu
+        dato: [menu]
     });
 }

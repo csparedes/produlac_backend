@@ -14,7 +14,7 @@ export const getRoles = async (req: Request, res: Response) => {
     }
     res.json({
         msg: `Listado de Roles`,
-        roles
+        dato: roles
     })
 }
 
@@ -28,7 +28,7 @@ export const getRol = async (req: Request, res: Response) => {
     }
     res.json({
         msg: `Detalle de rol`,
-        rol
+        dato: [rol]
     })
 }
 
@@ -49,7 +49,7 @@ export const postRol = async (req: Request, res: Response) => {
     rol.save();
     res.json({
         msg: `Se ha creado un nuevo Rol`,
-        rol
+        dato: [rol]
     })
 }
 
@@ -65,7 +65,7 @@ export const putRol = async (req: Request, res: Response) => {
     await rol.update({ rol_nombre });
     res.json({
         msg: `Se actualizó el rol de id: ${rol_id}`,
-        rol
+        dato: [rol]
     })
 }
 
@@ -81,6 +81,6 @@ export const deleteRol = async (req: Request, res: Response) => {
     await rol.update({ rol_estado: false });
     res.json({
         msg: `Se eliminó el rol de id: ${rol_id}`,
-        rol
+        dato: [rol]
     })
 }

@@ -27,7 +27,7 @@ const getVentas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     res.json({
         msg: `Lista de ventas`,
-        ventas
+        dato: ventas
     });
 });
 exports.getVentas = getVentas;
@@ -41,7 +41,7 @@ const getVenta = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     res.json({
         msg: `Detalle de Venta`,
-        venta
+        dato: [venta]
     });
 });
 exports.getVenta = getVenta;
@@ -60,7 +60,7 @@ const postVenta = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     venta.save();
     res.json({
         msg: `Se creó un nuevo registro de venta`,
-        venta
+        dato: [venta]
     });
 });
 exports.postVenta = postVenta;
@@ -85,7 +85,7 @@ const putVenta = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     });
     res.json({
         msg: `Se actualizó el registro de venta`,
-        venta
+        dato: [venta]
     });
 });
 exports.putVenta = putVenta;
@@ -100,7 +100,7 @@ const deleteVenta = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     yield venta.update({ ven_estado: false });
     res.json({
         msg: `Se eliminó el registro de venta`,
-        venta
+        dato: [venta]
     });
 });
 exports.deleteVenta = deleteVenta;

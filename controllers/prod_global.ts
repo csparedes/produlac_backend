@@ -14,7 +14,7 @@ export const getProdGlobales = async (req: Request, res: Response) => {
     }
     res.json({
         msg: `Lista de prodGlobales`,
-        prodGlobales
+        dato: prodGlobales
     });
 }
 
@@ -28,7 +28,7 @@ export const getProdGlobal = async (req: Request, res: Response) => {
     }
     res.json({
         msg: `Detalle de prodGlobar`,
-        prodGlobal
+        dato: [prodGlobal]
     })
 }
 
@@ -50,7 +50,7 @@ export const postProdGlobal = async (req: Request, res: Response) => {
     prodGlobal.save();
     res.json({
         msg: `Se agregó un nuevo registro`,
-        prodGlobal
+        dato: [prodGlobal]
     })
 }
 
@@ -78,7 +78,7 @@ export const putProdGlobal = async (req: Request, res: Response) => {
     });
     res.json({
         msg: `Se actualizó el registro de la prodGlobal`,
-        prodGlobal
+        dato: [prodGlobal]
     });
 }
 
@@ -94,6 +94,6 @@ export const deleteProdGlobar = async (req: Request, res: Response) => {
     await prodGlobal.update({ pglo_estado: false});
     res.json({
         msg: `Se eliminó el registro de la prodGlobal`,
-        prodGlobal
+        dato: [prodGlobal]
     });
 }

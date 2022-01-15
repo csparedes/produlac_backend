@@ -27,7 +27,7 @@ const getProdGlobales = (req, res) => __awaiter(void 0, void 0, void 0, function
     }
     res.json({
         msg: `Lista de prodGlobales`,
-        prodGlobales
+        dato: prodGlobales
     });
 });
 exports.getProdGlobales = getProdGlobales;
@@ -41,7 +41,7 @@ const getProdGlobal = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
     res.json({
         msg: `Detalle de prodGlobar`,
-        prodGlobal
+        dato: [prodGlobal]
     });
 });
 exports.getProdGlobal = getProdGlobal;
@@ -57,7 +57,7 @@ const postProdGlobal = (req, res) => __awaiter(void 0, void 0, void 0, function*
     prodGlobal.save();
     res.json({
         msg: `Se agregó un nuevo registro`,
-        prodGlobal
+        dato: [prodGlobal]
     });
 });
 exports.postProdGlobal = postProdGlobal;
@@ -79,7 +79,7 @@ const putProdGlobal = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     });
     res.json({
         msg: `Se actualizó el registro de la prodGlobal`,
-        prodGlobal
+        dato: [prodGlobal]
     });
 });
 exports.putProdGlobal = putProdGlobal;
@@ -94,7 +94,7 @@ const deleteProdGlobar = (req, res) => __awaiter(void 0, void 0, void 0, functio
     yield prodGlobal.update({ pglo_estado: false });
     res.json({
         msg: `Se eliminó el registro de la prodGlobal`,
-        prodGlobal
+        dato: [prodGlobal]
     });
 });
 exports.deleteProdGlobar = deleteProdGlobar;

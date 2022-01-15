@@ -15,7 +15,7 @@ export const getIngresosEgresos = async (req: Request, res: Response) => {
 
     res.json({
         msg: `Lista de Ingresos y Egresos`,
-        ingresosEgresos
+        dato: ingresosEgresos
     })
 }
 
@@ -31,7 +31,7 @@ export const getIngresoEgreso = async (req: Request, res: Response) => {
 
     res.json({
         msg: 'Detalle de Ingreso/Egreso',
-        ingresoEgreso
+        dato: [ingresoEgreso]
     });
 }
 
@@ -55,7 +55,7 @@ export const postIngresoEgreso = async (req: Request, res: Response) => {
 
     res.json({
         msg: 'Se creó un nuevo ingreso/egreso',
-        ingresoEgreso
+        dato: [ingresoEgreso]
     })
 }
 
@@ -86,7 +86,7 @@ export const putIngresoEgreso = async (req: Request, res: Response) => {
 
     res.json({
         msg: `Se actualizó el ingreso/egreso con id: ${ing_id}`,
-        ingresoEgreso
+        dato: [ingresoEgreso]
     });
 }
 
@@ -103,6 +103,6 @@ export const deleteIngresoEgreso = async (req: Request, res: Response) => {
     await ingresoEgreso.update({ ing_estado: false });
     res.json({
         msg: `Se ha eliminado el Ingreso/Egreso con id: ${ing_id}`,
-        ingresoEgreso
+        dato: [ingresoEgreso]
     })
 }

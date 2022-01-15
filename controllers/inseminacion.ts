@@ -16,7 +16,7 @@ export const getInseminaciones = async (req: Request, res: Response) => {
 
     res.json({
         msg: `Lista de inseminaciones`,
-        inseminaciones
+        dato: inseminaciones
     });
 }
 
@@ -31,7 +31,7 @@ export const getInseminacion = async (req: Request, res: Response) => {
 
     res.json({
         msg: `Detalle de Inseminación`,
-        inseminacion
+        dato: [inseminacion]
     })
 }
 
@@ -62,7 +62,7 @@ export const postInseminacion = async (req: Request, res: Response) => {
 
     res.json({
         msg: `Se ha creado un nuevo registro de inseminación.`,
-        inseminacion
+        dato: [inseminacion]
     })
 }
 
@@ -101,7 +101,7 @@ export const putInseminacion = async (req: Request, res: Response) => {
 
     res.json({
         msg: `Se actualizó el dato de inseminación`,
-        inseminacion
+        dato: [inseminacion]
     });
 }
 
@@ -117,6 +117,6 @@ export const deleteInseminacion = async (req: Request, res: Response) => {
     await inseminacion.update({ ins_estado: false });
     res.json({
         msg: `Se eliminó el dato de inseminación con id: ${ins_id}`,
-        inseminacion
+        dato: [inseminacion]
     })
 }

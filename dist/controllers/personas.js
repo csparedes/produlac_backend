@@ -33,7 +33,7 @@ const getPersonas = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
     res.json({
         msg: "Lista de personas",
-        personas
+        dato: personas
     });
 });
 exports.getPersonas = getPersonas;
@@ -52,7 +52,7 @@ const getPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
     res.json({
         msg: 'Persona encontrada',
-        persona
+        dato: [persona]
     });
 });
 exports.getPersona = getPersona;
@@ -82,14 +82,13 @@ const postPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         per_correo,
         per_telefono,
         per_direccion,
-        rol_id,
-        tblRolRolId: rol_id
+        rol_id
     };
     const persona = yield tbl_personas_1.default.build(nuevaPersona);
     persona.save();
     res.json({
         msg: 'Se ha creado una nueva persona',
-        persona
+        dato: [persona]
     });
 });
 exports.postPersona = postPersona;
@@ -123,7 +122,7 @@ const putPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     yield personaActual.update(nuevaPersona);
     res.json({
         msg: `Se actualizó la persona: ${per_nombre} ${per_apellido}`,
-        persona: nuevaPersona
+        dato: [nuevaPersona]
     });
 });
 exports.putPersona = putPersona;
@@ -143,7 +142,7 @@ const deletePersona = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     yield personaActual.update({ per_estado: false });
     res.json({
         msg: `La persona se ha eliminado de la base de datos`,
-        persona: personaActual
+        dato: [personaActual]
     });
 });
 exports.deletePersona = deletePersona;

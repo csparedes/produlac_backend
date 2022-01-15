@@ -22,7 +22,7 @@ export const getPersonas = async (req: Request, res: Response) => {
 
     res.json({
         msg: "Lista de personas",
-        personas
+        dato: personas
     })
 }
 
@@ -43,7 +43,7 @@ export const getPersona = async (req: Request, res: Response) => {
 
     res.json({
         msg: 'Persona encontrada',
-        persona
+        dato: [persona]
     });
 }
 
@@ -85,15 +85,14 @@ export const postPersona = async (req: Request, res: Response) => {
         per_correo,
         per_telefono,
         per_direccion,
-        rol_id,
-        tblRolRolId: rol_id
+        rol_id
     };
 
     const persona = await Persona.build(nuevaPersona);
     persona.save();
     res.json({
         msg: 'Se ha creado una nueva persona',
-        persona
+        dato: [persona]
     });
 }
 
@@ -141,7 +140,7 @@ export const putPersona = async (req: Request, res: Response) => {
     await personaActual.update(nuevaPersona);
     res.json({
         msg: `Se actualizó la persona: ${per_nombre} ${per_apellido}`,
-        persona: nuevaPersona
+        dato: [nuevaPersona]
     });
 
 }
@@ -164,7 +163,7 @@ export const deletePersona = async (req: Request, res: Response) => {
     await personaActual.update({ per_estado: false });
     res.json({
         msg: `La persona se ha eliminado de la base de datos`,
-        persona: personaActual
+        dato: [ personaActual]
     })
 }
 

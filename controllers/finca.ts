@@ -1,10 +1,14 @@
 import { Request, Response } from "express";
 import Finca from "../models/tbl_finca";
+import Persona from "../models/tbl_personas";
 
 export const getFincas = async (req: Request, res: Response) => {
     const fincas = await Finca.findAll({
         where: {
             fin_estado: true
+        },
+        include: {
+            model: Persona
         }
     });
 
@@ -16,13 +20,13 @@ export const getFincas = async (req: Request, res: Response) => {
 
     res.json({
         msg: `Listado de Fincas`,
-        fincas
+        dato: fincas
     });
 }
 
 export const getFinca = async (req: Request, res: Response) => {
     const { fin_id } = req.params;
-    const fincaBuscada = await Finca.findByPk(fin_id);
+    const fincaBuscada = await Finca.findByPk(fin_id,{include: {model: Persona}});
     if (!fincaBuscada) {
         return res.status(400).json({
             msg: `No existe ninguna finca con el id: ${fin_id}`
@@ -30,7 +34,7 @@ export const getFinca = async (req: Request, res: Response) => {
     }
     res.json({
         msg: `Detalles de la Finca`,
-        finca: fincaBuscada
+        dato: [fincaBuscada]
     });
 }
 
@@ -69,7 +73,7 @@ export const postFinca = async (req: Request, res: Response) => {
     finca.save();
     res.json({
         msg: `Se creó una nueva Finca`,
-        finca
+        dato: [finca]
     });
 }
 
@@ -105,7 +109,7 @@ export const putFinca = async (req: Request, res: Response) => {
     await finca.update(nuevaFinca);
     res.json({
         msg: `Se actualizó la finca con el id: ${fin_id}`,
-        finca
+        dato: [finca]
     });
 }
 
@@ -120,6 +124,6 @@ export const deleteFinca = async (req: Request, res: Response) => {
     await finca.update({ fin_estado: false });
     res.json({
         msg: `Se eliminó la finca con el id: ${fin_id}`,
-        finca
+        dato: [finca]
     })
 }

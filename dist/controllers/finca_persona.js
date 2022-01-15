@@ -13,15 +13,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteFincaPersona = exports.putFincaPersona = exports.postFincaPersona = exports.getFincaPersona = exports.getFincasPersonas = void 0;
+const tbl_finca_1 = __importDefault(require("../models/tbl_finca"));
 const tbl_fincapersona_1 = __importDefault(require("../models/tbl_fincapersona"));
+const tbl_personas_1 = __importDefault(require("../models/tbl_personas"));
 const getFincasPersonas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const fincasPersonas = yield tbl_fincapersona_1.default.findAll({
         where: {
             fper_estado: true
         },
-        // include: [
-        //     {model: Persona},{model:Finca}
-        // ]
+        include: [
+            { model: tbl_personas_1.default },
+            { model: tbl_finca_1.default }
+        ]
     });
     if (!fincasPersonas) {
         return res.status(400).json({
@@ -44,7 +47,7 @@ const getFincaPersona = (req, res) => __awaiter(void 0, void 0, void 0, function
     }
     res.json({
         msg: `Detalle finca persona`,
-        fincaPersona
+        dato: [fincaPersona]
     });
 });
 exports.getFincaPersona = getFincaPersona;
@@ -66,7 +69,7 @@ const postFincaPersona = (req, res) => __awaiter(void 0, void 0, void 0, functio
     fincaPersona.save();
     res.json({
         msg: `Se ha creado un nuevo ingreso de finca-persona`,
-        fincaPersona
+        dato: [fincaPersona]
     });
 });
 exports.postFincaPersona = postFincaPersona;
@@ -82,7 +85,7 @@ const putFincaPersona = (req, res) => __awaiter(void 0, void 0, void 0, function
     yield fincaPersonaBuscada.update({ per_id, fin_id });
     res.json({
         msg: `Se actualizo la entrada de id: ${fper_id}`,
-        fincaPersona: fincaPersonaBuscada
+        dato: [fincaPersonaBuscada]
     });
 });
 exports.putFincaPersona = putFincaPersona;
@@ -97,7 +100,7 @@ const deleteFincaPersona = (req, res) => __awaiter(void 0, void 0, void 0, funct
     yield fincaPersonaBuscada.update({ fper_estado: false });
     res.json({
         msg: `Se ha eliminado el registro de id: ${fper_id}`,
-        fincaPersona: fincaPersonaBuscada
+        dato: [fincaPersonaBuscada]
     });
 });
 exports.deleteFincaPersona = deleteFincaPersona;
