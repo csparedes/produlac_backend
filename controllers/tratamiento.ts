@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import Animales from "../models/tbl_animales";
 
 import Tratamiento from "../models/tbl_tratamiento";
 
@@ -6,6 +7,9 @@ export const getTratamientos = async (req: Request, res: Response) => {
     const tratamientos = await Tratamiento.findAll({
         where: {
             tra_estado: true
+        },
+        include: {
+            model: Animales
         }
     });
     if (!tratamientos) {
@@ -21,7 +25,7 @@ export const getTratamientos = async (req: Request, res: Response) => {
 
 export const getTratamiento = async (req: Request, res: Response) => {
     const { tra_id } = req.params;
-    const tratamiento = await Tratamiento.findByPk(tra_id);
+    const tratamiento = await Tratamiento.findByPk(tra_id, { include: { model: Animales } });
     if (!tratamiento) {
         return res.status(400).json({
             msg: `No existe tratamiento con el id: ${tra_id}`

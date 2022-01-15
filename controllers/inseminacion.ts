@@ -1,11 +1,17 @@
 import { Request, Response } from "express";
+import Animales from "../models/tbl_animales";
 import Inseminacion from "../models/tbl_inseminacion";
+import Persona from "../models/tbl_personas";
 
 export const getInseminaciones = async (req: Request, res: Response) => {
     const inseminaciones = await Inseminacion.findAll({
         where: {
             ins_estado: true
-        }
+        },
+        include: [
+            { model: Animales },
+            { model: Persona }
+        ] 
     });
 
     if (!inseminaciones) {
@@ -22,7 +28,11 @@ export const getInseminaciones = async (req: Request, res: Response) => {
 
 export const getInseminacion = async (req: Request, res: Response) => {
     const { ins_id } = req.params;
-    const inseminacion = await Inseminacion.findByPk(ins_id);
+    const inseminacion = await Inseminacion.findByPk(ins_id, {
+        include: [
+            { model: Persona },
+            { model: Animales }
+    ]});
     if (!inseminacion) {
         return res.status(400).json({
             msg: `No existe el registro de inseminación con el id: ${ins_id}`

@@ -1,10 +1,14 @@
 import { Request, Response } from "express";
+import Animales from "../models/tbl_animales";
 import Vacuna from "../models/tbl_vacuna";
 
 export const getVacunas = async (req: Request, res: Response) => {
     const vacunas = await Vacuna.findAll({
         where: {
             vac_estado: true
+        },
+        include: {
+            model: Animales
         }
     });
 
@@ -21,7 +25,10 @@ export const getVacunas = async (req: Request, res: Response) => {
 
 export const getVacuna =async (req:Request, res:Response) => {
     const { vac_id } = req.params;
-    const vacuna = await Vacuna.findByPk(vac_id);
+    const vacuna = await Vacuna.findByPk(vac_id, {
+        include: {
+        model: Animales
+    }});
     if (!vacuna) {
         return res.status(400).json({
             msg: `No existe ninguna vacuna con el id: ${vac_id}`

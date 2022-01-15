@@ -32,7 +32,7 @@ const Vacuna = connection_1.default.define('tbl_vacuna', {
     }
 }, {
     freezeTableName: true,
-    timestamps: true
+    timestamps: false
 });
 exports.default = Vacuna;
 //# sourceMappingURL=tbl_vacuna.js.map

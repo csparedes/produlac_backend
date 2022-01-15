@@ -13,11 +13,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteDeceso = exports.putDeceso = exports.postDeceso = exports.getDeceso = exports.getDecesos = void 0;
+const tbl_animales_1 = __importDefault(require("../models/tbl_animales"));
 const tbl_deceso_1 = __importDefault(require("../models/tbl_deceso"));
 const getDecesos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const decesos = yield tbl_deceso_1.default.findAll({
         where: {
             dec_estado: true
+        },
+        include: {
+            model: tbl_animales_1.default
         }
     });
     if (!decesos) {
@@ -33,7 +37,7 @@ const getDecesos = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.getDecesos = getDecesos;
 const getDeceso = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { dec_id } = req.params;
-    const deceso = yield tbl_deceso_1.default.findByPk(dec_id);
+    const deceso = yield tbl_deceso_1.default.findByPk(dec_id, { include: { model: tbl_animales_1.default } });
     if (!deceso) {
         return res.status(400).json({
             msg: `No existe ningún registro con el id: ${dec_id}`

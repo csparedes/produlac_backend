@@ -28,7 +28,7 @@ const Vacuna = db.define('tbl_vacuna', {
     }
 }, {
     freezeTableName: true,
-    timestamps: true
+    timestamps: false
 });
 
 export default Vacuna;

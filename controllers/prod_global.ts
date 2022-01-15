@@ -1,10 +1,14 @@
 import { Request, Response } from "express";
+import Finca from "../models/tbl_finca";
 import ProdGlobal from "../models/tbl_prodglobal";
 
 export const getProdGlobales = async (req: Request, res: Response) => {
     const prodGlobales = await ProdGlobal.findAll({
         where: {
             pglo_estado: true
+        },
+        include: {
+            model: Finca
         }
     });
     if (!prodGlobales) {
@@ -20,7 +24,11 @@ export const getProdGlobales = async (req: Request, res: Response) => {
 
 export const getProdGlobal = async (req: Request, res: Response) => {
     const { pglo_id } = req.params;
-    const prodGlobal = await ProdGlobal.findByPk(pglo_id);
+    const prodGlobal = await ProdGlobal.findByPk(pglo_id, {
+        include: {
+            model: Finca
+        }
+    });
     if (!prodGlobal) {
         return res.status(400).json({
             msg: `No existe ningún prodGlobal con el id: ${pglo_id}`

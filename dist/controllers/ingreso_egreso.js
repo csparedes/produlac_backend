@@ -13,12 +13,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteIngresoEgreso = exports.putIngresoEgreso = exports.postIngresoEgreso = exports.getIngresoEgreso = exports.getIngresosEgresos = void 0;
+const tbl_finca_1 = __importDefault(require("../models/tbl_finca"));
 const tbl_ingresoegreso_1 = __importDefault(require("../models/tbl_ingresoegreso"));
+const tbl_item_1 = __importDefault(require("../models/tbl_item"));
 const getIngresosEgresos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const ingresosEgresos = yield tbl_ingresoegreso_1.default.findAll({
         where: {
             ing_estado: true
-        }
+        },
+        include: [
+            { model: tbl_finca_1.default },
+            { model: tbl_item_1.default }
+        ]
     });
     if (!ingresosEgresos) {
         return res.status(400).json({
@@ -33,7 +39,12 @@ const getIngresosEgresos = (req, res) => __awaiter(void 0, void 0, void 0, funct
 exports.getIngresosEgresos = getIngresosEgresos;
 const getIngresoEgreso = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { ing_id } = req.params;
-    const ingresoEgreso = yield tbl_ingresoegreso_1.default.findByPk(ing_id);
+    const ingresoEgreso = yield tbl_ingresoegreso_1.default.findByPk(ing_id, {
+        include: [
+            { model: tbl_finca_1.default },
+            { model: tbl_item_1.default }
+        ]
+    });
     if (!ingresoEgreso) {
         return res.status(400).json({
             msg: 'No existe ese archivo en la base de datos'

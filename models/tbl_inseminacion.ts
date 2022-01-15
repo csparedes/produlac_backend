@@ -25,7 +25,7 @@ const Inseminacion = db.define('tbl_inseminacion', {
     ins_tipoinseminacion: {
         type: DataTypes.STRING
     },
-    ins_idpadre: {
+    ani_idpadre: {
         type: DataTypes.INTEGER
     },
     ins_numpajuela: {

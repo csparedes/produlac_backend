@@ -13,11 +13,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteProdIndividual = exports.putProdIndividual = exports.postProdIndividuales = exports.getProdIndividual = exports.getProdIndividuales = void 0;
+const tbl_animales_1 = __importDefault(require("../models/tbl_animales"));
 const tbl_prodindividual_1 = __importDefault(require("../models/tbl_prodindividual"));
 const getProdIndividuales = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const prodIndividuales = yield tbl_prodindividual_1.default.findAll({
         where: {
             pro_estado: true
+        },
+        include: {
+            model: tbl_animales_1.default
         }
     });
     if (!prodIndividuales) {
@@ -33,7 +37,11 @@ const getProdIndividuales = (req, res) => __awaiter(void 0, void 0, void 0, func
 exports.getProdIndividuales = getProdIndividuales;
 const getProdIndividual = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { pro_id } = req.params;
-    const prodIndividual = yield tbl_prodindividual_1.default.findByPk(pro_id);
+    const prodIndividual = yield tbl_prodindividual_1.default.findByPk(pro_id, {
+        include: {
+            model: tbl_animales_1.default
+        }
+    });
     if (!prodIndividual) {
         return res.status(400).json({
             msg: `No existe ningún prodIndividual con el id: ${pro_id}`

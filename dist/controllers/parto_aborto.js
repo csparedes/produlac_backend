@@ -13,11 +13,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deletePartoAborto = exports.putPartoAborto = exports.postPartoAborto = exports.getPartoAborto = exports.getPartosAbortos = void 0;
+const tbl_item_1 = __importDefault(require("../models/tbl_item"));
 const tbl_partoaborto_1 = __importDefault(require("../models/tbl_partoaborto"));
 const getPartosAbortos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const partosAbortos = yield tbl_partoaborto_1.default.findAll({
         where: {
             par_estado: true
+        },
+        include: {
+            model: tbl_item_1.default
         }
     });
     if (!partosAbortos) {
@@ -33,7 +37,7 @@ const getPartosAbortos = (req, res) => __awaiter(void 0, void 0, void 0, functio
 exports.getPartosAbortos = getPartosAbortos;
 const getPartoAborto = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { par_id } = req.params;
-    const partoAborto = yield tbl_partoaborto_1.default.findByPk(par_id);
+    const partoAborto = yield tbl_partoaborto_1.default.findByPk(par_id, { include: { model: tbl_item_1.default } });
     if (!partoAborto) {
         return res.status(400).json({
             msg: `No se encontró un registro con el id: ${par_id}`

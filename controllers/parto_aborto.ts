@@ -1,11 +1,17 @@
 import { Request, Response } from "express";
+import Animales from "../models/tbl_animales";
+import Item from "../models/tbl_item";
 import PartoAborto from "../models/tbl_partoaborto";
 
 export const getPartosAbortos = async (req: Request, res: Response) => {
     const partosAbortos = await PartoAborto.findAll({
         where: {
             par_estado: true
+        },
+        include: {
+            model: Item
         }
+        
     });
 
     if (!partosAbortos) {
@@ -21,7 +27,7 @@ export const getPartosAbortos = async (req: Request, res: Response) => {
 
 export const getPartoAborto = async (req: Request, res: Response) => {
     const { par_id } = req.params;
-    const partoAborto = await PartoAborto.findByPk(par_id);
+    const partoAborto = await PartoAborto.findByPk(par_id,{include:{model: Item}});
     if (!partoAborto) {
         return res.status(400).json({
             msg: `No se encontró un registro con el id: ${par_id}`

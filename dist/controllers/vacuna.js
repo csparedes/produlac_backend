@@ -13,11 +13,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteVacuna = exports.putVacuna = exports.postVacuna = exports.getVacuna = exports.getVacunas = void 0;
+const tbl_animales_1 = __importDefault(require("../models/tbl_animales"));
 const tbl_vacuna_1 = __importDefault(require("../models/tbl_vacuna"));
 const getVacunas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const vacunas = yield tbl_vacuna_1.default.findAll({
         where: {
             vac_estado: true
+        },
+        include: {
+            model: tbl_animales_1.default
         }
     });
     if (!vacunas) {
@@ -33,7 +37,11 @@ const getVacunas = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.getVacunas = getVacunas;
 const getVacuna = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { vac_id } = req.params;
-    const vacuna = yield tbl_vacuna_1.default.findByPk(vac_id);
+    const vacuna = yield tbl_vacuna_1.default.findByPk(vac_id, {
+        include: {
+            model: tbl_animales_1.default
+        }
+    });
     if (!vacuna) {
         return res.status(400).json({
             msg: `No existe ninguna vacuna con el id: ${vac_id}`

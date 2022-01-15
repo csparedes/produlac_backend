@@ -1,10 +1,14 @@
 import { Request, Response } from "express";
+import Menu from "../models/tbl_menu";
 import SubMenu from "../models/tbl_submenu";
 
 export const getSubMenus = async (req: Request, res: Response) => {
     const subMenus = await SubMenu.findAll({
         where: {
             smen_estado: true
+        },
+        include: {
+            model: Menu
         }
     });
     if (!subMenus) {
@@ -20,7 +24,11 @@ export const getSubMenus = async (req: Request, res: Response) => {
 
 export const getSubMenu =async (req:Request, res:Response) => {
     const { smen_id } = req.params;
-    const subMenu = await SubMenu.findByPk(smen_id);
+    const subMenu = await SubMenu.findByPk(smen_id, {
+        include: {
+            model: Menu
+        }
+    });
     if (!subMenu) {
         return res.status(400).json({
             msg: `No existe submenu con el id: ${smen_id}`

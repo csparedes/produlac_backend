@@ -38,7 +38,7 @@ class Server {
             ingresoEgreso: '/api/ingresosEgresos',
             inseminacion: '/api/inseminacion',
             items: '/api/items',
-            menus: '/api/menus',
+            menu: '/api/menu',
             partoAborto: '/api/partoAborto',
             prodGlobal: '/api/prodGlobal',
             prodIndividual: '/api/prodIndividual',
@@ -70,7 +70,7 @@ class Server {
         this.app.use(this.apiPaths.ingresoEgreso, ingreso_egreso_1.default);
         this.app.use(this.apiPaths.inseminacion, inseminacion_1.default);
         this.app.use(this.apiPaths.items, item_1.default);
-        this.app.use(this.apiPaths.menus, menu_1.default);
+        this.app.use(this.apiPaths.menu, menu_1.default);
         this.app.use(this.apiPaths.partoAborto, parto_aborto_1.default);
         this.app.use(this.apiPaths.prodGlobal, prod_global_1.default);
         this.app.use(this.apiPaths.prodIndividual, prod_individuales_1.default);

@@ -13,11 +13,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteSubMenu = exports.putSubMenu = exports.postSubMenu = exports.getSubMenu = exports.getSubMenus = void 0;
+const tbl_menu_1 = __importDefault(require("../models/tbl_menu"));
 const tbl_submenu_1 = __importDefault(require("../models/tbl_submenu"));
 const getSubMenus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const subMenus = yield tbl_submenu_1.default.findAll({
         where: {
             smen_estado: true
+        },
+        include: {
+            model: tbl_menu_1.default
         }
     });
     if (!subMenus) {
@@ -33,7 +37,11 @@ const getSubMenus = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.getSubMenus = getSubMenus;
 const getSubMenu = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { smen_id } = req.params;
-    const subMenu = yield tbl_submenu_1.default.findByPk(smen_id);
+    const subMenu = yield tbl_submenu_1.default.findByPk(smen_id, {
+        include: {
+            model: tbl_menu_1.default
+        }
+    });
     if (!subMenu) {
         return res.status(400).json({
             msg: `No existe submenu con el id: ${smen_id}`

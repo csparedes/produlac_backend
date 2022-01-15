@@ -40,7 +40,7 @@ const postLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         //@ts-ignore
         const token = yield generarJWT_1.default([usuario.per_usuario, usuario.per_nombre, usuario.per_apellido, usuario.per_correo, usuario.per_telefono]);
         res.json({
-            usuario,
+            dato: [usuario],
             token
         });
     }
@@ -48,7 +48,7 @@ const postLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         console.log(`Error Catch Login: ${error}`);
         res.status(500).json({
             msg: `Ha ocurrido un error de autenticación, comuníquese con el Admin`,
-            error
+            dato: error
         });
     }
 });

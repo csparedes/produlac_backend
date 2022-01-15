@@ -29,7 +29,7 @@ const Inseminacion = connection_1.default.define('tbl_inseminacion', {
     ins_tipoinseminacion: {
         type: sequelize_1.DataTypes.STRING
     },
-    ins_idpadre: {
+    ani_idpadre: {
         type: sequelize_1.DataTypes.INTEGER
     },
     ins_numpajuela: {
