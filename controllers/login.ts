@@ -37,7 +37,7 @@ export const postLogin = async (req: Request, res: Response) => {
        console.log(`Error Catch Login: ${error}`);
        res.status(500).json({
            msg: `Ha ocurrido un error de autenticación, comuníquese con el Admin`,
-           error
+           dato: error
        });
    }
 
