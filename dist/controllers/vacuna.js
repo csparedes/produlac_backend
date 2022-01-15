@@ -27,7 +27,7 @@ const getVacunas = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
     res.json({
         msg: `Listado de vacunas`,
-        vacunas
+        dato: vacunas
     });
 });
 exports.getVacunas = getVacunas;
@@ -41,7 +41,7 @@ const getVacuna = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     res.json({
         msg: `Detalle de Vacuna`,
-        vacuna
+        dato: [vacuna]
     });
 });
 exports.getVacuna = getVacuna;
@@ -57,7 +57,7 @@ const postVacuna = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     vacuna.save();
     res.json({
         msg: `Se creó un nuevo registro de vacuna`,
-        vacuna
+        dato: [vacuna]
     });
 });
 exports.postVacuna = postVacuna;
@@ -79,7 +79,7 @@ const putVacuna = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     });
     res.json({
         msg: `Se actualizó el registro de vacuna con el id: ${vac_id}`,
-        vacuna
+        dato: [vacuna]
     });
 });
 exports.putVacuna = putVacuna;
@@ -94,7 +94,7 @@ const deleteVacuna = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     yield vacuna.update({ vac_estado: false });
     res.json({
         msg: `Se eliminó el registro de vacuna con el id: ${vac_id}`,
-        vacuna
+        dato: [vacuna]
     });
 });
 exports.deleteVacuna = deleteVacuna;

@@ -104,7 +104,7 @@ export const postAnimal = async (req: Request, res: Response) => {
     animal.save();
     res.json({
         msg: `Se ha ingresado un nuevo animal`,
-        animal
+        dato: [animal]
     })
 
 }
@@ -159,7 +159,7 @@ export const putAnimal = async (req: Request, res: Response) => {
     await animalActual.update(nuevoAnimal);
     res.json({
         msg: `Se actualizó los datos del animal ${ani_nombre}, de código ${ani_codigo}`,
-        animal: nuevoAnimal
+        dato: [nuevoAnimal]
     });
 
 
@@ -182,6 +182,7 @@ export const deleteAnimal = async (req: Request, res: Response) => {
 
     await animal.update({ ani_estado: false });
     res.json({
-        msg: `El animal con código ${ani_codigo} ha sido eliminado`
+        msg: `El animal con código ${ani_codigo} ha sido eliminado`,
+        dato: [animal]
     });
 }

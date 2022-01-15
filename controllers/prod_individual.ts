@@ -15,7 +15,7 @@ export const getProdIndividuales = async (req: Request, res: Response) => {
 
     res.json({
         msg: `Lista de prodIndividuales`,
-        prodIndividuales
+        dato: prodIndividuales
     })
 }
 
@@ -29,7 +29,7 @@ export const getProdIndividual = async (req: Request, res: Response) => {
     }
     res.json({
         msg: `Detalle de prodIndividual`,
-        prodIndividual
+        dato: [prodIndividual]
     })
 }
 
@@ -51,7 +51,7 @@ export const postProdIndividuales = async (req: Request, res: Response) => {
     prodIndividual.save();
     res.json({
         msg: `Se ha ingresado un nuevo registro de prodIndividual`,
-        prodIndividual
+        dato: [prodIndividual]
     });
 }
 
@@ -79,7 +79,7 @@ export const putProdIndividual = async (req: Request, res: Response) => {
     });
     res.json({
         msg: `Se actualizó el registro`,
-        prodIndividual
+        dato: [prodIndividual]
     });
 }
 
@@ -94,6 +94,6 @@ export const deleteProdIndividual = async (req: Request, res: Response) => {
     await prodIndividual.update({pro_estado: false});
     res.json({
         msg: `Se eliminó el registro con id: ${pro_id}`,
-        prodIndividual
+        dato: [prodIndividual]
     });
 }

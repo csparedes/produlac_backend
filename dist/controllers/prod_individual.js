@@ -27,7 +27,7 @@ const getProdIndividuales = (req, res) => __awaiter(void 0, void 0, void 0, func
     }
     res.json({
         msg: `Lista de prodIndividuales`,
-        prodIndividuales
+        dato: prodIndividuales
     });
 });
 exports.getProdIndividuales = getProdIndividuales;
@@ -41,7 +41,7 @@ const getProdIndividual = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
     res.json({
         msg: `Detalle de prodIndividual`,
-        prodIndividual
+        dato: [prodIndividual]
     });
 });
 exports.getProdIndividual = getProdIndividual;
@@ -57,7 +57,7 @@ const postProdIndividuales = (req, res) => __awaiter(void 0, void 0, void 0, fun
     prodIndividual.save();
     res.json({
         msg: `Se ha ingresado un nuevo registro de prodIndividual`,
-        prodIndividual
+        dato: [prodIndividual]
     });
 });
 exports.postProdIndividuales = postProdIndividuales;
@@ -79,7 +79,7 @@ const putProdIndividual = (req, res) => __awaiter(void 0, void 0, void 0, functi
     });
     res.json({
         msg: `Se actualizó el registro`,
-        prodIndividual
+        dato: [prodIndividual]
     });
 });
 exports.putProdIndividual = putProdIndividual;
@@ -94,7 +94,7 @@ const deleteProdIndividual = (req, res) => __awaiter(void 0, void 0, void 0, fun
     yield prodIndividual.update({ pro_estado: false });
     res.json({
         msg: `Se eliminó el registro con id: ${pro_id}`,
-        prodIndividual
+        dato: [prodIndividual]
     });
 });
 exports.deleteProdIndividual = deleteProdIndividual;

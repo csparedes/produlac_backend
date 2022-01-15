@@ -29,7 +29,7 @@ export const getEspecie = async (req: Request, res: Response) => {
     }
     res.json({
         msg: `Detalle de la especie`,
-        especie
+        dato: [especie]
     })
 }
 
@@ -50,7 +50,7 @@ export const postEspecie = async (req: Request, res: Response) => {
     especie.save();
     return res.json({
         msg: `Se agregó la especie ${esp_nombre}`,
-        especie
+        dato: [especie]
     });
 }
 
@@ -66,7 +66,7 @@ export const putEspecie = async (req: Request, res: Response) => {
     await especie.update({ esp_nombre, cat_id });
     res.json({
         msg: `Se actualizó la especie`,
-        especie
+        dato: [especie]
     })
 }
 
@@ -81,6 +81,6 @@ export const deleteEspecie = async (req: Request, res: Response) => {
     await especie.update({ esp_estado: false });
     res.json({
         msg: `Se la eliminó especie`,
-        especie
+        dato: [especie]
     });
 }

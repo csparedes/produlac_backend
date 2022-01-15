@@ -27,7 +27,7 @@ const getIngresosEgresos = (req, res) => __awaiter(void 0, void 0, void 0, funct
     }
     res.json({
         msg: `Lista de Ingresos y Egresos`,
-        ingresosEgresos
+        dato: ingresosEgresos
     });
 });
 exports.getIngresosEgresos = getIngresosEgresos;
@@ -41,7 +41,7 @@ const getIngresoEgreso = (req, res) => __awaiter(void 0, void 0, void 0, functio
     }
     res.json({
         msg: 'Detalle de Ingreso/Egreso',
-        ingresoEgreso
+        dato: [ingresoEgreso]
     });
 });
 exports.getIngresoEgreso = getIngresoEgreso;
@@ -57,7 +57,7 @@ const postIngresoEgreso = (req, res) => __awaiter(void 0, void 0, void 0, functi
     ingresoEgreso.save();
     res.json({
         msg: 'Se creó un nuevo ingreso/egreso',
-        ingresoEgreso
+        dato: [ingresoEgreso]
     });
 });
 exports.postIngresoEgreso = postIngresoEgreso;
@@ -79,7 +79,7 @@ const putIngresoEgreso = (req, res) => __awaiter(void 0, void 0, void 0, functio
     });
     res.json({
         msg: `Se actualizó el ingreso/egreso con id: ${ing_id}`,
-        ingresoEgreso
+        dato: [ingresoEgreso]
     });
 });
 exports.putIngresoEgreso = putIngresoEgreso;
@@ -94,7 +94,7 @@ const deleteIngresoEgreso = (req, res) => __awaiter(void 0, void 0, void 0, func
     yield ingresoEgreso.update({ ing_estado: false });
     res.json({
         msg: `Se ha eliminado el Ingreso/Egreso con id: ${ing_id}`,
-        ingresoEgreso
+        dato: [ingresoEgreso]
     });
 });
 exports.deleteIngresoEgreso = deleteIngresoEgreso;

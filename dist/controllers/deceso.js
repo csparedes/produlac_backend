@@ -27,7 +27,7 @@ const getDecesos = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
     res.json({
         msg: `Lista de Decesos`,
-        decesos
+        dato: decesos
     });
 });
 exports.getDecesos = getDecesos;
@@ -41,7 +41,7 @@ const getDeceso = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     res.json({
         msg: `Se ha encontrado el registro con el deceso`,
-        deceso
+        dato: [deceso]
     });
 });
 exports.getDeceso = getDeceso;
@@ -56,7 +56,7 @@ const postDeceso = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     deceso.save();
     res.json({
         msg: `Se creó un nuevo Deceso :(`,
-        deceso
+        dato: [deceso]
     });
 });
 exports.postDeceso = postDeceso;
@@ -76,7 +76,7 @@ const putDeceso = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     });
     res.json({
         msg: `Se actualizó el deceso con id: ${dec_id}`,
-        deceso: decesoActual
+        dato: [decesoActual]
     });
 });
 exports.putDeceso = putDeceso;
@@ -91,7 +91,7 @@ const deleteDeceso = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     yield decesoActual.update({ estado: false });
     res.json({
         msg: `Se ha eliminado el deceso con id: ${dec_id}`,
-        deceso: decesoActual
+        dato: [decesoActual]
     });
 });
 exports.deleteDeceso = deleteDeceso;

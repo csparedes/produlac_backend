@@ -15,7 +15,7 @@ export const getVacunas = async (req: Request, res: Response) => {
     }
     res.json({
         msg: `Listado de vacunas`,
-        vacunas
+        dato: vacunas
     });
 }
 
@@ -29,7 +29,7 @@ export const getVacuna =async (req:Request, res:Response) => {
     }
     res.json({
         msg: `Detalle de Vacuna`,
-        vacuna
+        dato: [vacuna]
     })
 }
 
@@ -52,7 +52,7 @@ export const postVacuna = async (req: Request, res: Response) => {
 
     res.json({
         msg: `Se creó un nuevo registro de vacuna`,
-        vacuna
+        dato: [vacuna]
     });
 }
 
@@ -80,7 +80,7 @@ export const putVacuna = async (req: Request, res: Response) => {
     });
     res.json({
         msg: `Se actualizó el registro de vacuna con el id: ${vac_id}`,
-        vacuna
+        dato: [vacuna]
     });
 }
 
@@ -96,6 +96,6 @@ export const deleteVacuna = async (req: Request, res: Response) => {
     await vacuna.update({ vac_estado: false});
     res.json({
         msg: `Se eliminó el registro de vacuna con el id: ${vac_id}`,
-        vacuna
+        dato: [vacuna]
     });
 }

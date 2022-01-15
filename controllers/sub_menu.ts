@@ -14,7 +14,7 @@ export const getSubMenus = async (req: Request, res: Response) => {
     }
     res.json({
         msg: `Lista de Submenus`,
-        subMenus
+        dato: subMenus
     })
 }
 
@@ -28,7 +28,7 @@ export const getSubMenu =async (req:Request, res:Response) => {
     }
     res.json({
         msg: `Muestra de submenu`,
-        subMenu
+        dato: [subMenu]
     })
 }
 
@@ -58,7 +58,7 @@ export const postSubMenu = async (req: Request, res: Response) => {
     subMenu.save();
     res.json({
         msg: `Se creó un nuevo submenu`,
-        subMenu
+        dato: [subMenu]
     })
 }
 
@@ -82,7 +82,7 @@ export const putSubMenu =async (req:Request,res:Response) => {
     });
     res.json({
         msg: `Se actualizó el submenu de id: ${smen_id}`,
-        subMenu
+        dato: [subMenu]
     });
 }
 
@@ -97,6 +97,6 @@ export const deleteSubMenu = async (req: Request, res: Response) => {
     await subMenu.update({smen_estado: false});
     res.json({
         msg: `Se eliminó el submenu de id: ${smen_id}`,
-        subMenu
+        dato: [subMenu]
     });
 }

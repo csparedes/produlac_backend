@@ -15,7 +15,7 @@ export const getVentas = async (req: Request, res: Response) => {
 
     res.json({
         msg: `Lista de ventas`,
-        ventas
+        dato: ventas
     });
 }
 
@@ -29,7 +29,7 @@ export const getVenta = async (req: Request, res: Response) => {
     }
     res.json({
         msg: `Detalle de Venta`,
-        venta
+        dato: [venta]
     })
 }
 
@@ -58,7 +58,7 @@ export const postVenta = async (req: Request, res: Response) => {
     venta.save();
     res.json({
         msg: `Se creó un nuevo registro de venta`,
-        venta
+        dato: [venta]
     })
 }
 
@@ -92,7 +92,7 @@ export const putVenta = async (req: Request, res: Response) => {
     });
     res.json({
         msg: `Se actualizó el registro de venta`,
-        venta
+        dato: [venta]
     });
     
 }
@@ -109,6 +109,6 @@ export const deleteVenta = async (req: Request, res: Response) => {
     await venta.update({ ven_estado: false});
     res.json({
         msg: `Se eliminó el registro de venta`,
-        venta
+        dato: [venta]
     });
 }

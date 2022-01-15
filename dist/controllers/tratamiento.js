@@ -27,7 +27,7 @@ const getTratamientos = (req, res) => __awaiter(void 0, void 0, void 0, function
     }
     res.json({
         msg: `Lista de tratamietos`,
-        tratamientos
+        dato: tratamientos
     });
 });
 exports.getTratamientos = getTratamientos;
@@ -41,7 +41,7 @@ const getTratamiento = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
     res.json({
         msg: `Detalle de tratamiento`,
-        tratamiento
+        dato: [tratamiento]
     });
 });
 exports.getTratamiento = getTratamiento;
@@ -58,7 +58,7 @@ const postTratamiento = (req, res) => __awaiter(void 0, void 0, void 0, function
     tratamiento.save();
     res.json({
         msg: `Se creó un nuevo tratamiento`,
-        tratamiento
+        dato: [tratamiento]
     });
 });
 exports.postTratamiento = postTratamiento;
@@ -81,7 +81,7 @@ const putTratamiento = (req, res) => __awaiter(void 0, void 0, void 0, function*
     });
     res.json({
         msg: `Se actualizó el tratamiento de id: ${tra_id}`,
-        tratamiento
+        dato: [tratamiento]
     });
 });
 exports.putTratamiento = putTratamiento;
@@ -96,7 +96,7 @@ const deleteTratamiento = (req, res) => __awaiter(void 0, void 0, void 0, functi
     yield tratamiento.update({ tra_estado: false });
     res.json({
         msg: `Se eliminó el tratamiento de id: ${tra_id}`,
-        tratamiento
+        dato: [tratamiento]
     });
 });
 exports.deleteTratamiento = deleteTratamiento;

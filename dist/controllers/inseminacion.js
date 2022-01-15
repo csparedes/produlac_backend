@@ -27,7 +27,7 @@ const getInseminaciones = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
     res.json({
         msg: `Lista de inseminaciones`,
-        inseminaciones
+        dato: inseminaciones
     });
 });
 exports.getInseminaciones = getInseminaciones;
@@ -41,7 +41,7 @@ const getInseminacion = (req, res) => __awaiter(void 0, void 0, void 0, function
     }
     res.json({
         msg: `Detalle de Inseminación`,
-        inseminacion
+        dato: [inseminacion]
     });
 });
 exports.getInseminacion = getInseminacion;
@@ -61,7 +61,7 @@ const postInseminacion = (req, res) => __awaiter(void 0, void 0, void 0, functio
     inseminacion.save();
     res.json({
         msg: `Se ha creado un nuevo registro de inseminación.`,
-        inseminacion
+        dato: [inseminacion]
     });
 });
 exports.postInseminacion = postInseminacion;
@@ -87,7 +87,7 @@ const putInseminacion = (req, res) => __awaiter(void 0, void 0, void 0, function
     });
     res.json({
         msg: `Se actualizó el dato de inseminación`,
-        inseminacion
+        dato: [inseminacion]
     });
 });
 exports.putInseminacion = putInseminacion;
@@ -102,7 +102,7 @@ const deleteInseminacion = (req, res) => __awaiter(void 0, void 0, void 0, funct
     yield inseminacion.update({ ins_estado: false });
     res.json({
         msg: `Se eliminó el dato de inseminación con id: ${ins_id}`,
-        inseminacion
+        dato: [inseminacion]
     });
 });
 exports.deleteInseminacion = deleteInseminacion;

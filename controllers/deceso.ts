@@ -15,7 +15,7 @@ export const getDecesos = async (req: Request, res: Response) => {
 
     res.json({
         msg: `Lista de Decesos`,
-        decesos
+        dato: decesos
     })
 }
 
@@ -29,7 +29,7 @@ export const getDeceso = async (req: Request, res: Response) => {
     }
     res.json({
         msg: `Se ha encontrado el registro con el deceso`,
-        deceso
+        dato: [deceso]
     })
 }
 
@@ -48,7 +48,7 @@ export const postDeceso = async (req: Request, res: Response) => {
     deceso.save();
     res.json({
         msg: `Se creó un nuevo Deceso :(`,
-        deceso
+        dato: [deceso]
     });
 }
 
@@ -72,7 +72,7 @@ export const putDeceso = async (req: Request, res: Response) => {
     });
     res.json({
         msg: `Se actualizó el deceso con id: ${dec_id}`,
-        deceso: decesoActual
+        dato: [decesoActual]
     });
 }
 
@@ -87,6 +87,6 @@ export const deleteDeceso = async (req: Request, res: Response) => {
     await decesoActual.update({ estado: false });
     res.json({
         msg: `Se ha eliminado el deceso con id: ${dec_id}`,
-        deceso: decesoActual
+        dato: [decesoActual]
     });
 }

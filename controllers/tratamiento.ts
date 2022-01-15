@@ -15,7 +15,7 @@ export const getTratamientos = async (req: Request, res: Response) => {
     }
     res.json({
         msg: `Lista de tratamietos`,
-        tratamientos
+        dato: tratamientos
     })
 }
 
@@ -29,7 +29,7 @@ export const getTratamiento = async (req: Request, res: Response) => {
     }
     res.json({
         msg: `Detalle de tratamiento`,
-        tratamiento
+        dato: [tratamiento]
     })
 }
 
@@ -53,7 +53,7 @@ export const postTratamiento = async (req: Request, res: Response) => {
     tratamiento.save();
     res.json({
         msg: `Se creó un nuevo tratamiento`,
-        tratamiento
+        dato: [tratamiento]
     });
 }
 
@@ -84,7 +84,7 @@ export const putTratamiento = async (req: Request, res: Response) => {
 
     res.json({
         msg: `Se actualizó el tratamiento de id: ${tra_id}`,
-        tratamiento
+        dato: [tratamiento]
     })
 }
 
@@ -101,6 +101,6 @@ export const deleteTratamiento = async (req: Request, res: Response) => {
 
     res.json({
         msg: `Se eliminó el tratamiento de id: ${tra_id}`,
-        tratamiento
+        dato: [tratamiento]
     })
 }

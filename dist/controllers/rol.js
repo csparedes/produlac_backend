@@ -27,7 +27,7 @@ const getRoles = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     res.json({
         msg: `Listado de Roles`,
-        roles
+        dato: roles
     });
 });
 exports.getRoles = getRoles;
@@ -41,7 +41,7 @@ const getRol = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     res.json({
         msg: `Detalle de rol`,
-        rol
+        dato: [rol]
     });
 });
 exports.getRol = getRol;
@@ -62,7 +62,7 @@ const postRol = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     rol.save();
     res.json({
         msg: `Se ha creado un nuevo Rol`,
-        rol
+        dato: [rol]
     });
 });
 exports.postRol = postRol;
@@ -78,7 +78,7 @@ const putRol = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     yield rol.update({ rol_nombre });
     res.json({
         msg: `Se actualizó el rol de id: ${rol_id}`,
-        rol
+        dato: [rol]
     });
 });
 exports.putRol = putRol;
@@ -93,7 +93,7 @@ const deleteRol = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     yield rol.update({ rol_estado: false });
     res.json({
         msg: `Se eliminó el rol de id: ${rol_id}`,
-        rol
+        dato: [rol]
     });
 });
 exports.deleteRol = deleteRol;

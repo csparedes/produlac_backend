@@ -20,7 +20,7 @@ export const getFincas = async (req: Request, res: Response) => {
 
     res.json({
         msg: `Listado de Fincas`,
-        fincas
+        dato: fincas
     });
 }
 
@@ -34,7 +34,7 @@ export const getFinca = async (req: Request, res: Response) => {
     }
     res.json({
         msg: `Detalles de la Finca`,
-        finca: fincaBuscada
+        dato: [fincaBuscada]
     });
 }
 
@@ -73,7 +73,7 @@ export const postFinca = async (req: Request, res: Response) => {
     finca.save();
     res.json({
         msg: `Se creó una nueva Finca`,
-        finca
+        dato: [finca]
     });
 }
 
@@ -109,7 +109,7 @@ export const putFinca = async (req: Request, res: Response) => {
     await finca.update(nuevaFinca);
     res.json({
         msg: `Se actualizó la finca con el id: ${fin_id}`,
-        finca
+        dato: [finca]
     });
 }
 
@@ -124,6 +124,6 @@ export const deleteFinca = async (req: Request, res: Response) => {
     await finca.update({ fin_estado: false });
     res.json({
         msg: `Se eliminó la finca con el id: ${fin_id}`,
-        finca
+        dato: [finca]
     })
 }

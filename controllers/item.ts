@@ -18,7 +18,7 @@ export const getItems = async (req: Request, res: Response) => {
     }
     res.json({
         msg: `Lista de Items`,
-        items
+        dato: items
     });
 }
 
@@ -32,7 +32,7 @@ export const getItem = async (req: Request, res: Response) => {
     }
     res.json({
         msg: `Detalle de Item`,
-        item
+        dato: [item]
     })
 }
 
@@ -55,7 +55,7 @@ export const postItem = async (req: Request, res: Response) => {
     item.save();
     res.json({
         msg: `Se creó un nuevo item`,
-        item
+        dato: [item]
     });
 
 }
@@ -74,7 +74,7 @@ export const putItem = async (req: Request, res: Response) => {
 
     res.json({
         msg: `Se actualizó el item ${ite_id}`,
-        item
+        dato: [item]
     })
 }
 
@@ -92,7 +92,7 @@ export const deleteItem = async (req: Request, res: Response) => {
 
     res.json({
         msg: `Se eliminó el item ${ite_id}`,
-        item
+        dato: [item]
     })
 }
 

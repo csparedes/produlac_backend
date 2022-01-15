@@ -31,7 +31,7 @@ const getItems = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     res.json({
         msg: `Lista de Items`,
-        items
+        dato: items
     });
 });
 exports.getItems = getItems;
@@ -45,7 +45,7 @@ const getItem = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     res.json({
         msg: `Detalle de Item`,
-        item
+        dato: [item]
     });
 });
 exports.getItem = getItem;
@@ -67,7 +67,7 @@ const postItem = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     item.save();
     res.json({
         msg: `Se creó un nuevo item`,
-        item
+        dato: [item]
     });
 });
 exports.postItem = postItem;
@@ -83,7 +83,7 @@ const putItem = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     yield item.update({ ite_nombre, cat_id });
     res.json({
         msg: `Se actualizó el item ${ite_id}`,
-        item
+        dato: [item]
     });
 });
 exports.putItem = putItem;
@@ -98,7 +98,7 @@ const deleteItem = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     yield item.update({ ite_estado: false });
     res.json({
         msg: `Se eliminó el item ${ite_id}`,
-        item
+        dato: [item]
     });
 });
 exports.deleteItem = deleteItem;

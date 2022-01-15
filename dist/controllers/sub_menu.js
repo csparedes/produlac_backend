@@ -27,7 +27,7 @@ const getSubMenus = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
     res.json({
         msg: `Lista de Submenus`,
-        subMenus
+        dato: subMenus
     });
 });
 exports.getSubMenus = getSubMenus;
@@ -41,7 +41,7 @@ const getSubMenu = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
     res.json({
         msg: `Muestra de submenu`,
-        subMenu
+        dato: [subMenu]
     });
 });
 exports.getSubMenu = getSubMenu;
@@ -66,7 +66,7 @@ const postSubMenu = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     subMenu.save();
     res.json({
         msg: `Se creó un nuevo submenu`,
-        subMenu
+        dato: [subMenu]
     });
 });
 exports.postSubMenu = postSubMenu;
@@ -86,7 +86,7 @@ const putSubMenu = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     });
     res.json({
         msg: `Se actualizó el submenu de id: ${smen_id}`,
-        subMenu
+        dato: [subMenu]
     });
 });
 exports.putSubMenu = putSubMenu;
@@ -101,7 +101,7 @@ const deleteSubMenu = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     yield subMenu.update({ smen_estado: false });
     res.json({
         msg: `Se eliminó el submenu de id: ${smen_id}`,
-        subMenu
+        dato: [subMenu]
     });
 });
 exports.deleteSubMenu = deleteSubMenu;

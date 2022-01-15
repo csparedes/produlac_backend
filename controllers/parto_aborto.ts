@@ -15,7 +15,7 @@ export const getPartosAbortos = async (req: Request, res: Response) => {
     }
     res.json({
         msg: `Lista de partos/abortos`,
-        partosAbortos
+        dato: partosAbortos
     });
 }
 
@@ -29,7 +29,7 @@ export const getPartoAborto = async (req: Request, res: Response) => {
     }
     res.json({
         msg: `Detalle de parto/aborto`,
-        partoAborto
+        dato: [partoAborto]
     })
 }
 
@@ -49,7 +49,7 @@ export const postPartoAborto = async (req: Request, res: Response) => {
     partoAborto.save();
     res.json({
         msg: `Se creo un nuevo registo de parto/aborto`,
-        partoAborto
+        dato: [partoAborto]
     });
 }
 
@@ -75,7 +75,7 @@ export const putPartoAborto = async (req: Request, res: Response) => {
     });
     res.json({
         msg: `Se acutalizó el registro parto/aborto con id: ${par_id}`,
-        partoAborto
+        dato: [partoAborto]
     })
 }
 
@@ -91,6 +91,6 @@ export const deletePartoAborto = async (req: Request, res: Response) => {
     await partoAborto.update({par_estado: false});
     res.json({
         msg: `Se eliminó el registro parto/aborto con id: ${par_id}`,
-        partoAborto
+        dato: [partoAborto]
     })
 }

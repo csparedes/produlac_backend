@@ -93,7 +93,7 @@ const postAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     animal.save();
     res.json({
         msg: `Se ha ingresado un nuevo animal`,
-        animal
+        dato: [animal]
     });
 });
 exports.postAnimal = postAnimal;
@@ -129,7 +129,7 @@ const putAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     yield animalActual.update(nuevoAnimal);
     res.json({
         msg: `Se actualizó los datos del animal ${ani_nombre}, de código ${ani_codigo}`,
-        animal: nuevoAnimal
+        dato: [nuevoAnimal]
     });
 });
 exports.putAnimal = putAnimal;
@@ -148,7 +148,8 @@ const deleteAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
     yield animal.update({ ani_estado: false });
     res.json({
-        msg: `El animal con código ${ani_codigo} ha sido eliminado`
+        msg: `El animal con código ${ani_codigo} ha sido eliminado`,
+        dato: [animal]
     });
 });
 exports.deleteAnimal = deleteAnimal;

@@ -41,7 +41,7 @@ const getEspecie = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
     res.json({
         msg: `Detalle de la especie`,
-        especie
+        dato: [especie]
     });
 });
 exports.getEspecie = getEspecie;
@@ -61,7 +61,7 @@ const postEspecie = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     especie.save();
     return res.json({
         msg: `Se agregó la especie ${esp_nombre}`,
-        especie
+        dato: [especie]
     });
 });
 exports.postEspecie = postEspecie;
@@ -77,7 +77,7 @@ const putEspecie = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     yield especie.update({ esp_nombre, cat_id });
     res.json({
         msg: `Se actualizó la especie`,
-        especie
+        dato: [especie]
     });
 });
 exports.putEspecie = putEspecie;
@@ -92,7 +92,7 @@ const deleteEspecie = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     yield especie.update({ esp_estado: false });
     res.json({
         msg: `Se la eliminó especie`,
-        especie
+        dato: [especie]
     });
 });
 exports.deleteEspecie = deleteEspecie;

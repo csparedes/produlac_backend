@@ -31,7 +31,7 @@ const getFincas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     res.json({
         msg: `Listado de Fincas`,
-        fincas
+        dato: fincas
     });
 });
 exports.getFincas = getFincas;
@@ -45,7 +45,7 @@ const getFinca = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     res.json({
         msg: `Detalles de la Finca`,
-        finca: fincaBuscada
+        dato: [fincaBuscada]
     });
 });
 exports.getFinca = getFinca;
@@ -75,7 +75,7 @@ const postFinca = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     finca.save();
     res.json({
         msg: `Se creó una nueva Finca`,
-        finca
+        dato: [finca]
     });
 });
 exports.postFinca = postFinca;
@@ -101,7 +101,7 @@ const putFinca = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     yield finca.update(nuevaFinca);
     res.json({
         msg: `Se actualizó la finca con el id: ${fin_id}`,
-        finca
+        dato: [finca]
     });
 });
 exports.putFinca = putFinca;
@@ -116,7 +116,7 @@ const deleteFinca = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     yield finca.update({ fin_estado: false });
     res.json({
         msg: `Se eliminó la finca con el id: ${fin_id}`,
-        finca
+        dato: [finca]
     });
 });
 exports.deleteFinca = deleteFinca;

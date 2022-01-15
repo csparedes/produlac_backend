@@ -16,7 +16,7 @@ export const getCatalogos = async (req: Request, res: Response) => {
 
     res.json({
         msg: `Lista de catálogos`,
-        catalogos
+        dato: catalogos
     });
 }
 
@@ -30,7 +30,7 @@ export const getCatalogo = async (req: Request, res: Response) => {
     }
     res.json({
         msg: 'Se encontró el catálogo',
-        catalogo
+        dato: [catalogo]
     })
 }
 
@@ -52,7 +52,7 @@ export const postCatalogo = async (req: Request, res: Response) => {
 
     res.json({
         msg: `Se ha creado en el catálogo: ${cat_nombre}`,
-        catalogo
+        dato: [catalogo]
     });
 }
 
@@ -68,7 +68,7 @@ export const putCatalogo = async (req: Request, res: Response) => {
     catalogoBuscado.update({ cat_nombre });
     res.json({
         msg: `Se ha actualizado el catálogo: ${cat_nombre}`,
-        catalogo: catalogoBuscado
+        dato: [catalogoBuscado]
     });
 }
 
@@ -84,6 +84,6 @@ export const deleteCatalogo = async (req: Request, res: Response) => {
     catalogoBuscado.update({ ani_estado: false });
     res.json({
         msg: `Se ha eliminado del catálogo`,
-        catalogo: catalogoBuscado
+        dato: [catalogoBuscado]
     });
 }
