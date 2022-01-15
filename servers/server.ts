@@ -20,6 +20,7 @@ import rutasSubMenu from '../routes/sub_menu';
 import rutasTratamiento from '../routes/tratamientos';
 import rutasVacuna from '../routes/vacuna';
 import rutasVenta from '../routes/venta';
+import rutasEspecies from '../routes/especies';
 class Server{
     private app: Application;
     private port: string;
@@ -43,7 +44,8 @@ class Server{
         subMenu: '/api/subMenu',
         tratamientos: '/api/tratamientos',
         vacunas: '/api/vacunas',
-        ventas: '/api/ventas'
+        ventas: '/api/ventas',
+        especies: '/api/especies'
     };
 
     constructor() {
@@ -80,6 +82,7 @@ class Server{
         this.app.use(this.apiPaths.tratamientos, rutasTratamiento);
         this.app.use(this.apiPaths.vacunas, rutasVacuna);
         this.app.use(this.apiPaths.ventas, rutasVenta);
+        this.app.use(this.apiPaths.especies, rutasEspecies);
     }
 
     listen() {

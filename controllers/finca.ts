@@ -1,10 +1,14 @@
 import { Request, Response } from "express";
 import Finca from "../models/tbl_finca";
+import Persona from "../models/tbl_personas";
 
 export const getFincas = async (req: Request, res: Response) => {
     const fincas = await Finca.findAll({
         where: {
             fin_estado: true
+        },
+        include: {
+            model: Persona
         }
     });
 
@@ -22,7 +26,7 @@ export const getFincas = async (req: Request, res: Response) => {
 
 export const getFinca = async (req: Request, res: Response) => {
     const { fin_id } = req.params;
-    const fincaBuscada = await Finca.findByPk(fin_id);
+    const fincaBuscada = await Finca.findByPk(fin_id,{include: {model: Persona}});
     if (!fincaBuscada) {
         return res.status(400).json({
             msg: `No existe ninguna finca con el id: ${fin_id}`

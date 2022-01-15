@@ -85,8 +85,7 @@ export const postPersona = async (req: Request, res: Response) => {
         per_correo,
         per_telefono,
         per_direccion,
-        rol_id,
-        tblRolRolId: rol_id
+        rol_id
     };
 
     const persona = await Persona.build(nuevaPersona);

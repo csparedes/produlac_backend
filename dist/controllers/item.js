@@ -13,11 +13,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteItem = exports.putItem = exports.postItem = exports.getItem = exports.getItems = void 0;
+const tbl_catalogo_1 = __importDefault(require("../models/tbl_catalogo"));
 const tbl_item_1 = __importDefault(require("../models/tbl_item"));
 const getItems = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const items = yield tbl_item_1.default.findAll({
         where: {
             ite_estado: true
+        },
+        include: {
+            model: tbl_catalogo_1.default
         }
     });
     if (!items) {

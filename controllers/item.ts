@@ -1,10 +1,14 @@
 import { Request, Response } from "express";
+import Catalogo from "../models/tbl_catalogo";
 import Item from "../models/tbl_item";
 
 export const getItems = async (req: Request, res: Response) => {
     const items = await Item.findAll({
         where: {
             ite_estado: true
+        },
+        include: {
+            model: Catalogo
         }
     });
     if (!items) {

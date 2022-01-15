@@ -1,20 +1,30 @@
 import { Request, Response } from "express";
 import Animales from '../models/tbl_animales';
+import Finca from "../models/tbl_finca";
+import Item from "../models/tbl_item";
 
 export const getAnimales = async (req: Request, res: Response) => {
     const animales = await Animales.findAll({
         where: {
             ani_estado: true
-        }
+        },
+        include: [
+            { model: Finca },
+            { model: Item}
+        ]
+            
+        
     });
 
     if (!animales) {
-        return res.status(500)
+        return res.status(400).json({
+            msg: `No existen animales en la base de datos`
+        })
     }
 
     res.json({
         msg: "Lista de animales",
-        animales
+        dato: animales
     })
 }
 
@@ -24,7 +34,11 @@ export const getAnimal = async (req: Request, res: Response) => {
         where: {
             ani_codigo,
             ani_estado: true,
-        }
+        },
+        include: [
+            { model: Finca },
+            { model: Item}
+        ]
     });
 
     if (!animal) {
@@ -35,7 +49,7 @@ export const getAnimal = async (req: Request, res: Response) => {
 
     res.json({
         msg: `Se encontró al animal`,
-        animal
+        dato: [animal]
     })
 }
 

@@ -82,8 +82,7 @@ const postPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         per_correo,
         per_telefono,
         per_direccion,
-        rol_id,
-        tblRolRolId: rol_id
+        rol_id
     };
     const persona = yield tbl_personas_1.default.build(nuevaPersona);
     persona.save();

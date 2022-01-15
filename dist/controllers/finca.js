@@ -14,10 +14,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteFinca = exports.putFinca = exports.postFinca = exports.getFinca = exports.getFincas = void 0;
 const tbl_finca_1 = __importDefault(require("../models/tbl_finca"));
+const tbl_personas_1 = __importDefault(require("../models/tbl_personas"));
 const getFincas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const fincas = yield tbl_finca_1.default.findAll({
         where: {
             fin_estado: true
+        },
+        include: {
+            model: tbl_personas_1.default
         }
     });
     if (!fincas) {
@@ -33,7 +37,7 @@ const getFincas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.getFincas = getFincas;
 const getFinca = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { fin_id } = req.params;
-    const fincaBuscada = yield tbl_finca_1.default.findByPk(fin_id);
+    const fincaBuscada = yield tbl_finca_1.default.findByPk(fin_id, { include: { model: tbl_personas_1.default } });
     if (!fincaBuscada) {
         return res.status(400).json({
             msg: `No existe ninguna finca con el id: ${fin_id}`

@@ -8,9 +8,10 @@ export const getFincasPersonas = async (req: Request, res: Response) => {
         where: {
             fper_estado: true
         },
-        // include: [
-        //     {model: Persona},{model:Finca}
-        // ]
+        include: [
+            { model: Persona },
+            { model: Finca }
+        ]
     });
     if (!fincasPersonas) {
         return res.status(400).json({
