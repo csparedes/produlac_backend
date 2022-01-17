@@ -25,6 +25,30 @@ export const getFincasPersonas = async (req: Request, res: Response) => {
     })
 }
 
+export const getFincasDePersona = async (req: Request, res: Response) => {
+    const { per_id } = req.params;
+    const fincasPersonas = await FincaPersona.findAll({
+        where: {
+            fper_estado: true,
+            per_id
+        },
+        include: [
+            { model: Persona },
+            { model: Finca }
+        ]
+    });
+    if (!fincasPersonas) {
+        return res.status(400).json({
+            msg: `No existe ningún registro de fincas-personas en la base de datos`
+        })
+    }
+
+    res.json({
+        msg: `Lista de personas`,
+        fincasPersonas
+    })
+}
+
 export const getFincaPersona = async (req: Request, res: Response) => {
     const { fper_id } = req.params;
     const fincaPersona = await FincaPersona.findByPk(fper_id);
