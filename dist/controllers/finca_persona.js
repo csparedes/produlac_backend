@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteFincaPersona = exports.putFincaPersona = exports.postFincaPersona = exports.getFincaPersona = exports.getFincasPersonas = void 0;
+exports.deleteFincaPersona = exports.putFincaPersona = exports.postFincaPersona = exports.getFincaPersona = exports.getFincasDePersona = exports.getFincasPersonas = void 0;
 const tbl_finca_1 = __importDefault(require("../models/tbl_finca"));
 const tbl_fincapersona_1 = __importDefault(require("../models/tbl_fincapersona"));
 const tbl_personas_1 = __importDefault(require("../models/tbl_personas"));
@@ -37,6 +37,29 @@ const getFincasPersonas = (req, res) => __awaiter(void 0, void 0, void 0, functi
     });
 });
 exports.getFincasPersonas = getFincasPersonas;
+const getFincasDePersona = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { per_id } = req.params;
+    const fincasPersonas = yield tbl_fincapersona_1.default.findAll({
+        where: {
+            fper_estado: true,
+            per_id
+        },
+        include: [
+            { model: tbl_personas_1.default },
+            { model: tbl_finca_1.default }
+        ]
+    });
+    if (!fincasPersonas) {
+        return res.status(400).json({
+            msg: `No existe ningún registro de fincas-personas en la base de datos`
+        });
+    }
+    res.json({
+        msg: `Lista de personas`,
+        fincasPersonas
+    });
+});
+exports.getFincasDePersona = getFincasDePersona;
 const getFincaPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { fper_id } = req.params;
     const fincaPersona = yield tbl_fincapersona_1.default.findByPk(fper_id);
