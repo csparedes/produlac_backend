@@ -25,7 +25,13 @@ export const getTratamientos = async (req: Request, res: Response) => {
 
 export const getTratamiento = async (req: Request, res: Response) => {
     const { tra_id } = req.params;
-    const tratamiento = await Tratamiento.findByPk(tra_id, { include: { model: Animales } });
+    const tratamiento = await Tratamiento.findOne({
+        where: {
+            tra_id,
+            tra_estado: true
+        },
+        include: { model: Animales }
+    });
     if (!tratamiento) {
         return res.status(400).json({
             msg: `No existe tratamiento con el id: ${tra_id}`
@@ -63,7 +69,12 @@ export const postTratamiento = async (req: Request, res: Response) => {
 
 export const putTratamiento = async (req: Request, res: Response) => {
     const { tra_id } = req.params;
-    const tratamiento = await Tratamiento.findByPk(tra_id);
+    const tratamiento = await Tratamiento.findOne({
+        where: {
+            tra_id,
+            tra_estado: true
+        }
+    })
     if (!tratamiento) {
         return res.status(400).json({
             msg: `No existe ningún tratamiento con el id: ${tra_id}`
@@ -94,7 +105,12 @@ export const putTratamiento = async (req: Request, res: Response) => {
 
 export const deleteTratamiento = async (req: Request, res: Response) => {
     const { tra_id } = req.params;
-    const tratamiento = await Tratamiento.findByPk(tra_id);
+    const tratamiento = await Tratamiento.findOne({
+        where: {
+            tra_id,
+            tra_estado: true
+        }
+    })
     if (!tratamiento) {
         return res.status(400).json({
             msg: `No existe ningún tratamiento con el id: ${tra_id}`

@@ -22,7 +22,12 @@ export const getCatalogos = async (req: Request, res: Response) => {
 
 export const getCatalogo = async (req: Request, res: Response) => {
     const { cat_id } = req.params;
-    const catalogo = await Catalogo.findByPk(cat_id);
+    const catalogo = await Catalogo.findOne({
+        where: {
+            cat_id,
+            cat_estado: true
+        }
+    });
     if (!catalogo) {
         return res.status(400).json({
             msg: `No existe ningún catálogo con el id: ${cat_id}`
@@ -38,7 +43,8 @@ export const postCatalogo = async (req: Request, res: Response) => {
     const { cat_nombre } = req.body;
     const catalogoBuscado = await Catalogo.findOne({
         where: {
-            cat_nombre
+            cat_nombre,
+            cat_estado: true
         }
     });
     if (catalogoBuscado) {
@@ -58,7 +64,12 @@ export const postCatalogo = async (req: Request, res: Response) => {
 
 export const putCatalogo = async (req: Request, res: Response) => {
     const { cat_id } = req.params;
-    const catalogoBuscado = await Catalogo.findByPk(cat_id);
+    const catalogoBuscado = await Catalogo.findOne({
+        where: {
+            cat_id,
+            cat_estado: true
+        }
+    });
     if (!catalogoBuscado) {
         return res.status(400).json({
             msg: `No existe el catálogo con id: ${cat_id}`
@@ -74,7 +85,12 @@ export const putCatalogo = async (req: Request, res: Response) => {
 
 export const deleteCatalogo = async (req: Request, res: Response) => {
     const { cat_id } = req.params;
-    const catalogoBuscado = await Catalogo.findByPk(cat_id);
+    const catalogoBuscado = await Catalogo.findOne({
+        where: {
+            cat_id,
+            cat_estado: true
+        }
+    });
     if (!catalogoBuscado) {
         return res.status(400).json({
             msg: `No existe el catálogo con id: ${cat_id}`

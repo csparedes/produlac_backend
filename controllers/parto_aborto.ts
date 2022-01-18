@@ -27,7 +27,13 @@ export const getPartosAbortos = async (req: Request, res: Response) => {
 
 export const getPartoAborto = async (req: Request, res: Response) => {
     const { par_id } = req.params;
-    const partoAborto = await PartoAborto.findByPk(par_id,{include:{model: Item}});
+    const partoAborto = await PartoAborto.findOne({
+        where: {
+            par_id,
+            par_estado: true
+        },
+        include: { model: Item }
+    });
     if (!partoAborto) {
         return res.status(400).json({
             msg: `No se encontró un registro con el id: ${par_id}`
@@ -61,7 +67,12 @@ export const postPartoAborto = async (req: Request, res: Response) => {
 
 export const putPartoAborto = async (req: Request, res: Response) => {
     const { par_id } = req.params;
-    const partoAborto = await PartoAborto.findByPk(par_id);
+    const partoAborto = await PartoAborto.findOne({
+        where: {
+            par_id,
+            par_estado: true
+        }
+    })
     if (!partoAborto) {
         return res.status(400).json({
             msg: `No existe un registro de parto/aborto con el id: ${par_id}`
@@ -87,7 +98,12 @@ export const putPartoAborto = async (req: Request, res: Response) => {
 
 export const deletePartoAborto = async (req: Request, res: Response) => {
     const { par_id } = req.params;
-    const partoAborto = await PartoAborto.findByPk(par_id);
+    const partoAborto = await PartoAborto.findOne({
+        where: {
+            par_id,
+            par_estado: true
+        }
+    })
     if (!partoAborto) {
         return res.status(400).json({
             msg: `No existe un registro de parto/aborto con el id: ${par_id}`

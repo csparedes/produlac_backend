@@ -37,7 +37,11 @@ const getProdIndividuales = (req, res) => __awaiter(void 0, void 0, void 0, func
 exports.getProdIndividuales = getProdIndividuales;
 const getProdIndividual = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { pro_id } = req.params;
-    const prodIndividual = yield tbl_prodindividual_1.default.findByPk(pro_id, {
+    const prodIndividual = yield tbl_prodindividual_1.default.findOne({
+        where: {
+            pro_id,
+            pro_estado: true
+        },
         include: {
             model: tbl_animales_1.default
         }
@@ -71,7 +75,12 @@ const postProdIndividuales = (req, res) => __awaiter(void 0, void 0, void 0, fun
 exports.postProdIndividuales = postProdIndividuales;
 const putProdIndividual = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { pro_id } = req.params;
-    const prodIndividual = yield tbl_prodindividual_1.default.findByPk(pro_id);
+    const prodIndividual = yield tbl_prodindividual_1.default.findOne({
+        where: {
+            pro_id,
+            pro_estado: true
+        }
+    });
     if (!prodIndividual) {
         return res.status(400).json({
             msg: `No existe registro de prodIndividual de id: ${pro_id}`
@@ -93,7 +102,12 @@ const putProdIndividual = (req, res) => __awaiter(void 0, void 0, void 0, functi
 exports.putProdIndividual = putProdIndividual;
 const deleteProdIndividual = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { pro_id } = req.params;
-    const prodIndividual = yield tbl_prodindividual_1.default.findByPk(pro_id);
+    const prodIndividual = yield tbl_prodindividual_1.default.findOne({
+        where: {
+            pro_id,
+            pro_estado: true
+        }
+    });
     if (!prodIndividual) {
         return res.status(400).json({
             msg: `No existe registro de prodIndividual de id: ${pro_id}`

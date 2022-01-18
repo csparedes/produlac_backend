@@ -33,7 +33,12 @@ const getRoles = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.getRoles = getRoles;
 const getRol = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { rol_id } = req.params;
-    const rol = yield tbl_rol_1.default.findByPk(rol_id);
+    const rol = yield tbl_rol_1.default.findOne({
+        where: {
+            rol_id,
+            rol_estado: true
+        }
+    });
     if (!rol) {
         return res.status(400).json({
             msg: `No existe el rol de id: ${rol_id}`
@@ -68,7 +73,12 @@ const postRol = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.postRol = postRol;
 const putRol = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { rol_id } = req.params;
-    const rol = yield tbl_rol_1.default.findByPk(rol_id);
+    const rol = yield tbl_rol_1.default.findOne({
+        where: {
+            rol_id,
+            rol_estado: true
+        }
+    });
     if (!rol) {
         return res.status(400).json({
             msg: `No existe el rol de id: ${rol_id}`
@@ -84,7 +94,12 @@ const putRol = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.putRol = putRol;
 const deleteRol = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { rol_id } = req.params;
-    const rol = yield tbl_rol_1.default.findByPk(rol_id);
+    const rol = yield tbl_rol_1.default.findOne({
+        where: {
+            rol_id,
+            rol_estado: true
+        }
+    });
     if (!rol) {
         return res.status(400).json({
             msg: `No existe el rol de id: ${rol_id}`

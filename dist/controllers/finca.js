@@ -37,7 +37,15 @@ const getFincas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.getFincas = getFincas;
 const getFinca = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { fin_id } = req.params;
-    const fincaBuscada = yield tbl_finca_1.default.findByPk(fin_id, { include: { model: tbl_personas_1.default } });
+    const fincaBuscada = yield tbl_finca_1.default.findOne({
+        where: {
+            fin_id,
+            fin_estado: true
+        },
+        include: {
+            model: tbl_personas_1.default
+        }
+    });
     if (!fincaBuscada) {
         return res.status(400).json({
             msg: `No existe ninguna finca con el id: ${fin_id}`
@@ -53,7 +61,8 @@ const postFinca = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { fin_nombre, fin_extension, fin_imagen, fin_pais, fin_provincia, fin_ciudad, fin_telefono, per_id } = req.body;
     const fincaBuscar = yield tbl_finca_1.default.findOne({
         where: {
-            fin_nombre
+            fin_nombre,
+            fin_estado: true
         },
     });
     if (fincaBuscar) {
@@ -81,7 +90,12 @@ const postFinca = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.postFinca = postFinca;
 const putFinca = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { fin_id } = req.params;
-    const finca = yield tbl_finca_1.default.findByPk(fin_id);
+    const finca = yield tbl_finca_1.default.findOne({
+        where: {
+            fin_id,
+            fin_estado: true
+        },
+    });
     if (!finca) {
         return res.status(400).json({
             msg: `No existe la finca con el id: ${fin_id}`
@@ -107,7 +121,12 @@ const putFinca = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.putFinca = putFinca;
 const deleteFinca = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { fin_id } = req.params;
-    const finca = yield tbl_finca_1.default.findByPk(fin_id);
+    const finca = yield tbl_finca_1.default.findOne({
+        where: {
+            fin_id,
+            fin_estado: true
+        },
+    });
     if (!finca) {
         return res.status(400).json({
             msg: `No existe la finca con el id: ${fin_id}`

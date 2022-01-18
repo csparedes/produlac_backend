@@ -24,7 +24,11 @@ export const getProdGlobales = async (req: Request, res: Response) => {
 
 export const getProdGlobal = async (req: Request, res: Response) => {
     const { pglo_id } = req.params;
-    const prodGlobal = await ProdGlobal.findByPk(pglo_id, {
+    const prodGlobal = await ProdGlobal.findOne({
+        where: {
+            pglo_id,
+            pglo_estado: true
+        },
         include: {
             model: Finca
         }
@@ -64,7 +68,12 @@ export const postProdGlobal = async (req: Request, res: Response) => {
 
 export const putProdGlobal = async (req: Request, res: Response) => {
     const { pglo_id } = req.params;
-    const prodGlobal = await ProdGlobal.findByPk(pglo_id);
+    const prodGlobal = await ProdGlobal.findOne({
+        where: {
+            pglo_id,
+            pglo_estado: true
+        }
+    });
     if (!prodGlobal) {
         return res.status(400).json({
             msg: `No se encontró el registro con el id: ${pglo_id}`
@@ -92,7 +101,12 @@ export const putProdGlobal = async (req: Request, res: Response) => {
 
 export const deleteProdGlobar = async (req: Request, res: Response) => {
     const { pglo_id } = req.params;
-    const prodGlobal = await ProdGlobal.findByPk(pglo_id);
+    const prodGlobal = await ProdGlobal.findOne({
+        where: {
+            pglo_id,
+            pglo_estado: true
+        }
+    });
     if (!prodGlobal) {
         return res.status(400).json({
             msg: `No se encontró el registro con el id: ${pglo_id}`

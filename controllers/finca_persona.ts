@@ -51,7 +51,12 @@ export const getFincasDePersona = async (req: Request, res: Response) => {
 
 export const getFincaPersona = async (req: Request, res: Response) => {
     const { fper_id } = req.params;
-    const fincaPersona = await FincaPersona.findByPk(fper_id);
+    const fincaPersona = await FincaPersona.findOne({
+        where: {
+            fper_id,
+            fper_estado: true
+        }
+    });
     if (!fincaPersona) {
         return res.status(400).json({
             msg: `No existe ningún registro en la base de datos`
@@ -68,7 +73,8 @@ export const postFincaPersona = async (req: Request, res: Response) => {
     const fincaPersonaBuscada = await FincaPersona.findOne({
         where: {
             per_id,
-            fin_id
+            fin_id,
+            fper_estado: true
         }
     });
     if (fincaPersonaBuscada) {
@@ -90,7 +96,12 @@ export const postFincaPersona = async (req: Request, res: Response) => {
 
 export const putFincaPersona = async (req: Request, res: Response) => {
     const { fper_id } = req.params;
-    const fincaPersonaBuscada = await FincaPersona.findByPk(fper_id);
+    const fincaPersonaBuscada = await FincaPersona.findOne({
+        where: {
+            fper_id,
+            fper_estado: true
+        }
+    })
     if (!fincaPersonaBuscada) {
         return res.status(400).json({
             msg: `El registro no consta en la base de datos`
@@ -108,7 +119,12 @@ export const putFincaPersona = async (req: Request, res: Response) => {
 
 export const deleteFincaPersona = async (req: Request, res: Response) => {
     const { fper_id } = req.params;
-    const fincaPersonaBuscada = await FincaPersona.findByPk(fper_id);
+    const fincaPersonaBuscada = await FincaPersona.findOne({
+        where: {
+            fper_id,
+            fper_estado: true
+        }
+    });
     if (!fincaPersonaBuscada) {
         return res.status(400).json({
             msg: `El registro no consta en la base de datos`

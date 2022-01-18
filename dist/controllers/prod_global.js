@@ -37,7 +37,11 @@ const getProdGlobales = (req, res) => __awaiter(void 0, void 0, void 0, function
 exports.getProdGlobales = getProdGlobales;
 const getProdGlobal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { pglo_id } = req.params;
-    const prodGlobal = yield tbl_prodglobal_1.default.findByPk(pglo_id, {
+    const prodGlobal = yield tbl_prodglobal_1.default.findOne({
+        where: {
+            pglo_id,
+            pglo_estado: true
+        },
         include: {
             model: tbl_finca_1.default
         }
@@ -71,7 +75,12 @@ const postProdGlobal = (req, res) => __awaiter(void 0, void 0, void 0, function*
 exports.postProdGlobal = postProdGlobal;
 const putProdGlobal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { pglo_id } = req.params;
-    const prodGlobal = yield tbl_prodglobal_1.default.findByPk(pglo_id);
+    const prodGlobal = yield tbl_prodglobal_1.default.findOne({
+        where: {
+            pglo_id,
+            pglo_estado: true
+        }
+    });
     if (!prodGlobal) {
         return res.status(400).json({
             msg: `No se encontró el registro con el id: ${pglo_id}`
@@ -93,7 +102,12 @@ const putProdGlobal = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 exports.putProdGlobal = putProdGlobal;
 const deleteProdGlobar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { pglo_id } = req.params;
-    const prodGlobal = yield tbl_prodglobal_1.default.findByPk(pglo_id);
+    const prodGlobal = yield tbl_prodglobal_1.default.findOne({
+        where: {
+            pglo_id,
+            pglo_estado: true
+        }
+    });
     if (!prodGlobal) {
         return res.status(400).json({
             msg: `No se encontró el registro con el id: ${pglo_id}`

@@ -37,7 +37,11 @@ const getSubMenus = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.getSubMenus = getSubMenus;
 const getSubMenu = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { smen_id } = req.params;
-    const subMenu = yield tbl_submenu_1.default.findByPk(smen_id, {
+    const subMenu = yield tbl_submenu_1.default.findOne({
+        where: {
+            smen_id,
+            smen_estado: true
+        },
         include: {
             model: tbl_menu_1.default
         }
@@ -80,7 +84,12 @@ const postSubMenu = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.postSubMenu = postSubMenu;
 const putSubMenu = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { smen_id } = req.params;
-    const subMenu = yield tbl_submenu_1.default.findByPk(smen_id);
+    const subMenu = yield tbl_submenu_1.default.findOne({
+        where: {
+            smen_id,
+            smen_estado: true
+        }
+    });
     if (!subMenu) {
         return res.status(400).json({
             msg: `No existe el submenu de id: ${smen_id}`
@@ -100,7 +109,12 @@ const putSubMenu = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.putSubMenu = putSubMenu;
 const deleteSubMenu = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { smen_id } = req.params;
-    const subMenu = yield tbl_submenu_1.default.findByPk(smen_id);
+    const subMenu = yield tbl_submenu_1.default.findOne({
+        where: {
+            smen_id,
+            smen_estado: true
+        }
+    });
     if (!subMenu) {
         return res.status(400).json({
             msg: `No existe el submenu de id: ${smen_id}`

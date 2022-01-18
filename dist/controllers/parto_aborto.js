@@ -37,7 +37,13 @@ const getPartosAbortos = (req, res) => __awaiter(void 0, void 0, void 0, functio
 exports.getPartosAbortos = getPartosAbortos;
 const getPartoAborto = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { par_id } = req.params;
-    const partoAborto = yield tbl_partoaborto_1.default.findByPk(par_id, { include: { model: tbl_item_1.default } });
+    const partoAborto = yield tbl_partoaborto_1.default.findOne({
+        where: {
+            par_id,
+            par_estado: true
+        },
+        include: { model: tbl_item_1.default }
+    });
     if (!partoAborto) {
         return res.status(400).json({
             msg: `No se encontró un registro con el id: ${par_id}`
@@ -66,7 +72,12 @@ const postPartoAborto = (req, res) => __awaiter(void 0, void 0, void 0, function
 exports.postPartoAborto = postPartoAborto;
 const putPartoAborto = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { par_id } = req.params;
-    const partoAborto = yield tbl_partoaborto_1.default.findByPk(par_id);
+    const partoAborto = yield tbl_partoaborto_1.default.findOne({
+        where: {
+            par_id,
+            par_estado: true
+        }
+    });
     if (!partoAborto) {
         return res.status(400).json({
             msg: `No existe un registro de parto/aborto con el id: ${par_id}`
@@ -87,7 +98,12 @@ const putPartoAborto = (req, res) => __awaiter(void 0, void 0, void 0, function*
 exports.putPartoAborto = putPartoAborto;
 const deletePartoAborto = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { par_id } = req.params;
-    const partoAborto = yield tbl_partoaborto_1.default.findByPk(par_id);
+    const partoAborto = yield tbl_partoaborto_1.default.findOne({
+        where: {
+            par_id,
+            par_estado: true
+        }
+    });
     if (!partoAborto) {
         return res.status(400).json({
             msg: `No existe un registro de parto/aborto con el id: ${par_id}`

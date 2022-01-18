@@ -25,7 +25,11 @@ export const getMenus = async (req: Request, res: Response) => {
 
 export const getMenu = async (req: Request, res: Response) => {
     const { men_id } = req.params;
-    const menu = await Menu.findByPk(men_id, {
+    const menu = await Menu.findOne({
+        where: {
+            men_id,
+            men_estado: true
+        },
         include: {
             model: Rol
         }
@@ -65,7 +69,12 @@ export const postMenu = async (req: Request, res: Response) => {
 
 export const putMenu = async (req: Request, res: Response) => {
     const { men_id } = req.params;
-    const menu = await Menu.findByPk(men_id);
+    const menu = await Menu.findOne({
+        where: {
+            men_id,
+            men_estado: true
+        }
+    })
     if (!menu) {
         return res.status(400).json({
             msg: `No existe el menú con el item: ${men_id}`
@@ -81,7 +90,12 @@ export const putMenu = async (req: Request, res: Response) => {
 
 export const deleteMenu = async (req: Request, res: Response) => {
     const { men_id } = req.params;
-    const menu = await Menu.findByPk(men_id);
+    const menu = await Menu.findOne({
+        where: {
+            men_id,
+            men_estado: true
+        }
+    });
     if (!menu) {
         return res.status(400).json({
             msg: `No existe el menú con el item: ${men_id}`

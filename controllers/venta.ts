@@ -75,7 +75,12 @@ export const postVenta = async (req: Request, res: Response) => {
 
 export const putVenta = async (req: Request, res: Response) => {
     const { ven_id } = req.params;
-    const venta = await Venta.findByPk(ven_id);
+    const venta = await Venta.findOne({
+        where: {
+            ven_id,
+            ven_estado: true
+        }
+    })
     if (!venta) {
         return res.status(400).json({
             msg: `No existe un registro de venta con id: ${ven_id}`
@@ -110,7 +115,12 @@ export const putVenta = async (req: Request, res: Response) => {
 
 export const deleteVenta = async (req: Request, res: Response) => {
     const { ven_id } = req.params;
-    const venta = await Venta.findByPk(ven_id);
+    const venta = await Venta.findOne({
+        where: {
+            ven_id,
+            ven_estado: true
+        }
+    })
     if (!venta) {
         return res.status(400).json({
             msg: `No existe un registro de venta con id: ${ven_id}`

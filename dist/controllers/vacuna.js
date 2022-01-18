@@ -37,7 +37,11 @@ const getVacunas = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.getVacunas = getVacunas;
 const getVacuna = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { vac_id } = req.params;
-    const vacuna = yield tbl_vacuna_1.default.findByPk(vac_id, {
+    const vacuna = yield tbl_vacuna_1.default.findOne({
+        where: {
+            vac_id,
+            vac_estado: true
+        },
         include: {
             model: tbl_animales_1.default
         }
@@ -71,7 +75,12 @@ const postVacuna = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.postVacuna = postVacuna;
 const putVacuna = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { vac_id } = req.params;
-    const vacuna = yield tbl_vacuna_1.default.findByPk(vac_id);
+    const vacuna = yield tbl_vacuna_1.default.findOne({
+        where: {
+            vac_id,
+            vac_estado: true
+        }
+    });
     if (!vacuna) {
         return res.status(400).json({
             msg: `No existe un registro de vacuna con el id: ${vac_id}`
@@ -93,7 +102,12 @@ const putVacuna = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.putVacuna = putVacuna;
 const deleteVacuna = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { vac_id } = req.params;
-    const vacuna = yield tbl_vacuna_1.default.findByPk(vac_id);
+    const vacuna = yield tbl_vacuna_1.default.findOne({
+        where: {
+            vac_id,
+            vac_estado: true
+        }
+    });
     if (!vacuna) {
         return res.status(400).json({
             msg: `No existe un registro de vacuna con el id: ${vac_id}`

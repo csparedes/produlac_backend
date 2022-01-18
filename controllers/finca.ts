@@ -26,7 +26,15 @@ export const getFincas = async (req: Request, res: Response) => {
 
 export const getFinca = async (req: Request, res: Response) => {
     const { fin_id } = req.params;
-    const fincaBuscada = await Finca.findByPk(fin_id,{include: {model: Persona}});
+    const fincaBuscada = await Finca.findOne({
+        where: {
+            fin_id,
+            fin_estado: true
+        },
+        include: {
+            model: Persona
+        }
+    })
     if (!fincaBuscada) {
         return res.status(400).json({
             msg: `No existe ninguna finca con el id: ${fin_id}`
@@ -51,7 +59,8 @@ export const postFinca = async (req: Request, res: Response) => {
     } = req.body;
     const fincaBuscar = await Finca.findOne({
         where: {
-            fin_nombre
+            fin_nombre,
+            fin_estado: true
         },
     });
     if (fincaBuscar) {
@@ -79,7 +88,12 @@ export const postFinca = async (req: Request, res: Response) => {
 
 export const putFinca = async (req: Request, res: Response) => {
     const { fin_id } = req.params;
-    const finca = await Finca.findByPk(fin_id);
+    const finca = await Finca.findOne({
+        where: {
+            fin_id,
+            fin_estado: true
+        },
+    });
     if (!finca) {
         return res.status(400).json({
             msg: `No existe la finca con el id: ${fin_id}`
@@ -115,7 +129,12 @@ export const putFinca = async (req: Request, res: Response) => {
 
 export const deleteFinca = async (req: Request, res: Response) => {
     const { fin_id } = req.params;
-    const finca = await Finca.findByPk(fin_id);
+    const finca = await Finca.findOne({
+        where: {
+            fin_id,
+            fin_estado: true
+        },
+    });
     if (!finca) {
         return res.status(400).json({
             msg: `No existe la finca con el id: ${fin_id}`
