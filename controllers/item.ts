@@ -22,6 +22,28 @@ export const getItems = async (req: Request, res: Response) => {
     });
 }
 
+export const getItemsPorCategoria = async (req: Request, res: Response) => {
+    const { cat_id } = req.params;
+    const items = await Item.findAll({
+        where: {
+            cat_id,
+            ite_estado: true
+        },
+        include: {
+            model: Catalogo
+        }
+    });
+    if (!items) {
+        return res.status(400).json({
+            msg: `No existe la lista de items`
+        });
+    }
+    res.json({
+        msg: `Lista de Items`,
+        dato: items
+    });
+}
+
 export const getItem = async (req: Request, res: Response) => {
     const { ite_id } = req.params;
     const item = await Item.findOne({

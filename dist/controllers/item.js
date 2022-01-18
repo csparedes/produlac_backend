@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteItem = exports.putItem = exports.postItem = exports.getItem = exports.getItems = void 0;
+exports.deleteItem = exports.putItem = exports.postItem = exports.getItem = exports.getItemsPorCategoria = exports.getItems = void 0;
 const tbl_catalogo_1 = __importDefault(require("../models/tbl_catalogo"));
 const tbl_item_1 = __importDefault(require("../models/tbl_item"));
 const getItems = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -35,6 +35,28 @@ const getItems = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     });
 });
 exports.getItems = getItems;
+const getItemsPorCategoria = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { cat_id } = req.params;
+    const items = yield tbl_item_1.default.findAll({
+        where: {
+            cat_id,
+            ite_estado: true
+        },
+        include: {
+            model: tbl_catalogo_1.default
+        }
+    });
+    if (!items) {
+        return res.status(400).json({
+            msg: `No existe la lista de items`
+        });
+    }
+    res.json({
+        msg: `Lista de Items`,
+        dato: items
+    });
+});
+exports.getItemsPorCategoria = getItemsPorCategoria;
 const getItem = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { ite_id } = req.params;
     const item = yield tbl_item_1.default.findOne({
