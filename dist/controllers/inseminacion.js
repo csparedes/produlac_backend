@@ -39,7 +39,11 @@ const getInseminaciones = (req, res) => __awaiter(void 0, void 0, void 0, functi
 exports.getInseminaciones = getInseminaciones;
 const getInseminacion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { ins_id } = req.params;
-    const inseminacion = yield tbl_inseminacion_1.default.findByPk(ins_id, {
+    const inseminacion = yield tbl_inseminacion_1.default.findOne({
+        where: {
+            ins_id,
+            ins_estado: true
+        },
         include: [
             { model: tbl_personas_1.default },
             { model: tbl_animales_1.default }
@@ -78,7 +82,12 @@ const postInseminacion = (req, res) => __awaiter(void 0, void 0, void 0, functio
 exports.postInseminacion = postInseminacion;
 const putInseminacion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { ins_id } = req.params;
-    const inseminacion = yield tbl_inseminacion_1.default.findByPk(ins_id);
+    const inseminacion = yield tbl_inseminacion_1.default.findOne({
+        where: {
+            ins_id,
+            ins_estado: true
+        }
+    });
     if (!inseminacion) {
         return res.status(400).json({
             msg: `No existe el registro de inseminación con el id: ${ins_id}`
@@ -104,7 +113,12 @@ const putInseminacion = (req, res) => __awaiter(void 0, void 0, void 0, function
 exports.putInseminacion = putInseminacion;
 const deleteInseminacion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { ins_id } = req.params;
-    const inseminacion = yield tbl_inseminacion_1.default.findByPk(ins_id);
+    const inseminacion = yield tbl_inseminacion_1.default.findOne({
+        where: {
+            ins_id,
+            ins_estado: true
+        }
+    });
     if (!inseminacion) {
         return res.status(400).json({
             msg: `No existe el dato de inseminación con id: ${ins_id}`

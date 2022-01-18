@@ -25,7 +25,13 @@ export const getDecesos = async (req: Request, res: Response) => {
 
 export const getDeceso = async (req: Request, res: Response) => {
     const { dec_id } = req.params;
-    const deceso = await Deceso.findByPk(dec_id, { include: { model: Animales } });
+    const deceso = await Deceso.findOne({
+        where: {
+            dec_id,
+            dec_estado: true
+        },
+        include: { model: Animales }
+    });
     if (!deceso) {
         return res.status(400).json({
             msg: `No existe ningún registro con el id: ${dec_id}`
@@ -58,7 +64,12 @@ export const postDeceso = async (req: Request, res: Response) => {
 
 export const putDeceso = async (req: Request, res: Response) => {
     const { dec_id } = req.params;
-    const decesoActual = await Deceso.findByPk(dec_id);
+    const decesoActual = await Deceso.findOne({
+        where: {
+            dec_id,
+            dec_estado: true
+        },
+    });
     if (!decesoActual) {
         return res.status(400).json({
             msg: `No existe un deceso con el id: ${dec_id}`
@@ -82,7 +93,12 @@ export const putDeceso = async (req: Request, res: Response) => {
 
 export const deleteDeceso = async (req: Request, res: Response) => {
     const { dec_id } = req.params;
-    const decesoActual = await Deceso.findByPk(dec_id);
+    const decesoActual = await Deceso.findOne({
+        where: {
+            dec_id,
+            dec_estado: true
+        },
+    });
     if (!decesoActual) {
         return res.status(400).json({
             msg: `No existe un deceso con el id: ${dec_id}`

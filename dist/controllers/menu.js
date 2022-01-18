@@ -37,7 +37,11 @@ const getMenus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.getMenus = getMenus;
 const getMenu = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { men_id } = req.params;
-    const menu = yield tbl_menu_1.default.findByPk(men_id, {
+    const menu = yield tbl_menu_1.default.findOne({
+        where: {
+            men_id,
+            men_estado: true
+        },
         include: {
             model: tbl_rol_1.default
         }
@@ -76,7 +80,12 @@ const postMenu = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.postMenu = postMenu;
 const putMenu = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { men_id } = req.params;
-    const menu = yield tbl_menu_1.default.findByPk(men_id);
+    const menu = yield tbl_menu_1.default.findOne({
+        where: {
+            men_id,
+            men_estado: true
+        }
+    });
     if (!menu) {
         return res.status(400).json({
             msg: `No existe el menú con el item: ${men_id}`
@@ -92,7 +101,12 @@ const putMenu = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.putMenu = putMenu;
 const deleteMenu = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { men_id } = req.params;
-    const menu = yield tbl_menu_1.default.findByPk(men_id);
+    const menu = yield tbl_menu_1.default.findOne({
+        where: {
+            men_id,
+            men_estado: true
+        }
+    });
     if (!menu) {
         return res.status(400).json({
             msg: `No existe el menú con el item: ${men_id}`

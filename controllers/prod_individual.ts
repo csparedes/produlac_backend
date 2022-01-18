@@ -25,7 +25,11 @@ export const getProdIndividuales = async (req: Request, res: Response) => {
 
 export const getProdIndividual = async (req: Request, res: Response) => {
     const { pro_id } = req.params;
-    const prodIndividual = await ProdIndividual.findByPk(pro_id, {
+    const prodIndividual = await ProdIndividual.findOne({
+        where: {
+            pro_id,
+            pro_estado: true
+        },
         include: {
         model: Animales
     }});
@@ -64,7 +68,12 @@ export const postProdIndividuales = async (req: Request, res: Response) => {
 
 export const putProdIndividual = async (req: Request, res: Response) => {
     const { pro_id } = req.params;
-    const prodIndividual = await ProdIndividual.findByPk(pro_id);
+    const prodIndividual = await ProdIndividual.findOne({
+        where: {
+            pro_id,
+            pro_estado: true
+        }
+    });
     if (!prodIndividual) {
         return res.status(400).json({
             msg:`No existe registro de prodIndividual de id: ${pro_id}`
@@ -92,7 +101,12 @@ export const putProdIndividual = async (req: Request, res: Response) => {
 
 export const deleteProdIndividual = async (req: Request, res: Response) => {
     const { pro_id } = req.params;
-    const prodIndividual = await ProdIndividual.findByPk(pro_id);
+    const prodIndividual = await ProdIndividual.findOne({
+        where: {
+            pro_id,
+            pro_estado: true
+        }
+    });
     if (!prodIndividual) {
         return res.status(400).json({
             msg:`No existe registro de prodIndividual de id: ${pro_id}`

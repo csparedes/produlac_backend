@@ -20,7 +20,12 @@ export const getRoles = async (req: Request, res: Response) => {
 
 export const getRol = async (req: Request, res: Response) => {
     const { rol_id } = req.params;
-    const rol = await Rol.findByPk(rol_id);
+    const rol = await Rol.findOne({
+        where: {
+            rol_id,
+            rol_estado: true
+        }
+    });
     if (!rol) {
         return res.status(400).json({
             msg: `No existe el rol de id: ${rol_id}`
@@ -55,7 +60,12 @@ export const postRol = async (req: Request, res: Response) => {
 
 export const putRol = async (req: Request, res: Response) => {
     const { rol_id } = req.params;
-    const rol = await Rol.findByPk(rol_id);
+    const rol = await Rol.findOne({
+        where: {
+            rol_id,
+            rol_estado: true
+        }
+    });
     if (!rol) {
         return res.status(400).json({
             msg: `No existe el rol de id: ${rol_id}`
@@ -71,7 +81,12 @@ export const putRol = async (req: Request, res: Response) => {
 
 export const deleteRol = async (req: Request, res: Response) => {
     const { rol_id } = req.params;
-    const rol = await Rol.findByPk(rol_id);
+    const rol = await Rol.findOne({
+        where: {
+            rol_id,
+            rol_estado: true
+        }
+    });
     if (!rol) {
         return res.status(400).json({
             msg: `No existe el rol de id: ${rol_id}`

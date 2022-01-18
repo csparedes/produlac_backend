@@ -37,7 +37,13 @@ const getDecesos = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.getDecesos = getDecesos;
 const getDeceso = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { dec_id } = req.params;
-    const deceso = yield tbl_deceso_1.default.findByPk(dec_id, { include: { model: tbl_animales_1.default } });
+    const deceso = yield tbl_deceso_1.default.findOne({
+        where: {
+            dec_id,
+            dec_estado: true
+        },
+        include: { model: tbl_animales_1.default }
+    });
     if (!deceso) {
         return res.status(400).json({
             msg: `No existe ningún registro con el id: ${dec_id}`
@@ -66,7 +72,12 @@ const postDeceso = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.postDeceso = postDeceso;
 const putDeceso = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { dec_id } = req.params;
-    const decesoActual = yield tbl_deceso_1.default.findByPk(dec_id);
+    const decesoActual = yield tbl_deceso_1.default.findOne({
+        where: {
+            dec_id,
+            dec_estado: true
+        },
+    });
     if (!decesoActual) {
         return res.status(400).json({
             msg: `No existe un deceso con el id: ${dec_id}`
@@ -86,7 +97,12 @@ const putDeceso = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.putDeceso = putDeceso;
 const deleteDeceso = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { dec_id } = req.params;
-    const decesoActual = yield tbl_deceso_1.default.findByPk(dec_id);
+    const decesoActual = yield tbl_deceso_1.default.findOne({
+        where: {
+            dec_id,
+            dec_estado: true
+        },
+    });
     if (!decesoActual) {
         return res.status(400).json({
             msg: `No existe un deceso con el id: ${dec_id}`

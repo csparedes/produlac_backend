@@ -77,7 +77,12 @@ const postVenta = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.postVenta = postVenta;
 const putVenta = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { ven_id } = req.params;
-    const venta = yield tbl_venta_1.default.findByPk(ven_id);
+    const venta = yield tbl_venta_1.default.findOne({
+        where: {
+            ven_id,
+            ven_estado: true
+        }
+    });
     if (!venta) {
         return res.status(400).json({
             msg: `No existe un registro de venta con id: ${ven_id}`
@@ -102,7 +107,12 @@ const putVenta = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.putVenta = putVenta;
 const deleteVenta = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { ven_id } = req.params;
-    const venta = yield tbl_venta_1.default.findByPk(ven_id);
+    const venta = yield tbl_venta_1.default.findOne({
+        where: {
+            ven_id,
+            ven_estado: true
+        }
+    });
     if (!venta) {
         return res.status(400).json({
             msg: `No existe un registro de venta con id: ${ven_id}`

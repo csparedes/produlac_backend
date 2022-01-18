@@ -37,7 +37,13 @@ const getEspecies = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.getEspecies = getEspecies;
 const getEspecie = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { esp_id } = req.params;
-    const especie = yield tbl_especies_1.default.findByPk(esp_id, { include: { model: tbl_catalogo_1.default } });
+    const especie = yield tbl_especies_1.default.findOne({
+        where: {
+            esp_id,
+            esp_estado: true
+        },
+        include: { model: tbl_catalogo_1.default }
+    });
     if (!especie) {
         return res.status(400).json({
             msg: `No existe ninguna especie con el id: ${esp_id}`
@@ -53,7 +59,8 @@ const postEspecie = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     const { esp_nombre, cat_id } = req.body;
     const especieBuscada = yield tbl_especies_1.default.findOne({
         where: {
-            esp_nombre
+            esp_nombre,
+            esp_estado: true
         }
     });
     if (especieBuscada) {
@@ -71,7 +78,12 @@ const postEspecie = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.postEspecie = postEspecie;
 const putEspecie = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { esp_id } = req.params;
-    const especie = yield tbl_especies_1.default.findByPk(esp_id);
+    const especie = yield tbl_especies_1.default.findOne({
+        where: {
+            esp_id,
+            esp_estado: true
+        }
+    });
     if (!especie) {
         return res.status(400).json({
             msg: `No existe la especie con el id: ${esp_id}`
@@ -87,7 +99,12 @@ const putEspecie = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.putEspecie = putEspecie;
 const deleteEspecie = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { esp_id } = req.params;
-    const especie = yield tbl_especies_1.default.findByPk(esp_id);
+    const especie = yield tbl_especies_1.default.findOne({
+        where: {
+            esp_id,
+            esp_estado: true
+        }
+    });
     if (!especie) {
         return res.status(400).json({
             msg: `No existe la especie con el id: ${esp_id}`

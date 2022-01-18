@@ -62,7 +62,12 @@ const getFincasDePersona = (req, res) => __awaiter(void 0, void 0, void 0, funct
 exports.getFincasDePersona = getFincasDePersona;
 const getFincaPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { fper_id } = req.params;
-    const fincaPersona = yield tbl_fincapersona_1.default.findByPk(fper_id);
+    const fincaPersona = yield tbl_fincapersona_1.default.findOne({
+        where: {
+            fper_id,
+            fper_estado: true
+        }
+    });
     if (!fincaPersona) {
         return res.status(400).json({
             msg: `No existe ningún registro en la base de datos`
@@ -79,7 +84,8 @@ const postFincaPersona = (req, res) => __awaiter(void 0, void 0, void 0, functio
     const fincaPersonaBuscada = yield tbl_fincapersona_1.default.findOne({
         where: {
             per_id,
-            fin_id
+            fin_id,
+            fper_estado: true
         }
     });
     if (fincaPersonaBuscada) {
@@ -98,7 +104,12 @@ const postFincaPersona = (req, res) => __awaiter(void 0, void 0, void 0, functio
 exports.postFincaPersona = postFincaPersona;
 const putFincaPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { fper_id } = req.params;
-    const fincaPersonaBuscada = yield tbl_fincapersona_1.default.findByPk(fper_id);
+    const fincaPersonaBuscada = yield tbl_fincapersona_1.default.findOne({
+        where: {
+            fper_id,
+            fper_estado: true
+        }
+    });
     if (!fincaPersonaBuscada) {
         return res.status(400).json({
             msg: `El registro no consta en la base de datos`
@@ -114,7 +125,12 @@ const putFincaPersona = (req, res) => __awaiter(void 0, void 0, void 0, function
 exports.putFincaPersona = putFincaPersona;
 const deleteFincaPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { fper_id } = req.params;
-    const fincaPersonaBuscada = yield tbl_fincapersona_1.default.findByPk(fper_id);
+    const fincaPersonaBuscada = yield tbl_fincapersona_1.default.findOne({
+        where: {
+            fper_id,
+            fper_estado: true
+        }
+    });
     if (!fincaPersonaBuscada) {
         return res.status(400).json({
             msg: `El registro no consta en la base de datos`

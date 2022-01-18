@@ -25,7 +25,13 @@ export const getEspecies = async (req: Request, res: Response) => {
 
 export const getEspecie = async (req: Request, res: Response) => {
     const { esp_id } = req.params;
-    const especie = await Especie.findByPk(esp_id, { include: { model: Catalogo } });
+    const especie = await Especie.findOne({
+        where: {
+            esp_id,
+            esp_estado: true
+        },
+        include: { model: Catalogo }
+    });
     if (!especie) {
         return res.status(400).json({
             msg: `No existe ninguna especie con el id: ${esp_id}`
@@ -41,7 +47,8 @@ export const postEspecie = async (req: Request, res: Response) => {
     const { esp_nombre, cat_id } = req.body;
     const especieBuscada = await Especie.findOne({
         where: {
-            esp_nombre
+            esp_nombre,
+            esp_estado: true
         }
     });
     if (especieBuscada) {
@@ -60,7 +67,12 @@ export const postEspecie = async (req: Request, res: Response) => {
 
 export const putEspecie = async (req: Request, res: Response) => {
     const { esp_id } = req.params;
-    const especie = await Especie.findByPk(esp_id);
+    const especie = await Especie.findOne({
+        where: {
+            esp_id,
+            esp_estado: true
+        }
+    });
     if (!especie) {
         return res.status(400).json({
             msg: `No existe la especie con el id: ${esp_id}`
@@ -76,7 +88,12 @@ export const putEspecie = async (req: Request, res: Response) => {
 
 export const deleteEspecie = async (req: Request, res: Response) => {
     const { esp_id } = req.params;
-    const especie = await Especie.findByPk(esp_id);
+    const especie = await Especie.findOne({
+        where: {
+            esp_id,
+            esp_estado: true
+        }
+    });
     if (!especie) {
         return res.status(400).json({
             msg: `No existe la especie con el id: ${esp_id}`

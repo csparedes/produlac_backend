@@ -37,7 +37,13 @@ const getTratamientos = (req, res) => __awaiter(void 0, void 0, void 0, function
 exports.getTratamientos = getTratamientos;
 const getTratamiento = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { tra_id } = req.params;
-    const tratamiento = yield tbl_tratamiento_1.default.findByPk(tra_id, { include: { model: tbl_animales_1.default } });
+    const tratamiento = yield tbl_tratamiento_1.default.findOne({
+        where: {
+            tra_id,
+            tra_estado: true
+        },
+        include: { model: tbl_animales_1.default }
+    });
     if (!tratamiento) {
         return res.status(400).json({
             msg: `No existe tratamiento con el id: ${tra_id}`
@@ -68,7 +74,12 @@ const postTratamiento = (req, res) => __awaiter(void 0, void 0, void 0, function
 exports.postTratamiento = postTratamiento;
 const putTratamiento = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { tra_id } = req.params;
-    const tratamiento = yield tbl_tratamiento_1.default.findByPk(tra_id);
+    const tratamiento = yield tbl_tratamiento_1.default.findOne({
+        where: {
+            tra_id,
+            tra_estado: true
+        }
+    });
     if (!tratamiento) {
         return res.status(400).json({
             msg: `No existe ningún tratamiento con el id: ${tra_id}`
@@ -91,7 +102,12 @@ const putTratamiento = (req, res) => __awaiter(void 0, void 0, void 0, function*
 exports.putTratamiento = putTratamiento;
 const deleteTratamiento = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { tra_id } = req.params;
-    const tratamiento = yield tbl_tratamiento_1.default.findByPk(tra_id);
+    const tratamiento = yield tbl_tratamiento_1.default.findOne({
+        where: {
+            tra_id,
+            tra_estado: true
+        }
+    });
     if (!tratamiento) {
         return res.status(400).json({
             msg: `No existe ningún tratamiento con el id: ${tra_id}`

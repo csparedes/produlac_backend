@@ -28,7 +28,11 @@ export const getInseminaciones = async (req: Request, res: Response) => {
 
 export const getInseminacion = async (req: Request, res: Response) => {
     const { ins_id } = req.params;
-    const inseminacion = await Inseminacion.findByPk(ins_id, {
+    const inseminacion = await Inseminacion.findOne({
+        where: {
+            ins_id,
+            ins_estado: true
+        },
         include: [
             { model: Persona },
             { model: Animales }
@@ -78,7 +82,12 @@ export const postInseminacion = async (req: Request, res: Response) => {
 
 export const putInseminacion = async (req: Request, res: Response) => {
     const { ins_id } = req.params;
-    const inseminacion = await Inseminacion.findByPk(ins_id);
+    const inseminacion = await Inseminacion.findOne({
+        where: {
+            ins_id,
+            ins_estado: true
+        }
+    })
     if (!inseminacion) {
         return res.status(400).json({
             msg: `No existe el registro de inseminación con el id: ${ins_id}`
@@ -117,7 +126,12 @@ export const putInseminacion = async (req: Request, res: Response) => {
 
 export const deleteInseminacion = async (req: Request, res: Response) => {
     const { ins_id } = req.params;
-    const inseminacion = await Inseminacion.findByPk(ins_id);
+    const inseminacion = await Inseminacion.findOne({
+        where: {
+            ins_id,
+            ins_estado: true
+        }
+    });
     if (!inseminacion) {
         return res.status(400).json({
             msg: `No existe el dato de inseminación con id: ${ins_id}`

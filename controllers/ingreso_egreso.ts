@@ -27,11 +27,16 @@ export const getIngresosEgresos = async (req: Request, res: Response) => {
 
 export const getIngresoEgreso = async (req: Request, res: Response) => {
     const { ing_id } = req.params;
-    const ingresoEgreso = await IngresoEgreso.findByPk(ing_id, {
+    const ingresoEgreso = await IngresoEgreso.findOne({
+        where: {
+            ing_id,
+            ing_estado: true
+        },
         include: [
             { model: Finca },
             { model: Item }
-    ]});
+        ]
+    })
     
     if (!ingresoEgreso) {
         return res.status(400).json({
@@ -71,7 +76,12 @@ export const postIngresoEgreso = async (req: Request, res: Response) => {
 
 export const putIngresoEgreso = async (req: Request, res: Response) => {
     const { ing_id } = req.params;
-    const ingresoEgreso = await IngresoEgreso.findByPk(ing_id);
+    const ingresoEgreso = await IngresoEgreso.findOne({
+        where: {
+            ing_id,
+            ing_estado: true
+        },
+    })
 
     if (!ingresoEgreso) {
         return res.status(400).json({
@@ -102,7 +112,12 @@ export const putIngresoEgreso = async (req: Request, res: Response) => {
 
 export const deleteIngresoEgreso = async (req: Request, res: Response) => {
     const { ing_id } = req.params;
-    const ingresoEgreso = await IngresoEgreso.findByPk(ing_id);
+    const ingresoEgreso = await IngresoEgreso.findOne({
+        where: {
+            ing_id,
+            ing_estado: true
+        },
+    });
 
     if (!ingresoEgreso) {
         return res.status(400).json({

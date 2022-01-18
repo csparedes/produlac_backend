@@ -39,7 +39,11 @@ const getIngresosEgresos = (req, res) => __awaiter(void 0, void 0, void 0, funct
 exports.getIngresosEgresos = getIngresosEgresos;
 const getIngresoEgreso = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { ing_id } = req.params;
-    const ingresoEgreso = yield tbl_ingresoegreso_1.default.findByPk(ing_id, {
+    const ingresoEgreso = yield tbl_ingresoegreso_1.default.findOne({
+        where: {
+            ing_id,
+            ing_estado: true
+        },
         include: [
             { model: tbl_finca_1.default },
             { model: tbl_item_1.default }
@@ -74,7 +78,12 @@ const postIngresoEgreso = (req, res) => __awaiter(void 0, void 0, void 0, functi
 exports.postIngresoEgreso = postIngresoEgreso;
 const putIngresoEgreso = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { ing_id } = req.params;
-    const ingresoEgreso = yield tbl_ingresoegreso_1.default.findByPk(ing_id);
+    const ingresoEgreso = yield tbl_ingresoegreso_1.default.findOne({
+        where: {
+            ing_id,
+            ing_estado: true
+        },
+    });
     if (!ingresoEgreso) {
         return res.status(400).json({
             msg: `No existe el dato con id: ${ing_id}`
@@ -96,7 +105,12 @@ const putIngresoEgreso = (req, res) => __awaiter(void 0, void 0, void 0, functio
 exports.putIngresoEgreso = putIngresoEgreso;
 const deleteIngresoEgreso = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { ing_id } = req.params;
-    const ingresoEgreso = yield tbl_ingresoegreso_1.default.findByPk(ing_id);
+    const ingresoEgreso = yield tbl_ingresoegreso_1.default.findOne({
+        where: {
+            ing_id,
+            ing_estado: true
+        },
+    });
     if (!ingresoEgreso) {
         return res.status(400).json({
             msg: `No existe el dato con id: ${ing_id}`

@@ -33,7 +33,12 @@ const getCatalogos = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 exports.getCatalogos = getCatalogos;
 const getCatalogo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { cat_id } = req.params;
-    const catalogo = yield tbl_catalogo_1.default.findByPk(cat_id);
+    const catalogo = yield tbl_catalogo_1.default.findOne({
+        where: {
+            cat_id,
+            cat_estado: true
+        }
+    });
     if (!catalogo) {
         return res.status(400).json({
             msg: `No existe ningún catálogo con el id: ${cat_id}`
@@ -49,7 +54,8 @@ const postCatalogo = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     const { cat_nombre } = req.body;
     const catalogoBuscado = yield tbl_catalogo_1.default.findOne({
         where: {
-            cat_nombre
+            cat_nombre,
+            cat_estado: true
         }
     });
     if (catalogoBuscado) {
@@ -67,7 +73,12 @@ const postCatalogo = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 exports.postCatalogo = postCatalogo;
 const putCatalogo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { cat_id } = req.params;
-    const catalogoBuscado = yield tbl_catalogo_1.default.findByPk(cat_id);
+    const catalogoBuscado = yield tbl_catalogo_1.default.findOne({
+        where: {
+            cat_id,
+            cat_estado: true
+        }
+    });
     if (!catalogoBuscado) {
         return res.status(400).json({
             msg: `No existe el catálogo con id: ${cat_id}`
@@ -83,7 +94,12 @@ const putCatalogo = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.putCatalogo = putCatalogo;
 const deleteCatalogo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { cat_id } = req.params;
-    const catalogoBuscado = yield tbl_catalogo_1.default.findByPk(cat_id);
+    const catalogoBuscado = yield tbl_catalogo_1.default.findOne({
+        where: {
+            cat_id,
+            cat_estado: true
+        }
+    });
     if (!catalogoBuscado) {
         return res.status(400).json({
             msg: `No existe el catálogo con id: ${cat_id}`

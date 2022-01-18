@@ -25,7 +25,11 @@ export const getVacunas = async (req: Request, res: Response) => {
 
 export const getVacuna =async (req:Request, res:Response) => {
     const { vac_id } = req.params;
-    const vacuna = await Vacuna.findByPk(vac_id, {
+    const vacuna = await Vacuna.findOne({
+        where: {
+            vac_id,
+            vac_estado: true
+        },
         include: {
         model: Animales
     }});
@@ -65,7 +69,12 @@ export const postVacuna = async (req: Request, res: Response) => {
 
 export const putVacuna = async (req: Request, res: Response) => {
     const { vac_id } = req.params;
-    const vacuna = await Vacuna.findByPk(vac_id);
+    const vacuna = await Vacuna.findOne({
+        where: {
+            vac_id,
+            vac_estado: true
+        }
+    });
     if (!vacuna) {
         return res.status(400).json({
             msg: `No existe un registro de vacuna con el id: ${vac_id}`
@@ -93,7 +102,12 @@ export const putVacuna = async (req: Request, res: Response) => {
 
 export const deleteVacuna = async (req: Request, res: Response) => {
     const { vac_id } = req.params;
-    const vacuna = await Vacuna.findByPk(vac_id);
+    const vacuna = await Vacuna.findOne({
+        where: {
+            vac_id,
+            vac_estado: true
+        }
+    });
     if (!vacuna) {
         return res.status(400).json({
             msg: `No existe un registro de vacuna con el id: ${vac_id}`

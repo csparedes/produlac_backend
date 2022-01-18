@@ -24,7 +24,11 @@ export const getItems = async (req: Request, res: Response) => {
 
 export const getItem = async (req: Request, res: Response) => {
     const { ite_id } = req.params;
-    const item = await Item.findByPk(ite_id, {
+    const item = await Item.findOne({
+        where: {
+            ite_id,
+            ite_estado : true
+        },
         include: {
             model: Catalogo
         }
@@ -66,7 +70,12 @@ export const postItem = async (req: Request, res: Response) => {
 
 export const putItem = async (req: Request, res: Response) => {
     const { ite_id } = req.params;
-    const item = await Item.findByPk(ite_id);
+    const item = await Item.findOne({
+        where: {
+            ite_id,
+            ite_estado: true
+        }
+    })
     if (!item) {
         return res.status(400).json({
             msg: `No existe el item con el id: ${ite_id}`
@@ -84,7 +93,12 @@ export const putItem = async (req: Request, res: Response) => {
 
 export const deleteItem = async (req: Request, res: Response) => {
     const { ite_id } = req.params;
-    const item = await Item.findByPk(ite_id);
+    const item = await Item.findOne({
+        where: {
+            ite_id,
+            ite_estado: true
+        }
+    });
     if (!item) {
         return res.status(400).json({
             msg: `No existe el item con el id: ${ite_id}`

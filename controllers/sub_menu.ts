@@ -24,7 +24,11 @@ export const getSubMenus = async (req: Request, res: Response) => {
 
 export const getSubMenu =async (req:Request, res:Response) => {
     const { smen_id } = req.params;
-    const subMenu = await SubMenu.findByPk(smen_id, {
+    const subMenu = await SubMenu.findOne({
+        where: {
+            smen_id,
+            smen_estado: true
+        },
         include: {
             model: Menu
         }
@@ -72,7 +76,12 @@ export const postSubMenu = async (req: Request, res: Response) => {
 
 export const putSubMenu =async (req:Request,res:Response) => {
     const { smen_id } = req.params;
-    const subMenu = await SubMenu.findByPk(smen_id);
+    const subMenu = await SubMenu.findOne({
+        where: {
+            smen_id,
+            smen_estado: true
+        }
+    });
     if (!subMenu) {
         return res.status(400).json({
             msg: `No existe el submenu de id: ${smen_id}`
@@ -96,7 +105,12 @@ export const putSubMenu =async (req:Request,res:Response) => {
 
 export const deleteSubMenu = async (req: Request, res: Response) => {
     const { smen_id } = req.params;
-    const subMenu = await SubMenu.findByPk(smen_id);
+    const subMenu = await SubMenu.findOne({
+        where: {
+            smen_id,
+            smen_estado: true
+        }
+    });
     if (!subMenu) {
         return res.status(400).json({
             msg: `No existe el submenu de id: ${smen_id}`
