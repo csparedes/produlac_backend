@@ -170,7 +170,7 @@ export const putAnimal = async (req: Request, res: Response) => {
 }
 
 export const deleteAnimal = async (req: Request, res: Response) => {
-    const { ani_codigo: ani_id } = req.params;
+    const { ani_id } = req.params;
     const animal = await Animales.findOne({
         where: {
             ani_id,

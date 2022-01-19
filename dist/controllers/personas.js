@@ -38,7 +38,7 @@ const getPersonas = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 });
 exports.getPersonas = getPersonas;
 const getPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { per_cedula: per_id } = req.params;
+    const { per_id } = req.params;
     const persona = yield tbl_personas_1.default.findOne({
         where: {
             per_id,
@@ -127,7 +127,7 @@ const putPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 });
 exports.putPersona = putPersona;
 const deletePersona = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { per_cedula: per_id } = req.params;
+    const { per_id } = req.params;
     const personaActual = yield tbl_personas_1.default.findOne({
         where: {
             per_id,

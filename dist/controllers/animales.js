@@ -137,7 +137,7 @@ const putAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.putAnimal = putAnimal;
 const deleteAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { ani_codigo: ani_id } = req.params;
+    const { ani_id } = req.params;
     const animal = yield tbl_animales_1.default.findOne({
         where: {
             ani_id,

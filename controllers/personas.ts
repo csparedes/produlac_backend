@@ -27,7 +27,7 @@ export const getPersonas = async (req: Request, res: Response) => {
 }
 
 export const getPersona = async (req: Request, res: Response) => {
-    const { per_cedula: per_id } = req.params;
+    const { per_id } = req.params;
     const persona = await Persona.findOne({
         where: {
             per_id,
@@ -146,7 +146,7 @@ export const putPersona = async (req: Request, res: Response) => {
 }
 
 export const deletePersona = async (req: Request, res: Response) => {
-    const { per_cedula: per_id } = req.params;
+    const { per_id } = req.params;
     const personaActual = await Persona.findOne({
         where: {
             per_id,

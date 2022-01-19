@@ -6,9 +6,9 @@ import validarCampos from '../middlewares/validar_campos'
 const router = Router();
 
 router.get('/', [validarJWT, validarCampos,], getPersonas);
-router.get('/:per_cedula', [validarJWT,validarCampos], getPersona);
+router.get('/:per_id', [validarJWT,validarCampos], getPersona);
 router.post('/', [validarJWT, validarCampos], postPersona);
-router.put('/:per_cedula', [validarJWT, validarCampos], putPersona);
-router.delete('/:per_cedula', [validarJWT, validarCampos], deletePersona);
+router.put('/:per_id', [validarJWT, validarCampos], putPersona);
+router.delete('/:per_id', [validarJWT, validarCampos], deletePersona);
 
 export default router;
