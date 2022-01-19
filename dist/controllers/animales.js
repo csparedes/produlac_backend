@@ -40,10 +40,10 @@ const getAnimales = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 });
 exports.getAnimales = getAnimales;
 const getAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { ani_codigo } = req.params;
+    const { ani_id } = req.params;
     const animal = yield tbl_animales_1.default.findOne({
         where: {
-            ani_codigo,
+            ani_id,
             ani_estado: true,
         },
         include: [
@@ -54,7 +54,7 @@ const getAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     });
     if (!animal) {
         return res.status(400).json({
-            msg: `No existe el animalito con el código: ${ani_codigo}`
+            msg: `No existe el animalito con el id: ${ani_id}`
         });
     }
     res.json({
@@ -101,16 +101,16 @@ const postAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 });
 exports.postAnimal = postAnimal;
 const putAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { ani_codigo_url } = req.params;
+    const { ani_id } = req.params;
     const animalActual = yield tbl_animales_1.default.findOne({
         where: {
-            ani_codigo: ani_codigo_url,
+            ani_id,
             ani_estado: true
         }
     });
     if (!animalActual) {
         return res.status(400).json({
-            msg: `El animal con el codigo ${ani_codigo_url} no existe en esta base de datos`
+            msg: `El animal con el id: ${ani_id} no existe en esta base de datos`
         });
     }
     const { ani_codigo, ani_nombre, ani_sexo, ani_fechanacimiento, ani_imagen, ani_raza, ani_etapa, ani_idpadre, ani_idmadre, ani_pesonacer, esp_id, fin_id, ite_idtipoestado } = req.body;
@@ -137,21 +137,21 @@ const putAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.putAnimal = putAnimal;
 const deleteAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { ani_codigo } = req.params;
+    const { ani_codigo: ani_id } = req.params;
     const animal = yield tbl_animales_1.default.findOne({
         where: {
-            ani_codigo,
+            ani_id,
             ani_estado: true
         }
     });
     if (!animal) {
         return res.status(400).json({
-            msg: `No existe un animal con el código: ${ani_codigo}`
+            msg: `No existe un animal con el código: ${ani_id}`
         });
     }
     yield animal.update({ ani_estado: false });
     res.json({
-        msg: `El animal con código ${ani_codigo} ha sido eliminado`,
+        msg: `El animal con id: ${ani_id} ha sido eliminado`,
         dato: [animal]
     });
 });

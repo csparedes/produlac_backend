@@ -38,10 +38,10 @@ const getPersonas = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 });
 exports.getPersonas = getPersonas;
 const getPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { per_cedula } = req.params;
+    const { per_cedula: per_id } = req.params;
     const persona = yield tbl_personas_1.default.findOne({
         where: {
-            per_cedula,
+            per_id,
             per_estado: true
         }
     });
@@ -93,16 +93,16 @@ const postPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 });
 exports.postPersona = postPersona;
 const putPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { per_cedula_url } = req.params;
+    const { per_cedula_url: per_id } = req.params;
     const personaActual = yield tbl_personas_1.default.findOne({
         where: {
-            per_cedula: per_cedula_url,
+            per_id,
             per_estado: true
         }
     });
     if (!personaActual) {
         return res.status(401).json({
-            msg: `Aquella persona no existe con la cédula: ${per_cedula_url}`
+            msg: `Aquella persona no existe con el: ${per_id}`
         });
     }
     const { per_nombre, per_apellido, per_usuario, per_cedula, per_contraseña, per_imagen, per_correo, per_telefono, per_direccion, rol_id } = req.body;
@@ -127,16 +127,16 @@ const putPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 });
 exports.putPersona = putPersona;
 const deletePersona = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { per_cedula } = req.params;
+    const { per_cedula: per_id } = req.params;
     const personaActual = yield tbl_personas_1.default.findOne({
         where: {
-            per_cedula,
+            per_id,
             per_estado: true
         }
     });
     if (!personaActual) {
         return res.status(401).json({
-            msg: `Aquella persona no existe con la cédula: ${per_cedula}`
+            msg: `Aquella persona no existe con el: ${per_id}`
         });
     }
     yield personaActual.update({ per_estado: false });
