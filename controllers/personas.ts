@@ -97,7 +97,7 @@ export const postPersona = async (req: Request, res: Response) => {
 }
 
 export const putPersona = async (req: Request, res: Response) => {
-    const { per_cedula_url: per_id } = req.params;
+    const { per_id } = req.params;
     const personaActual = await Persona.findOne({
         where: {
             per_id,

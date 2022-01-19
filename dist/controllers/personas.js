@@ -93,7 +93,7 @@ const postPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 });
 exports.postPersona = postPersona;
 const putPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { per_cedula_url: per_id } = req.params;
+    const { per_id } = req.params;
     const personaActual = yield tbl_personas_1.default.findOne({
         where: {
             per_id,
