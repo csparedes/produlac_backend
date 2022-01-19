@@ -9,9 +9,9 @@ const validarJWT_1 = __importDefault(require("../helpers/validarJWT"));
 const validar_campos_1 = __importDefault(require("../middlewares/validar_campos"));
 const router = express_1.Router();
 router.get('/', [validarJWT_1.default, validar_campos_1.default], animales_1.getAnimales);
-router.get('/:ani_codigo', [validarJWT_1.default, validar_campos_1.default], animales_1.getAnimal);
+router.get('/:ani_id', [validarJWT_1.default, validar_campos_1.default], animales_1.getAnimal);
 router.post('/', [validarJWT_1.default, validar_campos_1.default], animales_1.postAnimal);
-router.put('/:ani_codigo_url', [validarJWT_1.default, validar_campos_1.default], animales_1.putAnimal);
-router.delete('/:ani:codigo_url', [validarJWT_1.default, validar_campos_1.default], animales_1.deleteAnimal);
+router.put('/:ani_id', [validarJWT_1.default, validar_campos_1.default], animales_1.putAnimal);
+router.delete('/:ani_id', [validarJWT_1.default, validar_campos_1.default], animales_1.deleteAnimal);
 exports.default = router;
 //# sourceMappingURL=animales.js.map

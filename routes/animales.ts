@@ -6,9 +6,9 @@ import validarCampos from '../middlewares/validar_campos'
 const router = Router();
 
 router.get('/', [validarJWT,validarCampos], getAnimales);
-router.get('/:ani_codigo', [validarJWT,validarCampos], getAnimal);
+router.get('/:ani_id', [validarJWT,validarCampos], getAnimal);
 router.post('/', [validarJWT,validarCampos], postAnimal);
-router.put('/:ani_codigo_url', [validarJWT,validarCampos], putAnimal);
-router.delete('/:ani:codigo_url', [validarJWT,validarCampos], deleteAnimal);
+router.put('/:ani_id', [validarJWT,validarCampos], putAnimal);
+router.delete('/:ani_id', [validarJWT,validarCampos], deleteAnimal);
 
 export default router;
