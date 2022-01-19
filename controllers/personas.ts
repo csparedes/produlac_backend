@@ -27,10 +27,10 @@ export const getPersonas = async (req: Request, res: Response) => {
 }
 
 export const getPersona = async (req: Request, res: Response) => {
-    const { per_cedula } = req.params;
+    const { per_cedula: per_id } = req.params;
     const persona = await Persona.findOne({
         where: {
-            per_cedula,
+            per_id,
             per_estado: true
         }    
     });
@@ -97,17 +97,17 @@ export const postPersona = async (req: Request, res: Response) => {
 }
 
 export const putPersona = async (req: Request, res: Response) => {
-    const { per_cedula_url } = req.params;
+    const { per_cedula_url: per_id } = req.params;
     const personaActual = await Persona.findOne({
         where: {
-            per_cedula: per_cedula_url,
+            per_id,
             per_estado: true
         }
     });
     
     if (!personaActual) {
         return res.status(401).json({
-            msg: `Aquella persona no existe con la cédula: ${per_cedula_url}`
+            msg: `Aquella persona no existe con el: ${per_id}`
         });
     }
 
@@ -146,17 +146,17 @@ export const putPersona = async (req: Request, res: Response) => {
 }
 
 export const deletePersona = async (req: Request, res: Response) => {
-    const { per_cedula } = req.params;
+    const { per_cedula: per_id } = req.params;
     const personaActual = await Persona.findOne({
         where: {
-            per_cedula,
+            per_id,
             per_estado: true
         }
     });
 
     if (!personaActual) {
         return res.status(401).json({
-            msg: `Aquella persona no existe con la cédula: ${per_cedula}`
+            msg: `Aquella persona no existe con el: ${per_id}`
         });
     }
 

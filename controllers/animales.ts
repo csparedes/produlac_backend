@@ -31,10 +31,10 @@ export const getAnimales = async (req: Request, res: Response) => {
 }
 
 export const getAnimal = async (req: Request, res: Response) => {
-    const { ani_codigo } = req.params;
+    const { ani_id } = req.params;
     const animal = await Animales.findOne({
         where: {
-            ani_codigo,
+            ani_id,
             ani_estado: true,
         },
         include: [
@@ -46,7 +46,7 @@ export const getAnimal = async (req: Request, res: Response) => {
 
     if (!animal) {
         return res.status(400).json({
-            msg: `No existe el animalito con el código: ${ani_codigo}`
+            msg: `No existe el animalito con el id: ${ani_id}`
         });
     }
 
@@ -114,17 +114,17 @@ export const postAnimal = async (req: Request, res: Response) => {
 }
 
 export const putAnimal = async (req: Request, res: Response) => {
-    const { ani_codigo_url } = req.params;
+    const { ani_id } = req.params;
     const animalActual = await Animales.findOne({
         where: {
-            ani_codigo: ani_codigo_url,
+            ani_id,
             ani_estado: true
         }
     });
 
     if (!animalActual) {
         return res.status(400).json({
-            msg: `El animal con el codigo ${ani_codigo_url} no existe en esta base de datos`
+            msg: `El animal con el id: ${ani_id} no existe en esta base de datos`
         });
     }
 
@@ -170,23 +170,23 @@ export const putAnimal = async (req: Request, res: Response) => {
 }
 
 export const deleteAnimal = async (req: Request, res: Response) => {
-    const { ani_codigo } = req.params;
+    const { ani_codigo: ani_id } = req.params;
     const animal = await Animales.findOne({
         where: {
-            ani_codigo,
+            ani_id,
             ani_estado: true
         }
     });
 
     if (!animal) {
         return res.status(400).json({
-            msg: `No existe un animal con el código: ${ani_codigo}`
+            msg: `No existe un animal con el código: ${ani_id}`
         });
     }
 
     await animal.update({ ani_estado: false });
     res.json({
-        msg: `El animal con código ${ani_codigo} ha sido eliminado`,
+        msg: `El animal con id: ${ani_id} ha sido eliminado`,
         dato: [animal]
     });
 }
