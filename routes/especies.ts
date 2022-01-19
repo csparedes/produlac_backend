@@ -8,5 +8,5 @@ router.get('/', [validarJWT, validarCampos], getEspecies);
 router.get('/:esp_id', [validarJWT, validarCampos], getEspecie);
 router.post('/', [validarJWT, validarCampos], postEspecie);
 router.put('/:esp_id', [validarJWT, validarCampos], putEspecie);
-router.delete('/:especie', [validarJWT, validarCampos], deleteEspecie);
+router.delete('/:esp_id', [validarJWT, validarCampos], deleteEspecie);
 export default router;

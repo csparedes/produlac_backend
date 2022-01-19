@@ -9,7 +9,7 @@ const validarJWT_1 = __importDefault(require("../helpers/validarJWT"));
 const validar_campos_1 = __importDefault(require("../middlewares/validar_campos"));
 const router = express_1.Router();
 router.get('/', [validarJWT_1.default, validar_campos_1.default], deceso_1.getDecesos);
-router.get('/:dec:id', [validarJWT_1.default, validar_campos_1.default], deceso_1.getDeceso);
+router.get('/:dec_id', [validarJWT_1.default, validar_campos_1.default], deceso_1.getDeceso);
 router.post('/', [validarJWT_1.default, validar_campos_1.default], deceso_1.postDeceso);
 router.put('/:dec_id', [validarJWT_1.default, validar_campos_1.default], deceso_1.putDeceso);
 router.delete('/:dec_id', [validarJWT_1.default, validar_campos_1.default], deceso_1.deleteDeceso);
