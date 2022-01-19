@@ -68,7 +68,7 @@ export const postAnimal = async (req: Request, res: Response) => {
         ani_idpadre,
         ani_idmadre,
         ani_pesonacer,
-        ite_idespecieanimal,
+        esp_id,
         fin_id,
         ite_idtipoestado
     } = req.body;
@@ -99,7 +99,7 @@ export const postAnimal = async (req: Request, res: Response) => {
         ani_idpadre,
         ani_idmadre,
         ani_pesonacer,
-        ite_idespecieanimal,
+        esp_id,
         fin_id,
         ite_idtipoestado
     };
@@ -139,7 +139,7 @@ export const putAnimal = async (req: Request, res: Response) => {
         ani_idpadre,
         ani_idmadre,
         ani_pesonacer,
-        ite_idespecieanimal,
+        esp_id,
         fin_id,
         ite_idtipoestado
     } = req.body;
@@ -155,7 +155,7 @@ export const putAnimal = async (req: Request, res: Response) => {
         ani_idpadre,
         ani_idmadre,
         ani_pesonacer,
-        ite_idespecieanimal,
+        esp_id,
         fin_id,
         ite_idtipoestado
     };
