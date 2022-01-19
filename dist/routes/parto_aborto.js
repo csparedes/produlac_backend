@@ -12,6 +12,6 @@ router.get('/', [validarJWT_1.default, validar_campos_1.default], parto_aborto_1
 router.get('/:par_id', [validarJWT_1.default, validar_campos_1.default], parto_aborto_1.getPartoAborto);
 router.post('/', [validarJWT_1.default, validar_campos_1.default], parto_aborto_1.postPartoAborto);
 router.put('/:par_id', [validarJWT_1.default, validar_campos_1.default], parto_aborto_1.putPartoAborto);
-router.delete('/:par:id', [validarJWT_1.default, validar_campos_1.default], parto_aborto_1.deletePartoAborto);
+router.delete('/:par_id', [validarJWT_1.default, validar_campos_1.default], parto_aborto_1.deletePartoAborto);
 exports.default = router;
 //# sourceMappingURL=parto_aborto.js.map

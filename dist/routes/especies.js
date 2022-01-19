@@ -12,6 +12,6 @@ router.get('/', [validarJWT_1.default, validar_campos_1.default], especie_1.getE
 router.get('/:esp_id', [validarJWT_1.default, validar_campos_1.default], especie_1.getEspecie);
 router.post('/', [validarJWT_1.default, validar_campos_1.default], especie_1.postEspecie);
 router.put('/:esp_id', [validarJWT_1.default, validar_campos_1.default], especie_1.putEspecie);
-router.delete('/:especie', [validarJWT_1.default, validar_campos_1.default], especie_1.deleteEspecie);
+router.delete('/:esp_id', [validarJWT_1.default, validar_campos_1.default], especie_1.deleteEspecie);
 exports.default = router;
 //# sourceMappingURL=especies.js.map

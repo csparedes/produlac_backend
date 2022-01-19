@@ -6,8 +6,8 @@ import validarCampos from "../middlewares/validar_campos";
 const router = Router();
 
 router.get('/', [validarJWT, validarCampos], getProdGlobales);
-router.get('/:pglo:id', [validarJWT, validarCampos], getProdGlobal);
+router.get('/:pglo_id', [validarJWT, validarCampos], getProdGlobal);
 router.post('/', [validarJWT, validarCampos], postProdGlobal);
-router.put('/:pglo:id', [validarJWT, validarCampos], putProdGlobal);
+router.put('/:pglo_id', [validarJWT, validarCampos], putProdGlobal);
 router.delete('/:pglo_id', [validarJWT, validarCampos], deleteProdGlobar);
 export default router;

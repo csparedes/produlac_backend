@@ -7,5 +7,5 @@ router.get('/', [validarJWT, validarCampos], getPartosAbortos);
 router.get('/:par_id', [validarJWT, validarCampos], getPartoAborto);
 router.post('/', [validarJWT, validarCampos], postPartoAborto);
 router.put('/:par_id', [validarJWT, validarCampos], putPartoAborto);
-router.delete('/:par:id', [validarJWT, validarCampos], deletePartoAborto);
+router.delete('/:par_id', [validarJWT, validarCampos], deletePartoAborto);
 export default router;

@@ -6,7 +6,7 @@ import validarCampos from "../middlewares/validar_campos";
 
 const router = Router();
 router.get('/', [validarJWT, validarCampos], getProdIndividuales);
-router.get('/:pro:id', [validarJWT, validarCampos], getProdIndividual);
+router.get('/:pro_id', [validarJWT, validarCampos], getProdIndividual);
 router.post('/', [validarJWT, validarCampos], postProdIndividuales);
 router.put('/:pro_id', [validarJWT, validarCampos], putProdIndividual);
 router.delete('/:pro_id', [validarJWT, validarCampos], deleteProdIndividual);
