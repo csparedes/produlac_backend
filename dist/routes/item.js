@@ -10,7 +10,7 @@ const validar_campos_1 = __importDefault(require("../middlewares/validar_campos"
 const router = express_1.Router();
 router.get('/', [validarJWT_1.default, validar_campos_1.default], item_1.getItems);
 router.get('/:ite_id', [validarJWT_1.default, validar_campos_1.default], item_1.getItem);
-router.get('/categoria/:ite_id', [validarJWT_1.default, validar_campos_1.default], item_1.getItemsPorCategoria);
+router.get('/categoria/:cat_id', [validarJWT_1.default, validar_campos_1.default], item_1.getItemsPorCategoria);
 router.post('/', [validarJWT_1.default, validar_campos_1.default], item_1.postItem);
 router.put('/:ite_id', [validarJWT_1.default, validar_campos_1.default], item_1.putItem);
 router.delete('/:ite_id', [validarJWT_1.default, validar_campos_1.default], item_1.deleteItem);

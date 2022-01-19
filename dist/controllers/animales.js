@@ -64,7 +64,7 @@ const getAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.getAnimal = getAnimal;
 const postAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { ani_codigo, ani_nombre, ani_sexo, ani_fechanacimiento, ani_imagen, ani_raza, ani_etapa, ani_idpadre, ani_idmadre, ani_pesonacer, ite_idespecieanimal, fin_id, ite_idtipoestado } = req.body;
+    const { ani_codigo, ani_nombre, ani_sexo, ani_fechanacimiento, ani_imagen, ani_raza, ani_etapa, ani_idpadre, ani_idmadre, ani_pesonacer, esp_id, fin_id, ite_idtipoestado } = req.body;
     const animalBuscado = yield tbl_animales_1.default.findOne({
         where: {
             ani_codigo,
@@ -88,7 +88,7 @@ const postAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         ani_idpadre,
         ani_idmadre,
         ani_pesonacer,
-        ite_idespecieanimal,
+        esp_id,
         fin_id,
         ite_idtipoestado
     };
@@ -113,7 +113,7 @@ const putAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             msg: `El animal con el codigo ${ani_codigo_url} no existe en esta base de datos`
         });
     }
-    const { ani_codigo, ani_nombre, ani_sexo, ani_fechanacimiento, ani_imagen, ani_raza, ani_etapa, ani_idpadre, ani_idmadre, ani_pesonacer, ite_idespecieanimal, fin_id, ite_idtipoestado } = req.body;
+    const { ani_codigo, ani_nombre, ani_sexo, ani_fechanacimiento, ani_imagen, ani_raza, ani_etapa, ani_idpadre, ani_idmadre, ani_pesonacer, esp_id, fin_id, ite_idtipoestado } = req.body;
     const nuevoAnimal = {
         ani_codigo,
         ani_nombre,
@@ -125,7 +125,7 @@ const putAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         ani_idpadre,
         ani_idmadre,
         ani_pesonacer,
-        ite_idespecieanimal,
+        esp_id,
         fin_id,
         ite_idtipoestado
     };

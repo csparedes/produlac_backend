@@ -7,7 +7,7 @@ const router = Router();
 
 router.get('/', [validarJWT, validarCampos], getItems);
 router.get('/:ite_id', [validarJWT, validarCampos], getItem);
-router.get('/categoria/:ite_id', [validarJWT, validarCampos], getItemsPorCategoria);
+router.get('/categoria/:cat_id', [validarJWT, validarCampos], getItemsPorCategoria);
 router.post('/', [validarJWT, validarCampos], postItem);
 router.put('/:ite_id', [validarJWT, validarCampos], putItem);
 router.delete('/:ite_id', [validarJWT, validarCampos], deleteItem);
