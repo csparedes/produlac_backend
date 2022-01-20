@@ -45,11 +45,13 @@ export const getDeceso = async (req: Request, res: Response) => {
 
 export const postDeceso = async (req: Request, res: Response) => {
     const {
+        ani_id,
         dec_fecha,
         dec_causa,
         dec_descripcion,
     } = req.body;
     const nuevoDeceso = {
+        ani_id,
         dec_fecha,
         dec_causa,
         dec_descripcion,
@@ -76,11 +78,13 @@ export const putDeceso = async (req: Request, res: Response) => {
         });
     }
     const {
+        ani_id,
         dec_fecha,
         dec_causa,
         dec_descripcion,
     } = req.body;
     await decesoActual.update({
+        ani_id,
         dec_fecha,
         dec_causa,
         dec_descripcion,

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteFinca = exports.putFinca = exports.postFinca = exports.getFinca = exports.getFincas = void 0;
+exports.deleteFinca = exports.putFinca = exports.postFinca = exports.getFinca = exports.getFincasPorPersona = exports.getFincas = void 0;
 const tbl_finca_1 = __importDefault(require("../models/tbl_finca"));
 const tbl_personas_1 = __importDefault(require("../models/tbl_personas"));
 const getFincas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -35,6 +35,28 @@ const getFincas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     });
 });
 exports.getFincas = getFincas;
+const getFincasPorPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { per_id } = req.params;
+    const fincas = yield tbl_finca_1.default.findAll({
+        where: {
+            per_id,
+            fin_estado: true
+        },
+        include: {
+            model: tbl_personas_1.default
+        }
+    });
+    if (!fincas) {
+        return res.status(400).json({
+            msg: `No existe ninguna finca en la base de datos`
+        });
+    }
+    res.json({
+        msg: `Listado de Fincas por persona`,
+        dato: fincas
+    });
+});
+exports.getFincasPorPersona = getFincasPorPersona;
 const getFinca = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { fin_id } = req.params;
     const fincaBuscada = yield tbl_finca_1.default.findOne({

@@ -24,6 +24,30 @@ export const getFincas = async (req: Request, res: Response) => {
     });
 }
 
+export const getFincasPorPersona = async (req: Request, res: Response) => {
+    const { per_id } = req.params;
+    const fincas = await Finca.findAll({
+        where: {
+            per_id,
+            fin_estado: true
+        },
+        include: {
+            model: Persona
+        }
+    });
+
+    if (!fincas) {
+        return res.status(400).json({
+            msg: `No existe ninguna finca en la base de datos`
+        });
+    }
+
+    res.json({
+        msg: `Listado de Fincas por persona`,
+        dato: fincas
+    });
+}
+
 export const getFinca = async (req: Request, res: Response) => {
     const { fin_id } = req.params;
     const fincaBuscada = await Finca.findOne({
