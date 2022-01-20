@@ -56,8 +56,9 @@ const getDeceso = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.getDeceso = getDeceso;
 const postDeceso = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { dec_fecha, dec_causa, dec_descripcion, } = req.body;
+    const { ani_id, dec_fecha, dec_causa, dec_descripcion, } = req.body;
     const nuevoDeceso = {
+        ani_id,
         dec_fecha,
         dec_causa,
         dec_descripcion,
@@ -83,8 +84,9 @@ const putDeceso = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             msg: `No existe un deceso con el id: ${dec_id}`
         });
     }
-    const { dec_fecha, dec_causa, dec_descripcion, } = req.body;
+    const { ani_id, dec_fecha, dec_causa, dec_descripcion, } = req.body;
     yield decesoActual.update({
+        ani_id,
         dec_fecha,
         dec_causa,
         dec_descripcion,
