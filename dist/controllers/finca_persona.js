@@ -33,7 +33,7 @@ const getFincasPersonas = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
     res.json({
         msg: `Lista de personas`,
-        fincasPersonas
+        dato: fincasPersonas
     });
 });
 exports.getFincasPersonas = getFincasPersonas;
@@ -45,7 +45,6 @@ const getFincasDePersona = (req, res) => __awaiter(void 0, void 0, void 0, funct
             per_id
         },
         include: [
-            { model: tbl_personas_1.default },
             { model: tbl_finca_1.default }
         ]
     });
@@ -56,7 +55,7 @@ const getFincasDePersona = (req, res) => __awaiter(void 0, void 0, void 0, funct
     }
     res.json({
         msg: `Lista de personas`,
-        fincasPersonas
+        dato: fincasPersonas
     });
 });
 exports.getFincasDePersona = getFincasDePersona;

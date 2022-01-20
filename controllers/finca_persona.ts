@@ -21,7 +21,7 @@ export const getFincasPersonas = async (req: Request, res: Response) => {
 
     res.json({
         msg: `Lista de personas`,
-        fincasPersonas
+        dato: fincasPersonas
     })
 }
 
@@ -33,7 +33,6 @@ export const getFincasDePersona = async (req: Request, res: Response) => {
             per_id
         },
         include: [
-            { model: Persona },
             { model: Finca }
         ]
     });
@@ -45,7 +44,7 @@ export const getFincasDePersona = async (req: Request, res: Response) => {
 
     res.json({
         msg: `Lista de personas`,
-        fincasPersonas
+        dato: fincasPersonas
     })
 }
 
