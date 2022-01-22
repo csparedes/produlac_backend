@@ -44,10 +44,10 @@ export const getProdIndividual = async (req: Request, res: Response) => {
         dato: [prodIndividual]
     })
 }
-export const postProdIndividualPorFechas = async (req: Request, res: Response) => {
+export const postProdIndividualPorAnimal = async (req: Request, res: Response) => {
     const { ani_id } = req.params;
     // const ani_id = req.params.ani_id;
-    const { fecha_inicio, fecha_fin } = req.body;
+    // const { fecha_inicio, fecha_fin } = req.body;
     const prodIndividual = await ProdIndividual.findAll({
         group: 'pro_fecha',
         // order: ['pro_fecha'],
@@ -56,10 +56,10 @@ export const postProdIndividualPorFechas = async (req: Request, res: Response) =
         ],
         where: {
             ani_id,
-            pro_fecha: {
-                [Op.lte]: fecha_fin,
-                [Op.gte]: fecha_inicio
-            },
+            // pro_fecha: {
+            //     [Op.lte]: fecha_fin,
+            //     [Op.gte]: fecha_inicio
+            // },
             pro_estado: true
         },
         // include: {

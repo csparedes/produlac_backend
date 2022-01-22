@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import sequelize from "sequelize";
 import Finca from "../models/tbl_finca";
 import ProdGlobal from "../models/tbl_prodglobal";
 
@@ -14,6 +15,29 @@ export const getProdGlobales = async (req: Request, res: Response) => {
     if (!prodGlobales) {
         return res.status(400).json({
             msg: `No existe ningún registro`
+        })
+    }
+    res.json({
+        msg: `Lista de prodGlobales`,
+        dato: prodGlobales
+    });
+}
+
+export const getProdGlobalesPorFinca = async (req: Request, res: Response) => {
+    const { fin_id } = req.params;
+    const prodGlobales = await ProdGlobal.findAll({
+        where: {
+            fin_id,
+            pglo_estado: true
+        },
+        group: 'pglo_fecha',
+        attributes: [
+            [sequelize.fn('SUM',sequelize.col('pglo_litros')),'sum_pglo_litros'], 'pglo_fecha'
+        ]
+    });
+    if (!prodGlobales) {
+        return res.status(400).json({
+            msg: `No existe ningún registro para la finca: ${fin_id}`
         })
     }
     res.json({
