@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import sequelize, { Op } from "sequelize";
 import Animales from "../models/tbl_animales";
 import ProdIndividual from "../models/tbl_prodindividual";
 
@@ -41,6 +42,38 @@ export const getProdIndividual = async (req: Request, res: Response) => {
     res.json({
         msg: `Detalle de prodIndividual`,
         dato: [prodIndividual]
+    })
+}
+export const postProdIndividualPorFechas = async (req: Request, res: Response) => {
+    const { ani_id } = req.params;
+    // const ani_id = req.params.ani_id;
+    const { fecha_inicio, fecha_fin } = req.body;
+    const prodIndividual = await ProdIndividual.findAll({
+        group: 'pro_fecha',
+        // order: ['pro_fecha'],
+        attributes: [
+            [sequelize.fn('SUM',sequelize.col('pro_litros')), 'sum_pro_litros'],'pro_fecha'
+        ],
+        where: {
+            ani_id,
+            pro_fecha: {
+                [Op.lte]: fecha_fin,
+                [Op.gte]: fecha_inicio
+            },
+            pro_estado: true
+        },
+        // include: {
+        //     model: Animales
+        // },
+    });
+    if (!prodIndividual) {
+        return res.status(400).json({
+            msg: `No existe ningún prodIndividual con el animal: ${ani_id}`
+        })
+    }
+    res.json({
+        msg: `Detalle de prodIndividual`,
+        dato: prodIndividual
     })
 }
 

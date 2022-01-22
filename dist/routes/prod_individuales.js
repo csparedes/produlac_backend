@@ -11,6 +11,7 @@ const router = express_1.Router();
 router.get('/', [validarJWT_1.default, validar_campos_1.default], prod_individual_1.getProdIndividuales);
 router.get('/:pro_id', [validarJWT_1.default, validar_campos_1.default], prod_individual_1.getProdIndividual);
 router.post('/', [validarJWT_1.default, validar_campos_1.default], prod_individual_1.postProdIndividuales);
+router.post('/:ani_id', [validarJWT_1.default, validar_campos_1.default], prod_individual_1.postProdIndividualPorFechas);
 router.put('/:pro_id', [validarJWT_1.default, validar_campos_1.default], prod_individual_1.putProdIndividual);
 router.delete('/:pro_id', [validarJWT_1.default, validar_campos_1.default], prod_individual_1.deleteProdIndividual);
 exports.default = router;

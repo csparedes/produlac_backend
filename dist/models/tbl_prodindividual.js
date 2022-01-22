@@ -21,7 +21,7 @@ const ProdIndividual = connection_1.default.define('tbl_prodindividual', {
         type: sequelize_1.DataTypes.STRING
     },
     pro_litros: {
-        type: sequelize_1.DataTypes.STRING
+        type: sequelize_1.DataTypes.INTEGER
     },
     pro_dieta: {
         type: sequelize_1.DataTypes.STRING
