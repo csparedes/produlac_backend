@@ -1,4 +1,23 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -12,7 +31,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteProdIndividual = exports.putProdIndividual = exports.postProdIndividuales = exports.getProdIndividual = exports.getProdIndividuales = void 0;
+exports.deleteProdIndividual = exports.putProdIndividual = exports.postProdIndividuales = exports.postProdIndividualPorFechas = exports.getProdIndividual = exports.getProdIndividuales = void 0;
+const sequelize_1 = __importStar(require("sequelize"));
 const tbl_animales_1 = __importDefault(require("../models/tbl_animales"));
 const tbl_prodindividual_1 = __importDefault(require("../models/tbl_prodindividual"));
 const getProdIndividuales = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -57,6 +77,39 @@ const getProdIndividual = (req, res) => __awaiter(void 0, void 0, void 0, functi
     });
 });
 exports.getProdIndividual = getProdIndividual;
+const postProdIndividualPorFechas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { ani_id } = req.params;
+    // const ani_id = req.params.ani_id;
+    const { fecha_inicio, fecha_fin } = req.body;
+    const prodIndividual = yield tbl_prodindividual_1.default.findAll({
+        group: 'pro_fecha',
+        // order: ['pro_fecha'],
+        attributes: [
+            [sequelize_1.default.fn('SUM', sequelize_1.default.col('pro_litros')), 'sum_pro_litros'], 'pro_fecha'
+        ],
+        where: {
+            ani_id,
+            pro_fecha: {
+                [sequelize_1.Op.lte]: fecha_fin,
+                [sequelize_1.Op.gte]: fecha_inicio
+            },
+            pro_estado: true
+        },
+        // include: {
+        //     model: Animales
+        // },
+    });
+    if (!prodIndividual) {
+        return res.status(400).json({
+            msg: `No existe ningún prodIndividual con el animal: ${ani_id}`
+        });
+    }
+    res.json({
+        msg: `Detalle de prodIndividual`,
+        dato: prodIndividual
+    });
+});
+exports.postProdIndividualPorFechas = postProdIndividualPorFechas;
 const postProdIndividuales = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { ani_id, pro_fecha, pro_horario, pro_litros, pro_dieta } = req.body;
     const prodIndividual = yield tbl_prodindividual_1.default.build({

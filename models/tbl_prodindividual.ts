@@ -17,7 +17,7 @@ const ProdIndividual = db.define('tbl_prodindividual', {
         type: DataTypes.STRING
     },
     pro_litros: {
-        type: DataTypes.STRING
+        type: DataTypes.INTEGER
     },
     pro_dieta: {
         type: DataTypes.STRING
