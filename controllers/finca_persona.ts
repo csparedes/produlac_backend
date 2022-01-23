@@ -66,6 +66,24 @@ export const getFincaPersona = async (req: Request, res: Response) => {
         dato: [fincaPersona]
     })
 }
+export const getPersonasPorFinca = async (req: Request, res: Response) => {
+    const { fin_id } = req.params;
+    const fincaPersona = await FincaPersona.findOne({
+        where: {
+            fin_id,
+            fper_estado: true
+        }
+    });
+    if (!fincaPersona) {
+        return res.status(400).json({
+            msg: `No existe ningún registro en la base de datos`
+        })
+    }
+    res.json({
+        msg: `Personas de una Finca`,
+        dato: [fincaPersona]
+    })
+}
 
 export const postFincaPersona = async (req: Request, res: Response) => {
     const { per_id, fin_id } = req.body;

@@ -89,8 +89,9 @@ export const postPersona = async (req: Request, res: Response) => {
     };
 
     const persona = await Persona.build(nuevaPersona);
-    persona.save();
-    const personaCreada = await Persona.findOne({
+    await persona.save();
+
+    const personaC = await Persona.findOne({
         where: {
             per_nombre,
             per_apellido,
@@ -101,13 +102,22 @@ export const postPersona = async (req: Request, res: Response) => {
             per_correo,
             per_telefono,
             per_direccion,
-            rol_id
-        }
-    })
+            rol_id,
+            per_estado: true
+        }    
+    });
+
+    if (!personaC) {
+        return res.status(400).json({
+            msg: "No hay ninguna persona con ese id"
+        });
+    }
+
     res.json({
         msg: 'Se ha creado una nueva persona',
-        dato: [personaCreada]
+        dato: [personaC]
     });
+
 }
 
 export const putPersona = async (req: Request, res: Response) => {
