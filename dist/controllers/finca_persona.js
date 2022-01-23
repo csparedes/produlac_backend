@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteFincaPersona = exports.putFincaPersona = exports.postFincaPersona = exports.getFincaPersona = exports.getFincasDePersona = exports.getFincasPersonas = void 0;
+exports.deleteFincaPersona = exports.putFincaPersona = exports.postFincaPersona = exports.getPersonasPorFinca = exports.getFincaPersona = exports.getFincasDePersona = exports.getFincasPersonas = void 0;
 const tbl_finca_1 = __importDefault(require("../models/tbl_finca"));
 const tbl_fincapersona_1 = __importDefault(require("../models/tbl_fincapersona"));
 const tbl_personas_1 = __importDefault(require("../models/tbl_personas"));
@@ -78,6 +78,25 @@ const getFincaPersona = (req, res) => __awaiter(void 0, void 0, void 0, function
     });
 });
 exports.getFincaPersona = getFincaPersona;
+const getPersonasPorFinca = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { fin_id } = req.params;
+    const fincaPersona = yield tbl_fincapersona_1.default.findOne({
+        where: {
+            fin_id,
+            fper_estado: true
+        }
+    });
+    if (!fincaPersona) {
+        return res.status(400).json({
+            msg: `No existe ningún registro en la base de datos`
+        });
+    }
+    res.json({
+        msg: `Personas de una Finca`,
+        dato: [fincaPersona]
+    });
+});
+exports.getPersonasPorFinca = getPersonasPorFinca;
 const postFincaPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { per_id, fin_id } = req.body;
     const fincaPersonaBuscada = yield tbl_fincapersona_1.default.findOne({

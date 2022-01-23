@@ -11,6 +11,7 @@ const router = express_1.Router();
 router.get('/', [validarJWT_1.default, validar_campos_1.default], finca_persona_1.getFincasPersonas);
 router.get('/:fper_id', [validarJWT_1.default, validar_campos_1.default], finca_persona_1.getFincaPersona);
 router.get('/fincasPorPersona/:per_id', [validarJWT_1.default, validar_campos_1.default], finca_persona_1.getFincasDePersona);
+router.get('/personasPorFinca/:fin_id', [validarJWT_1.default, validar_campos_1.default], finca_persona_1.getPersonasPorFinca);
 router.post('/', [validarJWT_1.default, validar_campos_1.default], finca_persona_1.postFincaPersona);
 router.put('/:fper_id', [validarJWT_1.default, validar_campos_1.default], finca_persona_1.putFincaPersona);
 router.delete('/:fper_id', [validarJWT_1.default, validar_campos_1.default], finca_persona_1.deleteFincaPersona);

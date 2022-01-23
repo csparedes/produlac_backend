@@ -85,8 +85,8 @@ const postPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         rol_id
     };
     const persona = yield tbl_personas_1.default.build(nuevaPersona);
-    persona.save();
-    const personaCreada = yield tbl_personas_1.default.findOne({
+    yield persona.save();
+    const personaC = yield tbl_personas_1.default.findOne({
         where: {
             per_nombre,
             per_apellido,
@@ -97,12 +97,18 @@ const postPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             per_correo,
             per_telefono,
             per_direccion,
-            rol_id
+            rol_id,
+            per_estado: true
         }
     });
+    if (!personaC) {
+        return res.status(400).json({
+            msg: "No hay ninguna persona con ese id"
+        });
+    }
     res.json({
         msg: 'Se ha creado una nueva persona',
-        dato: [personaCreada]
+        dato: [personaC]
     });
 });
 exports.postPersona = postPersona;
