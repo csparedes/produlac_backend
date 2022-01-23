@@ -1,4 +1,5 @@
-import { BelongsTo, HasOne } from "sequelize/dist";
+
+import Aborto from "./tbl_aborto";
 import Animales from "./tbl_animales";
 import Catalogo from "./tbl_catalogo";
 import Deceso from "./tbl_deceso";
@@ -9,7 +10,8 @@ import IngresoEgreso from "./tbl_ingresoegreso";
 import Inseminacion from "./tbl_inseminacion";
 import Item from "./tbl_item";
 import Menu from "./tbl_menu";
-import PartoAborto from "./tbl_partoaborto";
+import Parto from "./tbl_parto";
+
 import Persona from "./tbl_personas";
 import ProdGlobal from "./tbl_prodglobal";
 import ProdIndividual from "./tbl_prodindividual";
@@ -54,15 +56,16 @@ Catalogo.belongsTo(Item, { foreignKey: "cat_id" });
 Especie.hasOne(Catalogo, { foreignKey: "cat_id" });
 Catalogo.belongsTo(Especie, { foreignKey: "cat_id" });
 
-// * Un parto/aborto tiene varios animales
-// PartoAborto.hasMany(Animales, { foreignKey: "ani_id", sourceKey: "ani_idmadre" });
-// PartoAborto.hasMany(Animales, { foreignKey: "ani_id", sourceKey: "ani_idhijo" });
-// Animales.belongsTo(PartoAborto, { foreignKey: "ani_id", targetKey: "ani_idmadre" });
-// Animales.belongsTo(PartoAborto, { foreignKey: "ani_id", targetKey: "ani_idhijo" });
+// // * Un parto tiene varios animales
+// Parto.hasOne(Animales, { foreignKey: "ani_id", sourceKey: "ani_idmadre" });
+// Animales.belongsTo(Parto, { foreignKey: "ani_idmadre", targetKey: "ani_idmadre" });
 
-// * Un parto/aborto tiene un item
-PartoAborto.hasOne(Item, { foreignKey: "ite_id", sourceKey: "ite_idpartoaborto" });
-Item.belongsTo(PartoAborto, { foreignKey: "ite_id" });
+// Parto.hasOne(Animales, { foreignKey: "ani_id", sourceKey: "ani_idhijo"});
+// Animales.belongsTo(Parto, { foreignKey: "ani_idhijo", targetKey: "ani_idhijo" });
+
+// * Un aborto tiene un animal
+Aborto.hasOne(Animales, { foreignKey: "ani_id", sourceKey: "ani_idmadre" });
+Animales.belongsTo(Aborto, { foreignKey: "ani_id", targetKey: "ani_idmadre" });
 
 // * Una inseminación tiene una persona
 Inseminacion.hasOne(Persona, { foreignKey: "per_id" });

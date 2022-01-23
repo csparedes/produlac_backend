@@ -12,7 +12,7 @@ import rutasIngresoEgreso from '../routes/ingreso_egreso';
 import rutasInseminacion from '../routes/inseminacion';
 import rutasItems from '../routes/item';
 import rutasMenus from '../routes/menu';
-import rutasPartoAborto from '../routes/parto_aborto';
+
 import rutasProdGlobal from '../routes/prod_global';
 import rutasProdIndividual from '../routes/prod_individuales'
 import rutasRol from '../routes/rol'
@@ -21,6 +21,8 @@ import rutasTratamiento from '../routes/tratamientos';
 import rutasVacuna from '../routes/vacuna';
 import rutasVenta from '../routes/venta';
 import rutasEspecies from '../routes/especies';
+import rutasParto from '../routes/parto';
+import rutasAborto from '../routes/aborto';
 class Server{
     private app: Application;
     private port: string;
@@ -45,7 +47,9 @@ class Server{
         tratamientos: '/api/tratamientos',
         vacunas: '/api/vacunas',
         ventas: '/api/ventas',
-        especies: '/api/especies'
+        especies: '/api/especies',
+        parto: '/api/parto',
+        aborto: '/api/aborto'
     };
 
     constructor() {
@@ -74,7 +78,6 @@ class Server{
         this.app.use(this.apiPaths.inseminacion, rutasInseminacion);
         this.app.use(this.apiPaths.items, rutasItems);
         this.app.use(this.apiPaths.menu, rutasMenus);
-        this.app.use(this.apiPaths.partoAborto, rutasPartoAborto);
         this.app.use(this.apiPaths.prodGlobal, rutasProdGlobal);
         this.app.use(this.apiPaths.prodIndividual, rutasProdIndividual);
         this.app.use(this.apiPaths.rol, rutasRol);
@@ -83,6 +86,8 @@ class Server{
         this.app.use(this.apiPaths.vacunas, rutasVacuna);
         this.app.use(this.apiPaths.ventas, rutasVenta);
         this.app.use(this.apiPaths.especies, rutasEspecies);
+        this.app.use(this.apiPaths.parto, rutasParto);
+        this.app.use(this.apiPaths.aborto, rutasAborto);
     }
 
     listen() {

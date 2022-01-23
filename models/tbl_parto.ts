@@ -1,23 +1,23 @@
 import { DataTypes } from "sequelize";
 import db from "../database/connection";
 
-const PartoAborto = db.define('tbl_partoaborto', {
+const Parto = db.define('tbl_parto', {
     par_id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
     par_fecha: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING
     },
     ani_idmadre: {
-        type: DataTypes.INTEGER
+        type: DataTypes.STRING
     },
     ani_idhijo: {
-        type: DataTypes.INTEGER
+        type: DataTypes.STRING
     },
-    ite_idpartoaborto: {
-        type: DataTypes.INTEGER
+    par_descripcion: {
+        type: DataTypes.STRING
     },
     par_estado: {
         type: DataTypes.BOOLEAN,
@@ -28,4 +28,4 @@ const PartoAborto = db.define('tbl_partoaborto', {
     timestamps: false
 });
 
-export default PartoAborto;
+export default Parto;

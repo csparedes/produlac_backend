@@ -90,9 +90,23 @@ export const postPersona = async (req: Request, res: Response) => {
 
     const persona = await Persona.build(nuevaPersona);
     persona.save();
+    const personaCreada = await Persona.findOne({
+        where: {
+            per_nombre,
+            per_apellido,
+            per_usuario,
+            per_contraseña: bcrypt.hashSync(per_contraseña, salt),
+            per_imagen,
+            per_cedula,
+            per_correo,
+            per_telefono,
+            per_direccion,
+            rol_id
+        }
+    })
     res.json({
         msg: 'Se ha creado una nueva persona',
-        dato: [persona]
+        dato: [personaCreada]
     });
 }
 

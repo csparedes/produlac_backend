@@ -16,7 +16,6 @@ const ingreso_egreso_1 = __importDefault(require("../routes/ingreso_egreso"));
 const inseminacion_1 = __importDefault(require("../routes/inseminacion"));
 const item_1 = __importDefault(require("../routes/item"));
 const menu_1 = __importDefault(require("../routes/menu"));
-const parto_aborto_1 = __importDefault(require("../routes/parto_aborto"));
 const prod_global_1 = __importDefault(require("../routes/prod_global"));
 const prod_individuales_1 = __importDefault(require("../routes/prod_individuales"));
 const rol_1 = __importDefault(require("../routes/rol"));
@@ -25,6 +24,8 @@ const tratamientos_1 = __importDefault(require("../routes/tratamientos"));
 const vacuna_1 = __importDefault(require("../routes/vacuna"));
 const venta_1 = __importDefault(require("../routes/venta"));
 const especies_1 = __importDefault(require("../routes/especies"));
+const parto_1 = __importDefault(require("../routes/parto"));
+const aborto_1 = __importDefault(require("../routes/aborto"));
 class Server {
     constructor() {
         this.apiPaths = {
@@ -47,7 +48,9 @@ class Server {
             tratamientos: '/api/tratamientos',
             vacunas: '/api/vacunas',
             ventas: '/api/ventas',
-            especies: '/api/especies'
+            especies: '/api/especies',
+            parto: '/api/parto',
+            aborto: '/api/aborto'
         };
         this.app = express_1.default();
         this.port = process.env.PORT || "3000";
@@ -71,7 +74,6 @@ class Server {
         this.app.use(this.apiPaths.inseminacion, inseminacion_1.default);
         this.app.use(this.apiPaths.items, item_1.default);
         this.app.use(this.apiPaths.menu, menu_1.default);
-        this.app.use(this.apiPaths.partoAborto, parto_aborto_1.default);
         this.app.use(this.apiPaths.prodGlobal, prod_global_1.default);
         this.app.use(this.apiPaths.prodIndividual, prod_individuales_1.default);
         this.app.use(this.apiPaths.rol, rol_1.default);
@@ -80,6 +82,8 @@ class Server {
         this.app.use(this.apiPaths.vacunas, vacuna_1.default);
         this.app.use(this.apiPaths.ventas, venta_1.default);
         this.app.use(this.apiPaths.especies, especies_1.default);
+        this.app.use(this.apiPaths.parto, parto_1.default);
+        this.app.use(this.apiPaths.aborto, aborto_1.default);
     }
     listen() {
         this.server.listen(this.port, () => {

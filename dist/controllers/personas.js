@@ -86,9 +86,23 @@ const postPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     };
     const persona = yield tbl_personas_1.default.build(nuevaPersona);
     persona.save();
+    const personaCreada = yield tbl_personas_1.default.findOne({
+        where: {
+            per_nombre,
+            per_apellido,
+            per_usuario,
+            per_contraseña: bcrypt_1.default.hashSync(per_contraseña, salt),
+            per_imagen,
+            per_cedula,
+            per_correo,
+            per_telefono,
+            per_direccion,
+            rol_id
+        }
+    });
     res.json({
         msg: 'Se ha creado una nueva persona',
-        dato: [persona]
+        dato: [personaCreada]
     });
 });
 exports.postPersona = postPersona;
