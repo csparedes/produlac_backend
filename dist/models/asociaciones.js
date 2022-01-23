@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const tbl_aborto_1 = __importDefault(require("./tbl_aborto"));
 const tbl_animales_1 = __importDefault(require("./tbl_animales"));
 const tbl_catalogo_1 = __importDefault(require("./tbl_catalogo"));
 const tbl_deceso_1 = __importDefault(require("./tbl_deceso"));
@@ -13,7 +14,6 @@ const tbl_ingresoegreso_1 = __importDefault(require("./tbl_ingresoegreso"));
 const tbl_inseminacion_1 = __importDefault(require("./tbl_inseminacion"));
 const tbl_item_1 = __importDefault(require("./tbl_item"));
 const tbl_menu_1 = __importDefault(require("./tbl_menu"));
-const tbl_partoaborto_1 = __importDefault(require("./tbl_partoaborto"));
 const tbl_personas_1 = __importDefault(require("./tbl_personas"));
 const tbl_prodglobal_1 = __importDefault(require("./tbl_prodglobal"));
 const tbl_prodindividual_1 = __importDefault(require("./tbl_prodindividual"));
@@ -49,14 +49,14 @@ tbl_catalogo_1.default.belongsTo(tbl_item_1.default, { foreignKey: "cat_id" });
 // * Una especie tiene un catalogo
 tbl_especies_1.default.hasOne(tbl_catalogo_1.default, { foreignKey: "cat_id" });
 tbl_catalogo_1.default.belongsTo(tbl_especies_1.default, { foreignKey: "cat_id" });
-// * Un parto/aborto tiene varios animales
-// PartoAborto.hasMany(Animales, { foreignKey: "ani_id", sourceKey: "ani_idmadre" });
-// PartoAborto.hasMany(Animales, { foreignKey: "ani_id", sourceKey: "ani_idhijo" });
-// Animales.belongsTo(PartoAborto, { foreignKey: "ani_id", targetKey: "ani_idmadre" });
-// Animales.belongsTo(PartoAborto, { foreignKey: "ani_id", targetKey: "ani_idhijo" });
-// * Un parto/aborto tiene un item
-tbl_partoaborto_1.default.hasOne(tbl_item_1.default, { foreignKey: "ite_id", sourceKey: "ite_idpartoaborto" });
-tbl_item_1.default.belongsTo(tbl_partoaborto_1.default, { foreignKey: "ite_id" });
+// // * Un parto tiene varios animales
+// Parto.hasOne(Animales, { foreignKey: "ani_id", sourceKey: "ani_idmadre" });
+// Animales.belongsTo(Parto, { foreignKey: "ani_idmadre", targetKey: "ani_idmadre" });
+// Parto.hasOne(Animales, { foreignKey: "ani_id", sourceKey: "ani_idhijo"});
+// Animales.belongsTo(Parto, { foreignKey: "ani_idhijo", targetKey: "ani_idhijo" });
+// * Un aborto tiene un animal
+tbl_aborto_1.default.hasOne(tbl_animales_1.default, { foreignKey: "ani_id", sourceKey: "ani_idmadre" });
+tbl_animales_1.default.belongsTo(tbl_aborto_1.default, { foreignKey: "ani_id", targetKey: "ani_idmadre" });
 // * Una inseminación tiene una persona
 tbl_inseminacion_1.default.hasOne(tbl_personas_1.default, { foreignKey: "per_id" });
 tbl_personas_1.default.belongsTo(tbl_inseminacion_1.default, { foreignKey: "per_id" });
