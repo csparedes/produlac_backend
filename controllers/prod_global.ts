@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import sequelize from "sequelize";
 import Finca from "../models/tbl_finca";
+import Item from "../models/tbl_item";
 import ProdGlobal from "../models/tbl_prodglobal";
 
 export const getProdGlobales = async (req: Request, res: Response) => {
@@ -8,9 +9,10 @@ export const getProdGlobales = async (req: Request, res: Response) => {
         where: {
             pglo_estado: true
         },
-        include: {
-            model: Finca
-        }
+        include: [
+            { model: Finca },
+            { model: Item}
+        ]
     });
     if (!prodGlobales) {
         return res.status(400).json({
@@ -53,9 +55,11 @@ export const getProdGlobal = async (req: Request, res: Response) => {
             pglo_id,
             pglo_estado: true
         },
-        include: {
-            model: Finca
-        }
+        include: [
+            { model: Finca },
+            { model: Item}
+        ]
+        
     });
     if (!prodGlobal) {
         return res.status(400).json({
@@ -71,14 +75,14 @@ export const getProdGlobal = async (req: Request, res: Response) => {
 export const postProdGlobal = async (req: Request, res: Response) => {
     const {
         pglo_fecha,
-        pglo_horario,
+        ite_idhorario,
         pglo_litros,
         pglo_numvacas,
         fin_id
     } = req.body;
     const prodGlobal = await ProdGlobal.build({
         pglo_fecha,
-        pglo_horario,
+        ite_idhorario,
         pglo_litros,
         pglo_numvacas,
         fin_id
@@ -105,14 +109,14 @@ export const putProdGlobal = async (req: Request, res: Response) => {
     }
     const {
         pglo_fecha,
-        pglo_horario,
+        ite_idhorario,
         pglo_litros,
         pglo_numvacas,
         fin_id
     } = req.body;
     await prodGlobal.update({
         pglo_fecha,
-        pglo_horario,
+        ite_idhorario,
         pglo_litros,
         pglo_numvacas,
         fin_id

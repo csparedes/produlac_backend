@@ -40,13 +40,19 @@ Finca.belongsTo(FincaPersona, { foreignKey: "fin_id" });
 Animales.hasOne(Finca, { foreignKey: "fin_id" });
 Finca.belongsTo(Animales, { foreignKey: "fin_id" });
 
-// * Un animal tiene un estado
-Animales.hasOne(Item, {foreignKey: "ite_id" });
-Item.belongsTo(Animales, { foreignKey: "ite_id" });
+// * Un animal tiene un estado y una etapa
+Animales.hasMany(Item, {foreignKey: "ite_id", sourceKey: 'ite_idtipoestado' });
+Item.belongsTo(Animales, { foreignKey: "ite_id", targetKey: "ite_idtipoestado" });
+Animales.hasMany(Item, {foreignKey: "ite_id", sourceKey: 'ite_idetapa' });
+Item.belongsTo(Animales, { foreignKey: "ite_id", targetKey: "ite_idetapa" });
+Animales.hasMany(Item, {foreignKey: "ite_id", sourceKey: 'ite_idespecie' });
+Item.belongsTo(Animales, { foreignKey: "ite_id", targetKey: "ite_idespecie" });
 
-// * Un animal tiene una especie
-Animales.hasOne(Especie, { foreignKey: "esp_id" });
-Especie.belongsTo(Animales, { foreignKey: "esp_id" });
+// * 
+
+// // * Un animal tiene una especie
+// Animales.hasOne(Especie, { foreignKey: "esp_id" });
+// Especie.belongsTo(Animales, { foreignKey: "esp_id" });
 
 // * Un catalogo puede tener varios items
 Item.hasOne(Catalogo, { foreignKey: "cat_id" });
@@ -118,3 +124,11 @@ Rol.belongsTo(Menu, { foreignKey: "rol_id" });
 // * Un submenu muestra un menu
 SubMenu.hasOne(Menu, { foreignKey: "men_id" });
 Menu.belongsTo(SubMenu, { foreignKey: "men_id" });
+
+// * Una producción individual tiene un item
+ProdIndividual.hasOne(Item, { foreignKey: "ite_id", sourceKey: "ite_idhorario" });
+Item.belongsTo(ProdIndividual, { foreignKey: "ite_id", targetKey: "ite_idhorario" });
+
+// * Una producción global tiene un item
+ProdGlobal.hasOne(Item, { foreignKey: "ite_id", sourceKey: "ite_idhorario" });
+Item.belongsTo(ProdGlobal, { foreignKey: "ite_id", targetKey: "ite_idhorario" });

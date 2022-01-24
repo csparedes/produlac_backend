@@ -12,22 +12,37 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteAnimal = exports.putAnimal = exports.postAnimal = exports.getAnimal = exports.getAnimales = void 0;
+exports.deleteAnimal = exports.putAnimal = exports.postAnimal = exports.getAnimal = exports.getAnimalesPorFinca = exports.getAnimales = void 0;
+const sequelize_1 = require("sequelize");
 const tbl_animales_1 = __importDefault(require("../models/tbl_animales"));
-const tbl_especies_1 = __importDefault(require("../models/tbl_especies"));
 const tbl_finca_1 = __importDefault(require("../models/tbl_finca"));
 const tbl_item_1 = __importDefault(require("../models/tbl_item"));
 const getAnimales = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const animales = yield tbl_animales_1.default.findAll({
-        where: {
-            ani_estado: true
-        },
-        include: [
-            { model: tbl_finca_1.default },
-            { model: tbl_item_1.default },
-            { model: tbl_especies_1.default }
-        ]
-    });
+    var _a;
+    const animales = yield ((_a = tbl_animales_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query(`
+    SELECT tbl_animales.*, 
+    D.ani_id as ani_id_padre,
+    D.ani_nombre as ani_id_padre_nombre,
+    D.ani_imagen as ani_id_padre_imagen,
+    E.ani_id as ani_id_madre,
+    E.ani_nombre as ani_id_madre_nombre,
+    E.ani_imagen as ani_id_madre_imagen,
+    F.*,
+    A.ite_id as ite_id_especie,
+    A.ite_nombre as ite_id_nombre_especie,
+    B.ite_id as ite_id_etapa,
+    B.ite_nombre as ite_id_nombre_etapa,
+    C.ite_id as ite_id_tipo_estado,
+    C.ite_nombre as ite_id_tipo_estado_nombre
+    FROM tbl_animales
+    INNER JOIN tbl_item A on tbl_animales.ite_idespecie = A.ite_id 
+    INNER JOIN tbl_item B on tbl_animales.ite_idetapa = B.ite_id
+    INNER JOIN tbl_item C on tbl_animales.ite_idtipoestado = C.ite_id
+    INNER JOIN tbl_animales D on tbl_animales.ani_idpadre = D.ani_id
+    INNER JOIN tbl_animales E on tbl_animales.ani_idmadre = E.ani_id
+    INNER JOIN tbl_finca F on tbl_animales.fin_id = F.fin_id
+    WHERE tbl_animales.ani_estado = true
+    `, { type: sequelize_1.QueryTypes.SELECT }));
     if (!animales) {
         return res.status(400).json({
             msg: `No existen animales en la base de datos`
@@ -39,6 +54,44 @@ const getAnimales = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     });
 });
 exports.getAnimales = getAnimales;
+const getAnimalesPorFinca = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _b;
+    const { fin_id } = req.params;
+    const animales = yield ((_b = tbl_animales_1.default.sequelize) === null || _b === void 0 ? void 0 : _b.query(`
+    SELECT tbl_animales.*, 
+    D.ani_id as ani_id_padre,
+    D.ani_nombre as ani_id_padre_nombre,
+    D.ani_imagen as ani_id_padre_imagen,
+    E.ani_id as ani_id_madre,
+    E.ani_nombre as ani_id_madre_nombre,
+    E.ani_imagen as ani_id_madre_imagen,
+    F.*,
+    A.ite_id as ite_id_especie,
+    A.ite_nombre as ite_id_nombre_especie,
+    B.ite_id as ite_id_etapa,
+    B.ite_nombre as ite_id_nombre_etapa,
+    C.ite_id as ite_id_tipo_estado,
+    C.ite_nombre as ite_id_tipo_estado_nombre
+    FROM tbl_animales
+    INNER JOIN tbl_item A on tbl_animales.ite_idespecie = A.ite_id 
+    INNER JOIN tbl_item B on tbl_animales.ite_idetapa = B.ite_id
+    INNER JOIN tbl_item C on tbl_animales.ite_idtipoestado = C.ite_id
+    INNER JOIN tbl_animales D on tbl_animales.ani_idpadre = D.ani_id
+    INNER JOIN tbl_animales E on tbl_animales.ani_idmadre = E.ani_id
+    INNER JOIN tbl_finca F on tbl_animales.fin_id = F.fin_id
+    WHERE F.fin_id = ${fin_id} AND tbl_animales.ani_estado = true
+    `, { type: sequelize_1.QueryTypes.SELECT }));
+    if (!animales) {
+        return res.status(400).json({
+            msg: `No existen animales en la base de datos`
+        });
+    }
+    res.json({
+        msg: "Lista de animales",
+        dato: animales
+    });
+});
+exports.getAnimalesPorFinca = getAnimalesPorFinca;
 const getAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { ani_id } = req.params;
     const animal = yield tbl_animales_1.default.findOne({
@@ -49,7 +102,6 @@ const getAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         include: [
             { model: tbl_finca_1.default },
             { model: tbl_item_1.default },
-            { model: tbl_especies_1.default }
         ]
     });
     if (!animal) {
@@ -64,7 +116,7 @@ const getAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.getAnimal = getAnimal;
 const postAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { ani_codigo, ani_nombre, ani_sexo, ani_fechanacimiento, ani_imagen, ani_raza, ani_etapa, ani_idpadre, ani_idmadre, ani_pesonacer, esp_id, fin_id, ite_idtipoestado } = req.body;
+    const { ani_codigo, ani_nombre, ani_sexo, ani_fechanacimiento, ani_imagen, ani_raza, ani_etapa, ani_idpadre, ani_idmadre, ani_pesonacer, ite_idespecie, fin_id, ite_idtipoestado } = req.body;
     const animalBuscado = yield tbl_animales_1.default.findOne({
         where: {
             ani_codigo,
@@ -88,7 +140,7 @@ const postAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         ani_idpadre,
         ani_idmadre,
         ani_pesonacer,
-        esp_id,
+        ite_idespecie,
         fin_id,
         ite_idtipoestado
     };
@@ -113,7 +165,7 @@ const putAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             msg: `El animal con el id: ${ani_id} no existe en esta base de datos`
         });
     }
-    const { ani_codigo, ani_nombre, ani_sexo, ani_fechanacimiento, ani_imagen, ani_raza, ani_etapa, ani_idpadre, ani_idmadre, ani_pesonacer, esp_id, fin_id, ite_idtipoestado } = req.body;
+    const { ani_codigo, ani_nombre, ani_sexo, ani_fechanacimiento, ani_imagen, ani_raza, ani_etapa, ani_idpadre, ani_idmadre, ani_pesonacer, ite_idespecie, fin_id, ite_idtipoestado } = req.body;
     const nuevoAnimal = {
         ani_codigo,
         ani_nombre,
@@ -125,7 +177,7 @@ const putAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         ani_idpadre,
         ani_idmadre,
         ani_pesonacer,
-        esp_id,
+        ite_idespecie,
         fin_id,
         ite_idtipoestado
     };
