@@ -1,22 +1,76 @@
 import { Request, Response } from "express";
+import { QueryTypes } from "sequelize";
 import Animales from '../models/tbl_animales';
 import Especie from "../models/tbl_especies";
 import Finca from "../models/tbl_finca";
 import Item from "../models/tbl_item";
 
 export const getAnimales = async (req: Request, res: Response) => {
-    const animales = await Animales.findAll({
-        where: {
-            ani_estado: true
-        },
-        include: [
-            { model: Finca },
-            { model: Item },
-            { model: Especie}
-        ]
-            
-        
-    });
+    const animales = await Animales.sequelize?.query(`
+    SELECT tbl_animales.*, 
+    D.ani_id as ani_id_padre,
+    D.ani_nombre as ani_id_padre_nombre,
+    D.ani_imagen as ani_id_padre_imagen,
+    E.ani_id as ani_id_madre,
+    E.ani_nombre as ani_id_madre_nombre,
+    E.ani_imagen as ani_id_madre_imagen,
+    F.*,
+    A.ite_id as ite_id_especie,
+    A.ite_nombre as ite_id_nombre_especie,
+    B.ite_id as ite_id_etapa,
+    B.ite_nombre as ite_id_nombre_etapa,
+    C.ite_id as ite_id_tipo_estado,
+    C.ite_nombre as ite_id_tipo_estado_nombre
+    FROM tbl_animales
+    INNER JOIN tbl_item A on tbl_animales.ite_idespecie = A.ite_id 
+    INNER JOIN tbl_item B on tbl_animales.ite_idetapa = B.ite_id
+    INNER JOIN tbl_item C on tbl_animales.ite_idtipoestado = C.ite_id
+    INNER JOIN tbl_animales D on tbl_animales.ani_idpadre = D.ani_id
+    INNER JOIN tbl_animales E on tbl_animales.ani_idmadre = E.ani_id
+    INNER JOIN tbl_finca F on tbl_animales.fin_id = F.fin_id
+    WHERE tbl_animales.ani_estado = true
+    `,
+    { type: QueryTypes.SELECT })
+
+    if (!animales) {
+        return res.status(400).json({
+            msg: `No existen animales en la base de datos`
+        })
+    }
+
+    res.json({
+        msg: "Lista de animales",
+        dato: animales
+    })
+}
+
+export const getAnimalesPorFinca = async (req: Request, res: Response) => {
+    const { fin_id } = req.params;
+    const animales = await Animales.sequelize?.query(`
+    SELECT tbl_animales.*, 
+    D.ani_id as ani_id_padre,
+    D.ani_nombre as ani_id_padre_nombre,
+    D.ani_imagen as ani_id_padre_imagen,
+    E.ani_id as ani_id_madre,
+    E.ani_nombre as ani_id_madre_nombre,
+    E.ani_imagen as ani_id_madre_imagen,
+    F.*,
+    A.ite_id as ite_id_especie,
+    A.ite_nombre as ite_id_nombre_especie,
+    B.ite_id as ite_id_etapa,
+    B.ite_nombre as ite_id_nombre_etapa,
+    C.ite_id as ite_id_tipo_estado,
+    C.ite_nombre as ite_id_tipo_estado_nombre
+    FROM tbl_animales
+    INNER JOIN tbl_item A on tbl_animales.ite_idespecie = A.ite_id 
+    INNER JOIN tbl_item B on tbl_animales.ite_idetapa = B.ite_id
+    INNER JOIN tbl_item C on tbl_animales.ite_idtipoestado = C.ite_id
+    INNER JOIN tbl_animales D on tbl_animales.ani_idpadre = D.ani_id
+    INNER JOIN tbl_animales E on tbl_animales.ani_idmadre = E.ani_id
+    INNER JOIN tbl_finca F on tbl_animales.fin_id = F.fin_id
+    WHERE F.fin_id = ${fin_id} AND tbl_animales.ani_estado = true
+    `,
+    { type: QueryTypes.SELECT })
 
     if (!animales) {
         return res.status(400).json({
@@ -40,7 +94,6 @@ export const getAnimal = async (req: Request, res: Response) => {
         include: [
             { model: Finca },
             { model: Item },
-            { model: Especie}
         ]
     });
 
@@ -68,7 +121,7 @@ export const postAnimal = async (req: Request, res: Response) => {
         ani_idpadre,
         ani_idmadre,
         ani_pesonacer,
-        esp_id,
+        ite_idespecie,
         fin_id,
         ite_idtipoestado
     } = req.body;
@@ -99,7 +152,7 @@ export const postAnimal = async (req: Request, res: Response) => {
         ani_idpadre,
         ani_idmadre,
         ani_pesonacer,
-        esp_id,
+        ite_idespecie,
         fin_id,
         ite_idtipoestado
     };
@@ -139,7 +192,7 @@ export const putAnimal = async (req: Request, res: Response) => {
         ani_idpadre,
         ani_idmadre,
         ani_pesonacer,
-        esp_id,
+        ite_idespecie,
         fin_id,
         ite_idtipoestado
     } = req.body;
@@ -155,7 +208,7 @@ export const putAnimal = async (req: Request, res: Response) => {
         ani_idpadre,
         ani_idmadre,
         ani_pesonacer,
-        esp_id,
+        ite_idespecie,
         fin_id,
         ite_idtipoestado
     };

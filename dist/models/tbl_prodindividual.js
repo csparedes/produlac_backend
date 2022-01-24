@@ -17,14 +17,14 @@ const ProdIndividual = connection_1.default.define('tbl_prodindividual', {
     pro_fecha: {
         type: sequelize_1.DataTypes.DATE
     },
-    pro_horario: {
-        type: sequelize_1.DataTypes.STRING
-    },
     pro_litros: {
         type: sequelize_1.DataTypes.INTEGER
     },
     pro_dieta: {
         type: sequelize_1.DataTypes.STRING
+    },
+    ite_idhorario: {
+        type: sequelize_1.DataTypes.INTEGER
     },
     pro_estado: {
         type: sequelize_1.DataTypes.BOOLEAN,

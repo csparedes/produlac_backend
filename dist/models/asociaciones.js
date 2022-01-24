@@ -37,12 +37,17 @@ tbl_finca_1.default.belongsTo(tbl_fincapersona_1.default, { foreignKey: "fin_id"
 // * Un animal pertenece a una finca
 tbl_animales_1.default.hasOne(tbl_finca_1.default, { foreignKey: "fin_id" });
 tbl_finca_1.default.belongsTo(tbl_animales_1.default, { foreignKey: "fin_id" });
-// * Un animal tiene un estado
-tbl_animales_1.default.hasOne(tbl_item_1.default, { foreignKey: "ite_id" });
-tbl_item_1.default.belongsTo(tbl_animales_1.default, { foreignKey: "ite_id" });
-// * Un animal tiene una especie
-tbl_animales_1.default.hasOne(tbl_especies_1.default, { foreignKey: "esp_id" });
-tbl_especies_1.default.belongsTo(tbl_animales_1.default, { foreignKey: "esp_id" });
+// * Un animal tiene un estado y una etapa
+tbl_animales_1.default.hasMany(tbl_item_1.default, { foreignKey: "ite_id", sourceKey: 'ite_idtipoestado' });
+tbl_item_1.default.belongsTo(tbl_animales_1.default, { foreignKey: "ite_id", targetKey: "ite_idtipoestado" });
+tbl_animales_1.default.hasMany(tbl_item_1.default, { foreignKey: "ite_id", sourceKey: 'ite_idetapa' });
+tbl_item_1.default.belongsTo(tbl_animales_1.default, { foreignKey: "ite_id", targetKey: "ite_idetapa" });
+tbl_animales_1.default.hasMany(tbl_item_1.default, { foreignKey: "ite_id", sourceKey: 'ite_idespecie' });
+tbl_item_1.default.belongsTo(tbl_animales_1.default, { foreignKey: "ite_id", targetKey: "ite_idespecie" });
+// * 
+// // * Un animal tiene una especie
+// Animales.hasOne(Especie, { foreignKey: "esp_id" });
+// Especie.belongsTo(Animales, { foreignKey: "esp_id" });
 // * Un catalogo puede tener varios items
 tbl_item_1.default.hasOne(tbl_catalogo_1.default, { foreignKey: "cat_id" });
 tbl_catalogo_1.default.belongsTo(tbl_item_1.default, { foreignKey: "cat_id" });
@@ -96,4 +101,10 @@ tbl_rol_1.default.belongsTo(tbl_menu_1.default, { foreignKey: "rol_id" });
 // * Un submenu muestra un menu
 tbl_submenu_1.default.hasOne(tbl_menu_1.default, { foreignKey: "men_id" });
 tbl_menu_1.default.belongsTo(tbl_submenu_1.default, { foreignKey: "men_id" });
+// * Una producción individual tiene un item
+tbl_prodindividual_1.default.hasOne(tbl_item_1.default, { foreignKey: "ite_id", sourceKey: "ite_idhorario" });
+tbl_item_1.default.belongsTo(tbl_prodindividual_1.default, { foreignKey: "ite_id", targetKey: "ite_idhorario" });
+// * Una producción global tiene un item
+tbl_prodglobal_1.default.hasOne(tbl_item_1.default, { foreignKey: "ite_id", sourceKey: "ite_idhorario" });
+tbl_item_1.default.belongsTo(tbl_prodglobal_1.default, { foreignKey: "ite_id", targetKey: "ite_idhorario" });
 //# sourceMappingURL=asociaciones.js.map

@@ -10,8 +10,8 @@ const ProdGlobal = db.define('tbl_prodglobal', {
     pglo_fecha: {
         type: DataTypes.DATE
     },
-    pglo_horario: {
-        type: DataTypes.STRING
+    ite_idhorario: {
+        type: DataTypes.INTEGER
     },
     pglo_litros: {
         type: DataTypes.STRING

@@ -25,7 +25,7 @@ const Animales = db.define("tbl_animales", {
     ani_raza: {
         type: DataTypes.STRING,
     },
-    ani_etapa: {
+    ite_idetapa: {
         type: DataTypes.STRING,
     },
     ani_idpadre: {
@@ -37,7 +37,7 @@ const Animales = db.define("tbl_animales", {
     ani_pesonacer: {
         type: DataTypes.STRING,
     },
-    esp_id: {
+    ite_idespecie: {
         type: DataTypes.INTEGER,
     },
     fin_id: {

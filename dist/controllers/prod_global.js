@@ -15,15 +15,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteProdGlobar = exports.putProdGlobal = exports.postProdGlobal = exports.getProdGlobal = exports.getProdGlobalesPorFinca = exports.getProdGlobales = void 0;
 const sequelize_1 = __importDefault(require("sequelize"));
 const tbl_finca_1 = __importDefault(require("../models/tbl_finca"));
+const tbl_item_1 = __importDefault(require("../models/tbl_item"));
 const tbl_prodglobal_1 = __importDefault(require("../models/tbl_prodglobal"));
 const getProdGlobales = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const prodGlobales = yield tbl_prodglobal_1.default.findAll({
         where: {
             pglo_estado: true
         },
-        include: {
-            model: tbl_finca_1.default
-        }
+        include: [
+            { model: tbl_finca_1.default },
+            { model: tbl_item_1.default }
+        ]
     });
     if (!prodGlobales) {
         return res.status(400).json({
@@ -66,9 +68,10 @@ const getProdGlobal = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             pglo_id,
             pglo_estado: true
         },
-        include: {
-            model: tbl_finca_1.default
-        }
+        include: [
+            { model: tbl_finca_1.default },
+            { model: tbl_item_1.default }
+        ]
     });
     if (!prodGlobal) {
         return res.status(400).json({
@@ -82,10 +85,10 @@ const getProdGlobal = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 });
 exports.getProdGlobal = getProdGlobal;
 const postProdGlobal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { pglo_fecha, pglo_horario, pglo_litros, pglo_numvacas, fin_id } = req.body;
+    const { pglo_fecha, ite_idhorario, pglo_litros, pglo_numvacas, fin_id } = req.body;
     const prodGlobal = yield tbl_prodglobal_1.default.build({
         pglo_fecha,
-        pglo_horario,
+        ite_idhorario,
         pglo_litros,
         pglo_numvacas,
         fin_id
@@ -110,10 +113,10 @@ const putProdGlobal = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             msg: `No se encontró el registro con el id: ${pglo_id}`
         });
     }
-    const { pglo_fecha, pglo_horario, pglo_litros, pglo_numvacas, fin_id } = req.body;
+    const { pglo_fecha, ite_idhorario, pglo_litros, pglo_numvacas, fin_id } = req.body;
     yield prodGlobal.update({
         pglo_fecha,
-        pglo_horario,
+        ite_idhorario,
         pglo_litros,
         pglo_numvacas,
         fin_id

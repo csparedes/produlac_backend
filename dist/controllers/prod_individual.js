@@ -15,15 +15,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteProdIndividual = exports.putProdIndividual = exports.postProdIndividuales = exports.postProdIndividualPorAnimal = exports.getProdIndividual = exports.getProdIndividuales = void 0;
 const sequelize_1 = __importDefault(require("sequelize"));
 const tbl_animales_1 = __importDefault(require("../models/tbl_animales"));
+const tbl_item_1 = __importDefault(require("../models/tbl_item"));
 const tbl_prodindividual_1 = __importDefault(require("../models/tbl_prodindividual"));
 const getProdIndividuales = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const prodIndividuales = yield tbl_prodindividual_1.default.findAll({
         where: {
             pro_estado: true
         },
-        include: {
-            model: tbl_animales_1.default
-        }
+        include: [
+            { model: tbl_animales_1.default },
+            { model: tbl_item_1.default },
+        ]
     });
     if (!prodIndividuales) {
         return res.status(400).json({
@@ -43,9 +45,10 @@ const getProdIndividual = (req, res) => __awaiter(void 0, void 0, void 0, functi
             pro_id,
             pro_estado: true
         },
-        include: {
-            model: tbl_animales_1.default
-        }
+        include: [
+            { model: tbl_animales_1.default },
+            { model: tbl_item_1.default }
+        ],
     });
     if (!prodIndividual) {
         return res.status(400).json({
@@ -92,11 +95,11 @@ const postProdIndividualPorAnimal = (req, res) => __awaiter(void 0, void 0, void
 });
 exports.postProdIndividualPorAnimal = postProdIndividualPorAnimal;
 const postProdIndividuales = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { ani_id, pro_fecha, pro_horario, pro_litros, pro_dieta } = req.body;
+    const { ani_id, pro_fecha, ite_idhorario, pro_litros, pro_dieta } = req.body;
     const prodIndividual = yield tbl_prodindividual_1.default.build({
         ani_id,
         pro_fecha,
-        pro_horario,
+        ite_idhorario,
         pro_litros,
         pro_dieta
     });
@@ -120,11 +123,11 @@ const putProdIndividual = (req, res) => __awaiter(void 0, void 0, void 0, functi
             msg: `No existe registro de prodIndividual de id: ${pro_id}`
         });
     }
-    const { ani_id, pro_fecha, pro_horario, pro_litros, pro_dieta } = req.body;
+    const { ani_id, pro_fecha, ite_idhorario, pro_litros, pro_dieta } = req.body;
     yield prodIndividual.update({
         ani_id,
         pro_fecha,
-        pro_horario,
+        ite_idhorario,
         pro_litros,
         pro_dieta
     });
