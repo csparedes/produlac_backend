@@ -79,6 +79,22 @@ export const postDeceso = async (req: Request, res: Response) => {
     };
     const deceso = await Deceso.build(nuevoDeceso);
     deceso.save();
+    
+    //Actualizar en tbl_animal
+    const animal = await Animales.findOne({
+        where: {
+            ani_id,
+            ani_estado: true
+        }
+    });
+    if (!animal) {
+        return res.status(400).json({
+            msg: `No se encontro el animal para deceso`
+        });
+    }
+    await animal.update({ ite_idetipoestado: 7 });
+    
+    
     res.json({
         msg: `Se creó un nuevo Deceso :(`,
         dato: [deceso]

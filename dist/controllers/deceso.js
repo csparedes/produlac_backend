@@ -86,6 +86,19 @@ const postDeceso = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     };
     const deceso = yield tbl_deceso_1.default.build(nuevoDeceso);
     deceso.save();
+    //Actualizar en tbl_animal
+    const animal = yield tbl_animales_1.default.findOne({
+        where: {
+            ani_id,
+            ani_estado: true
+        }
+    });
+    if (!animal) {
+        return res.status(400).json({
+            msg: `No se encontro el animal para deceso`
+        });
+    }
+    yield animal.update({ ite_idetipoestado: 7 });
     res.json({
         msg: `Se creó un nuevo Deceso :(`,
         dato: [deceso]
