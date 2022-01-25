@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteInseminacion = exports.putInseminacion = exports.postInseminacion = exports.getInseminacion = exports.getInseminaciones = void 0;
+exports.deleteInseminacion = exports.putInseminacion = exports.postInseminacion = exports.getInseminacion = exports.getInseminacionesPorAnimal = exports.getInseminaciones = void 0;
 const tbl_animales_1 = __importDefault(require("../models/tbl_animales"));
 const tbl_inseminacion_1 = __importDefault(require("../models/tbl_inseminacion"));
 const tbl_personas_1 = __importDefault(require("../models/tbl_personas"));
@@ -37,6 +37,29 @@ const getInseminaciones = (req, res) => __awaiter(void 0, void 0, void 0, functi
     });
 });
 exports.getInseminaciones = getInseminaciones;
+const getInseminacionesPorAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { ani_id } = req.params;
+    const inseminaciones = yield tbl_inseminacion_1.default.findAll({
+        where: {
+            ani_id,
+            ins_estado: true
+        },
+        include: [
+            { model: tbl_animales_1.default },
+            { model: tbl_personas_1.default }
+        ]
+    });
+    if (!inseminaciones) {
+        return res.status(400).json({
+            msg: `No Existe el listado de inseminaciones`,
+        });
+    }
+    res.json({
+        msg: `Lista de inseminaciones`,
+        dato: inseminaciones
+    });
+});
+exports.getInseminacionesPorAnimal = getInseminacionesPorAnimal;
 const getInseminacion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { ins_id } = req.params;
     const inseminacion = yield tbl_inseminacion_1.default.findOne({

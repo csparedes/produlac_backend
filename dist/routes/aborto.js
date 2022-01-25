@@ -10,6 +10,7 @@ const validar_campos_1 = __importDefault(require("../middlewares/validar_campos"
 const router = express_1.Router();
 router.get('/', [validarJWT_1.default, validar_campos_1.default], aborto_1.getAbortos);
 router.get('/:abo_id', [validarJWT_1.default, validar_campos_1.default], aborto_1.getAborto);
+router.get('/animal/:ani_id', [validarJWT_1.default, validar_campos_1.default], aborto_1.getAbortosPorAnimal);
 router.post('/', [validarJWT_1.default, validar_campos_1.default], aborto_1.postAborto);
 router.put('/:abo_id', [validarJWT_1.default, validar_campos_1.default], aborto_1.putAborto);
 router.delete('/:abo_id', [validarJWT_1.default, validar_campos_1.default], aborto_1.deleteAborto);

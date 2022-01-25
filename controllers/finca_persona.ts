@@ -33,7 +33,8 @@ export const getFincasDePersona = async (req: Request, res: Response) => {
             per_id
         },
         include: [
-            { model: Finca }
+            { model: Finca },
+            { model: Persona}
         ]
     });
     if (!fincasPersonas) {
@@ -54,7 +55,11 @@ export const getFincaPersona = async (req: Request, res: Response) => {
         where: {
             fper_id,
             fper_estado: true
-        }
+        },
+        include: [
+            { model: Persona },
+            { model: Finca}
+        ]
     });
     if (!fincaPersona) {
         return res.status(400).json({
@@ -72,7 +77,11 @@ export const getPersonasPorFinca = async (req: Request, res: Response) => {
         where: {
             fin_id,
             fper_estado: true
-        }
+        },
+        include: [
+            { model: Persona },
+            { model: Finca}
+        ]
     });
     if (!fincaPersona) {
         return res.status(400).json({

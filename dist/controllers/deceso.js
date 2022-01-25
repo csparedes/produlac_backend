@@ -12,7 +12,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteDeceso = exports.putDeceso = exports.postDeceso = exports.getDeceso = exports.getDecesos = void 0;
+exports.deleteDeceso = exports.putDeceso = exports.postDeceso = exports.getDeceso = exports.getDecesosPorFinca = exports.getDecesos = void 0;
+const sequelize_1 = require("sequelize");
 const tbl_animales_1 = __importDefault(require("../models/tbl_animales"));
 const tbl_deceso_1 = __importDefault(require("../models/tbl_deceso"));
 const getDecesos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -35,6 +36,26 @@ const getDecesos = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     });
 });
 exports.getDecesos = getDecesos;
+const getDecesosPorFinca = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    const { fin_id } = req.params;
+    const decesos = yield ((_a = tbl_deceso_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query(`
+    SELECT *
+    FROM tbl_deceso
+    INNER JOIN tbl_animales A ON tbl_deceso.ani_id = A.ani_id
+    WHERE A.fin_id = ${fin_id}
+    `, { type: sequelize_1.QueryTypes.SELECT }));
+    if (!decesos) {
+        return res.status(400).json({
+            msg: `No existe ningún deceso registrado en la base de datos`
+        });
+    }
+    res.json({
+        msg: `Lista de Decesos`,
+        dato: decesos
+    });
+});
+exports.getDecesosPorFinca = getDecesosPorFinca;
 const getDeceso = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { dec_id } = req.params;
     const deceso = yield tbl_deceso_1.default.findOne({

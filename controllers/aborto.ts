@@ -44,6 +44,26 @@ export const getAborto = async (req: Request, res: Response) => {
         dato: [aborto]
     });
 }
+export const getAbortosPorAnimal = async (req: Request, res: Response) => {
+    const { ani_id } = req.params;
+    const aborto = await Aborto.findAll({
+        where: {
+            ani_id,
+            abo_estado: true
+        }
+    });
+
+    if (!aborto) {
+        return res.status(400).json({
+            msg: `No existe ningún registro de aborto con el id: ${ani_id}`
+        });
+    }
+
+    res.json({
+        msg: `Detalle del aborto`,
+        dato: aborto
+    });
+}
 
 export const postAborto = async (req: Request, res: Response) => {
     const {

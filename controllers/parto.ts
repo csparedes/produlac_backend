@@ -4,7 +4,16 @@ import Animales from '../models/tbl_animales';
 import Parto from '../models/tbl_parto';
 
 export const getPartos = async (req: Request, res: Response) => {
-    const partos = await Parto.sequelize?.query(`SELECT parto.*, A1.ani_id as animalmadre_ani_id , A1.ani_nombre as animalmadre_ani_nombre, A2.ani_id as animalhijo_ani_id , A2.ani_nombre as animalhijo_ani_nombre FROM tbl_parto as parto INNER JOIN tbl_animales A1 On parto.ani_idmadre=A1.ani_id INNER JOIN tbl_animales A2 On parto.ani_idhijo=A2.ani_id`, { type: QueryTypes.SELECT });
+    const partos = await Parto.sequelize?.query(`
+    SELECT parto.*,
+    A1.ani_id as animalmadre_ani_id,
+    A1.ani_nombre as animalmadre_ani_nombre,
+    A2.ani_id as animalhijo_ani_id,
+    A2.ani_nombre as animalhijo_ani_nombre
+    FROM tbl_parto as parto
+    INNER JOIN tbl_animales A1 On parto.ani_idmadre=A1.ani_id
+    INNER JOIN tbl_animales A2 On parto.ani_idhijo=A2.ani_id
+    `,{ type: QueryTypes.SELECT });
 
     if (!partos) {
         return res.status(400).json({
@@ -36,6 +45,26 @@ export const getParto = async (req: Request, res: Response) => {
     res.json({
         msg: `Detalle de parto`,
         dato: [parto]
+    })
+}
+export const getPartoPorAnimal = async (req: Request, res: Response) => {
+    const { ani_id } = req.params;
+    const partos = await Parto.findAll({
+        where: {
+            ani_id,
+            par_estado: true
+        }
+    });
+
+    if (!partos) {
+        return res.status(400).json({
+            msg: `No existe un parto con el id: ${ani_id}`
+        });
+    }
+
+    res.json({
+        msg: `Detalle de parto`,
+        dato: partos
     })
 }
 
