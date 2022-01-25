@@ -24,6 +24,29 @@ export const getIngresosEgresos = async (req: Request, res: Response) => {
         dato: ingresosEgresos
     })
 }
+export const getIngresosEgresosPorFinca = async (req: Request, res: Response) => {
+    const { fin_id } = req.params;
+    const ingresosEgresos = await IngresoEgreso.findAll({
+        where: {
+            fin_id,
+            ing_estado: true
+        },
+        include: [
+            { model: Finca },
+            { model: Item }
+        ]
+    });
+    if (!ingresosEgresos) {
+        return res.status(400).json({
+            msg: `No se encontraron registros para mostrar`
+        });
+    }
+
+    res.json({
+        msg: `Lista de Ingresos y Egresos`,
+        dato: ingresosEgresos
+    })
+}
 
 export const getIngresoEgreso = async (req: Request, res: Response) => {
     const { ing_id } = req.params;

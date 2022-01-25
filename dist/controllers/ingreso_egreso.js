@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteIngresoEgreso = exports.putIngresoEgreso = exports.postIngresoEgreso = exports.getIngresoEgreso = exports.getIngresosEgresos = void 0;
+exports.deleteIngresoEgreso = exports.putIngresoEgreso = exports.postIngresoEgreso = exports.getIngresoEgreso = exports.getIngresosEgresosPorFinca = exports.getIngresosEgresos = void 0;
 const tbl_finca_1 = __importDefault(require("../models/tbl_finca"));
 const tbl_ingresoegreso_1 = __importDefault(require("../models/tbl_ingresoegreso"));
 const tbl_item_1 = __importDefault(require("../models/tbl_item"));
@@ -37,6 +37,29 @@ const getIngresosEgresos = (req, res) => __awaiter(void 0, void 0, void 0, funct
     });
 });
 exports.getIngresosEgresos = getIngresosEgresos;
+const getIngresosEgresosPorFinca = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { fin_id } = req.params;
+    const ingresosEgresos = yield tbl_ingresoegreso_1.default.findAll({
+        where: {
+            fin_id,
+            ing_estado: true
+        },
+        include: [
+            { model: tbl_finca_1.default },
+            { model: tbl_item_1.default }
+        ]
+    });
+    if (!ingresosEgresos) {
+        return res.status(400).json({
+            msg: `No se encontraron registros para mostrar`
+        });
+    }
+    res.json({
+        msg: `Lista de Ingresos y Egresos`,
+        dato: ingresosEgresos
+    });
+});
+exports.getIngresosEgresosPorFinca = getIngresosEgresosPorFinca;
 const getIngresoEgreso = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { ing_id } = req.params;
     const ingresoEgreso = yield tbl_ingresoegreso_1.default.findOne({
