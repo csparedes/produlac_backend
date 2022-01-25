@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { QueryTypes } from 'sequelize';
 import Animales from "../models/tbl_animales";
 import Persona from "../models/tbl_personas";
 import Venta from "../models/tbl_venta";
@@ -21,6 +22,24 @@ export const getVentas = async (req: Request, res: Response) => {
 
     res.json({
         msg: `Lista de ventas`,
+        dato: ventas
+    });
+}
+export const getVentasPorFinca = async (req: Request, res: Response) => {
+    const { fin_id } = req.params;
+    const ventas = await Venta.sequelize?.query(`
+    SELECT * FROM tbl_venta
+    INNER JOIN tbl_animales A1 on tbl_venta.ani_id=A1.ani_id
+    WHERE A1.fin_id=${fin_id}
+    `,{type: QueryTypes.SELECT})
+    if (!ventas) {
+        return res.status(400).json({
+            msg: `No existe ningún registro de ventas de la finca: ${fin_id}`
+        });
+    }
+
+    res.json({
+        msg: `Lista de ventas por finca`,
         dato: ventas
     });
 }
