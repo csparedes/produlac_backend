@@ -49,8 +49,8 @@ tbl_item_1.default.belongsTo(tbl_animales_1.default, { foreignKey: "ite_id", tar
 // Animales.hasOne(Especie, { foreignKey: "esp_id" });
 // Especie.belongsTo(Animales, { foreignKey: "esp_id" });
 // * Un catalogo puede tener varios items
-tbl_item_1.default.hasOne(tbl_catalogo_1.default, { foreignKey: "cat_id" });
-tbl_catalogo_1.default.belongsTo(tbl_item_1.default, { foreignKey: "cat_id" });
+tbl_item_1.default.hasOne(tbl_catalogo_1.default, { foreignKey: "cat_id", sourceKey: "cat_id" });
+tbl_catalogo_1.default.belongsTo(tbl_item_1.default, { foreignKey: "cat_id", targetKey: "cat_id" });
 // * Una especie tiene un catalogo
 tbl_especies_1.default.hasOne(tbl_catalogo_1.default, { foreignKey: "cat_id" });
 tbl_catalogo_1.default.belongsTo(tbl_especies_1.default, { foreignKey: "cat_id" });

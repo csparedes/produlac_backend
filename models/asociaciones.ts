@@ -55,8 +55,8 @@ Item.belongsTo(Animales, { foreignKey: "ite_id", targetKey: "ite_idespecie" });
 // Especie.belongsTo(Animales, { foreignKey: "esp_id" });
 
 // * Un catalogo puede tener varios items
-Item.hasOne(Catalogo, { foreignKey: "cat_id" });
-Catalogo.belongsTo(Item, { foreignKey: "cat_id" });
+Item.hasOne(Catalogo, { foreignKey: "cat_id", sourceKey: "cat_id" });
+Catalogo.belongsTo(Item, { foreignKey: "cat_id", targetKey: "cat_id" });
 
 // * Una especie tiene un catalogo
 Especie.hasOne(Catalogo, { foreignKey: "cat_id" });
