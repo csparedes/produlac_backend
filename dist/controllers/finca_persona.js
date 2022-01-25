@@ -13,19 +13,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteFincaPersona = exports.putFincaPersona = exports.postFincaPersona = exports.getPersonasPorFinca = exports.getFincaPersona = exports.getFincasDePersona = exports.getFincasPersonas = void 0;
+const sequelize_1 = require("sequelize");
 const tbl_finca_1 = __importDefault(require("../models/tbl_finca"));
 const tbl_fincapersona_1 = __importDefault(require("../models/tbl_fincapersona"));
 const tbl_personas_1 = __importDefault(require("../models/tbl_personas"));
 const getFincasPersonas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const fincasPersonas = yield tbl_fincapersona_1.default.findAll({
-        where: {
-            fper_estado: true
-        },
-        include: [
-            { model: tbl_personas_1.default },
-            { model: tbl_finca_1.default }
-        ]
-    });
+    var _a;
+    const fincasPersonas = yield ((_a = tbl_fincapersona_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query(`
+    SELECT * FROM tbl_fincapersona as fincapersona
+    INNER JOIN tbl_personas P1 On fincapersona.per_id = P1.per_id
+    INNER JOIN tbl_rol R1 On P1.rol_id = R1.rol_id
+    INNER join tbl_finca F1 ON fincapersona.fin_id = F1.fin_id
+    `, { type: sequelize_1.QueryTypes.SELECT }));
     if (!fincasPersonas) {
         return res.status(400).json({
             msg: `No existe ningún registro de fincas-personas en la base de datos`
@@ -84,17 +83,15 @@ const getFincaPersona = (req, res) => __awaiter(void 0, void 0, void 0, function
 });
 exports.getFincaPersona = getFincaPersona;
 const getPersonasPorFinca = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _b;
     const { fin_id } = req.params;
-    const fincaPersona = yield tbl_fincapersona_1.default.findOne({
-        where: {
-            fin_id,
-            fper_estado: true
-        },
-        include: [
-            { model: tbl_personas_1.default },
-            { model: tbl_finca_1.default }
-        ]
-    });
+    const fincaPersona = yield ((_b = tbl_fincapersona_1.default.sequelize) === null || _b === void 0 ? void 0 : _b.query(`
+    SELECT * FROM tbl_fincapersona as fincapersona
+    JOIN tbl_personas P1 On fincapersona.per_id = P1.per_id
+    JOIN tbl_rol R1 On P1.rol_id = R1.rol_id
+    INNER join tbl_finca F1 ON fincapersona.fin_id = F1.fin_id
+    WHERE F1.fin_id =${fin_id}
+    `, { type: sequelize_1.QueryTypes.SELECT }));
     if (!fincaPersona) {
         return res.status(400).json({
             msg: `No existe ningún registro en la base de datos`
