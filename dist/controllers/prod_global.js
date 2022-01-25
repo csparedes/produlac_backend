@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteProdGlobar = exports.putProdGlobal = exports.postProdGlobal = exports.getProdGlobal = exports.getProdGlobalesPorFinca = exports.getProdGlobales = void 0;
+exports.deleteProdGlobar = exports.putProdGlobal = exports.postProdGlobal = exports.getProdGlobal = exports.getProdGlobalesPorFincaEditar = exports.getProdGlobalesPorFinca = exports.getProdGlobales = void 0;
 const sequelize_1 = __importDefault(require("sequelize"));
 const tbl_finca_1 = __importDefault(require("../models/tbl_finca"));
 const tbl_item_1 = __importDefault(require("../models/tbl_item"));
@@ -61,6 +61,29 @@ const getProdGlobalesPorFinca = (req, res) => __awaiter(void 0, void 0, void 0, 
     });
 });
 exports.getProdGlobalesPorFinca = getProdGlobalesPorFinca;
+const getProdGlobalesPorFincaEditar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { fin_id } = req.params;
+    const prodGlobales = yield tbl_prodglobal_1.default.findAll({
+        where: {
+            fin_id,
+            pglo_estado: true
+        },
+        include: {
+            model: tbl_item_1.default
+        },
+        order: [['pglo_fecha', 'ASC']]
+    });
+    if (!prodGlobales) {
+        return res.status(400).json({
+            msg: `No existe ningún registro para la finca: ${fin_id}`
+        });
+    }
+    res.json({
+        msg: `Lista de prodGlobales`,
+        dato: prodGlobales
+    });
+});
+exports.getProdGlobalesPorFincaEditar = getProdGlobalesPorFincaEditar;
 const getProdGlobal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { pglo_id } = req.params;
     const prodGlobal = yield tbl_prodglobal_1.default.findOne({

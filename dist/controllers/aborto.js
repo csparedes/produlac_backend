@@ -58,8 +58,11 @@ const getAbortosPorAnimal = (req, res) => __awaiter(void 0, void 0, void 0, func
     const { ani_id } = req.params;
     const aborto = yield tbl_aborto_1.default.findAll({
         where: {
-            ani_id,
+            ani_idmadre: ani_id,
             abo_estado: true
+        },
+        include: {
+            model: tbl_animales_1.default
         }
     });
     if (!aborto) {

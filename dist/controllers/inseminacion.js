@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteInseminacion = exports.putInseminacion = exports.postInseminacion = exports.getInseminacion = exports.getInseminacionesPorAnimal = exports.getInseminaciones = void 0;
+const sequelize_1 = require("sequelize");
 const tbl_animales_1 = __importDefault(require("../models/tbl_animales"));
 const tbl_inseminacion_1 = __importDefault(require("../models/tbl_inseminacion"));
 const tbl_personas_1 = __importDefault(require("../models/tbl_personas"));
@@ -38,17 +39,18 @@ const getInseminaciones = (req, res) => __awaiter(void 0, void 0, void 0, functi
 });
 exports.getInseminaciones = getInseminaciones;
 const getInseminacionesPorAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     const { ani_id } = req.params;
-    const inseminaciones = yield tbl_inseminacion_1.default.findAll({
-        where: {
-            ani_id,
-            ins_estado: true
-        },
-        include: [
-            { model: tbl_animales_1.default },
-            { model: tbl_personas_1.default }
-        ]
-    });
+    const inseminaciones = yield ((_a = tbl_inseminacion_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query(`
+    SELECT inseminacion.* ,A1.ani_id as ani_id_padre, A1.ani_nombre as ani_id_padre_nombre, A1.ani_imagen as ani_id_padre_imagen,
+    A2.ani_id as ani_id_animal, A2.ani_nombre as ani_id_animal_nombre, A2.ani_imagen as ani_id_animal_imagen,
+    P1.*
+    FROM tbl_inseminacion  as inseminacion
+    INNER JOIN tbl_animales A1 On inseminacion.ani_idpadre= A1.ani_id
+    INNER JOIN tbl_animales A2 On inseminacion.ani_id= A2.ani_id
+    INNER JOIN tbl_personas P1 On inseminacion.per_id= P1.per_id
+    WHERE inseminacion.ani_id=${ani_id}
+    `, { type: sequelize_1.QueryTypes.SELECT }));
     if (!inseminaciones) {
         return res.status(400).json({
             msg: `No Existe el listado de inseminaciones`,
