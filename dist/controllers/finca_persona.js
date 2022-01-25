@@ -45,7 +45,8 @@ const getFincasDePersona = (req, res) => __awaiter(void 0, void 0, void 0, funct
             per_id
         },
         include: [
-            { model: tbl_finca_1.default }
+            { model: tbl_finca_1.default },
+            { model: tbl_personas_1.default }
         ]
     });
     if (!fincasPersonas) {
@@ -65,7 +66,11 @@ const getFincaPersona = (req, res) => __awaiter(void 0, void 0, void 0, function
         where: {
             fper_id,
             fper_estado: true
-        }
+        },
+        include: [
+            { model: tbl_personas_1.default },
+            { model: tbl_finca_1.default }
+        ]
     });
     if (!fincaPersona) {
         return res.status(400).json({
@@ -84,7 +89,11 @@ const getPersonasPorFinca = (req, res) => __awaiter(void 0, void 0, void 0, func
         where: {
             fin_id,
             fper_estado: true
-        }
+        },
+        include: [
+            { model: tbl_personas_1.default },
+            { model: tbl_finca_1.default }
+        ]
     });
     if (!fincaPersona) {
         return res.status(400).json({

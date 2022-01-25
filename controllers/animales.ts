@@ -84,6 +84,22 @@ export const getAnimalesPorFinca = async (req: Request, res: Response) => {
     })
 }
 
+export const getAnimalesMuertosVivos = async (req: Request, res: Response) => {
+    const animales = await Animales.findAll();
+
+    if (!animales) {
+        return res.status(400).json({
+            msg: `No existe ningún registro de animales`
+        })
+    }
+
+    res.json({
+        msg: `Listado de todos los animales vivos y muertos`,
+        dato: animales
+    })
+}
+
+
 export const getAnimal = async (req: Request, res: Response) => {
     const { ani_id } = req.params;
     const animal = await Animales.findOne({

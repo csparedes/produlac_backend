@@ -25,6 +25,30 @@ export const getInseminaciones = async (req: Request, res: Response) => {
         dato: inseminaciones
     });
 }
+export const getInseminacionesPorAnimal = async (req: Request, res: Response) => {
+    const { ani_id } = req.params;
+    const inseminaciones = await Inseminacion.findAll({
+        where: {
+            ani_id,
+            ins_estado: true
+        },
+        include: [
+            { model: Animales },
+            { model: Persona }
+        ] 
+    });
+
+    if (!inseminaciones) {
+        return res.status(400).json({
+            msg: `No Existe el listado de inseminaciones`,
+        });
+    }
+
+    res.json({
+        msg: `Lista de inseminaciones`,
+        dato: inseminaciones
+    });
+}
 
 export const getInseminacion = async (req: Request, res: Response) => {
     const { ins_id } = req.params;

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteAnimal = exports.putAnimal = exports.postAnimal = exports.getAnimal = exports.getAnimalesPorFinca = exports.getAnimales = void 0;
+exports.deleteAnimal = exports.putAnimal = exports.postAnimal = exports.getAnimal = exports.getAnimalesMuertosVivos = exports.getAnimalesPorFinca = exports.getAnimales = void 0;
 const sequelize_1 = require("sequelize");
 const tbl_animales_1 = __importDefault(require("../models/tbl_animales"));
 const tbl_finca_1 = __importDefault(require("../models/tbl_finca"));
@@ -92,6 +92,19 @@ const getAnimalesPorFinca = (req, res) => __awaiter(void 0, void 0, void 0, func
     });
 });
 exports.getAnimalesPorFinca = getAnimalesPorFinca;
+const getAnimalesMuertosVivos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const animales = yield tbl_animales_1.default.findAll();
+    if (!animales) {
+        return res.status(400).json({
+            msg: `No existe ningún registro de animales`
+        });
+    }
+    res.json({
+        msg: `Listado de todos los animales vivos y muertos`,
+        dato: animales
+    });
+});
+exports.getAnimalesMuertosVivos = getAnimalesMuertosVivos;
 const getAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { ani_id } = req.params;
     const animal = yield tbl_animales_1.default.findOne({

@@ -42,6 +42,25 @@ export const getTratamiento = async (req: Request, res: Response) => {
         dato: [tratamiento]
     })
 }
+export const getTratamientoAnimal = async (req: Request, res: Response) => {
+    const { ani_id } = req.params;
+    const tratamiento = await Tratamiento.findOne({
+        where: {
+            ani_id,
+            tra_estado: true
+        },
+        include: { model: Animales }
+    });
+    if (!tratamiento) {
+        return res.status(400).json({
+            msg: `No existe tratamiento con el id: ${ani_id}`
+        });
+    }
+    res.json({
+        msg: `Detalle de tratamiento`,
+        dato: [tratamiento]
+    })
+}
 
 export const postTratamiento = async (req: Request, res: Response) => {
     const {
