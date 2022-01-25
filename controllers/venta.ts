@@ -30,6 +30,7 @@ export const getVentasPorFinca = async (req: Request, res: Response) => {
     const ventas = await Venta.sequelize?.query(`
     SELECT * FROM tbl_venta
     INNER JOIN tbl_animales A1 on tbl_venta.ani_id=A1.ani_id
+    INNER JOIN tbl_personas P1 on tbl_venta.per_idvendedor=P1.per_id
     WHERE A1.fin_id=${fin_id}
     `,{type: QueryTypes.SELECT})
     if (!ventas) {
