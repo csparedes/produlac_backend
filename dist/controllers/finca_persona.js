@@ -99,7 +99,7 @@ const getPersonasPorFinca = (req, res) => __awaiter(void 0, void 0, void 0, func
     }
     res.json({
         msg: `Personas de una Finca`,
-        dato: [fincaPersona]
+        dato: fincaPersona
     });
 });
 exports.getPersonasPorFinca = getPersonasPorFinca;

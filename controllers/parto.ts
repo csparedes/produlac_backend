@@ -47,14 +47,21 @@ export const getParto = async (req: Request, res: Response) => {
         dato: [parto]
     })
 }
-export const getPartoPorAnimal = async (req: Request, res: Response) => {
+export const getPartosPorAnimal = async (req: Request, res: Response) => {
     const { ani_id } = req.params;
-    const partos = await Parto.findAll({
-        where: {
-            ani_id,
-            par_estado: true
-        }
-    });
+    const partos = await Parto.sequelize?.query(`
+    SELECT parto.* ,
+    A1.ani_id as ani_id_madre,
+    A1.ani_nombre as ani_id_madre_nombre,
+    A1.ani_imagen as ani_id_madre_imagen,
+    A2.ani_id as ani_id_hijo,
+    A2.ani_nombre as ani_id_hijo_nombre,
+    A2.ani_imagen as ani_id_hijo_imagen
+    FROM tbl_parto as parto
+    INNER JOIN tbl_animales A1 On parto.ani_idmadre= A1.ani_id
+    INNER JOIN tbl_animales A2 On parto.ani_idhijo= A2.ani_id
+    WHERE parto.ani_idmadre=${ani_id}
+    `, { type: QueryTypes.SELECT });
 
     if (!partos) {
         return res.status(400).json({

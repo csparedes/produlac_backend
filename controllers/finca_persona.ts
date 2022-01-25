@@ -85,7 +85,7 @@ export const getPersonasPorFinca = async (req: Request, res: Response) => {
     }
     res.json({
         msg: `Personas de una Finca`,
-        dato: [fincaPersona]
+        dato: fincaPersona
     })
 }
 
