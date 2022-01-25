@@ -48,8 +48,11 @@ export const getAbortosPorAnimal = async (req: Request, res: Response) => {
     const { ani_id } = req.params;
     const aborto = await Aborto.findAll({
         where: {
-            ani_id,
+            ani_idmadre: ani_id,
             abo_estado: true
+        },
+        include: {
+            model: Animales
         }
     });
 

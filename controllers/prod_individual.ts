@@ -48,6 +48,27 @@ export const getProdIndividual = async (req: Request, res: Response) => {
         dato: [prodIndividual]
     })
 }
+export const getProdIndividualPorFinca = async (req: Request, res: Response) => {
+    const { fin_id } = req.params;
+    const prodIndividual = await ProdIndividual.sequelize?.query(`
+    SELECT prodindividual.* ,
+    A1.*,
+    I1.* 
+    FROM tbl_prodindividual as prodindividual
+    INNER JOIN  tbl_animales A1 on prodindividual.ani_id=A1.ani_id
+    INNER JOIN tbl_item I1 on prodindividual.ite_idhorario=I1.ite_id
+    WHERE A1.fin_id =${fin_id}
+    `,);
+    if (!prodIndividual) {
+        return res.status(400).json({
+            msg: `No existe ningún prodIndividual con el id: ${fin_id}`
+        })
+    }
+    res.json({
+        msg: `Detalle de prodIndividual`,
+        dato: prodIndividual
+    })
+}
 export const postProdIndividualPorAnimal = async (req: Request, res: Response) => {
     const { ani_id } = req.params;
     // const ani_id = req.params.ani_id;

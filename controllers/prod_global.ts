@@ -47,6 +47,28 @@ export const getProdGlobalesPorFinca = async (req: Request, res: Response) => {
         dato: prodGlobales
     });
 }
+export const getProdGlobalesPorFincaEditar = async (req: Request, res: Response) => {
+    const { fin_id } = req.params;
+    const prodGlobales = await ProdGlobal.findAll({
+        where: {
+            fin_id,
+            pglo_estado: true
+        },
+        include: {
+            model: Item
+        },
+        order: [['pglo_fecha', 'ASC']]
+    });
+    if (!prodGlobales) {
+        return res.status(400).json({
+            msg: `No existe ningún registro para la finca: ${fin_id}`
+        })
+    }
+    res.json({
+        msg: `Lista de prodGlobales`,
+        dato: prodGlobales
+    });
+}
 
 export const getProdGlobal = async (req: Request, res: Response) => {
     const { pglo_id } = req.params;
