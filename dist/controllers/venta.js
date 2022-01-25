@@ -12,7 +12,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteVenta = exports.putVenta = exports.postVenta = exports.getVenta = exports.getVentas = void 0;
+exports.deleteVenta = exports.putVenta = exports.postVenta = exports.getVenta = exports.getVentasPorFinca = exports.getVentas = void 0;
+const sequelize_1 = require("sequelize");
 const tbl_animales_1 = __importDefault(require("../models/tbl_animales"));
 const tbl_personas_1 = __importDefault(require("../models/tbl_personas"));
 const tbl_venta_1 = __importDefault(require("../models/tbl_venta"));
@@ -37,6 +38,25 @@ const getVentas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     });
 });
 exports.getVentas = getVentas;
+const getVentasPorFinca = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    const { fin_id } = req.params;
+    const ventas = yield ((_a = tbl_venta_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query(`
+    SELECT * FROM tbl_venta
+    INNER JOIN tbl_animales A1 on tbl_venta.ani_id=A1.ani_id
+    WHERE A1.fin_id=${fin_id}
+    `, { type: sequelize_1.QueryTypes.SELECT }));
+    if (!ventas) {
+        return res.status(400).json({
+            msg: `No existe ningún registro de ventas de la finca: ${fin_id}`
+        });
+    }
+    res.json({
+        msg: `Lista de ventas por finca`,
+        dato: ventas
+    });
+});
+exports.getVentasPorFinca = getVentasPorFinca;
 const getVenta = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { ven_id } = req.params;
     const venta = yield tbl_venta_1.default.findByPk(ven_id, {
