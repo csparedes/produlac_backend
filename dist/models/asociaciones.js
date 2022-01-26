@@ -78,8 +78,8 @@ tbl_animales_1.default.belongsTo(tbl_venta_1.default, { foreignKey: "ani_id" });
 tbl_venta_1.default.hasOne(tbl_personas_1.default, { foreignKey: "per_id", sourceKey: "per_idvendedor" });
 tbl_personas_1.default.belongsTo(tbl_venta_1.default, { foreignKey: "per_id", targetKey: "per_idvendedor" });
 // * Un tratamiento tiene un animal
-tbl_tratamiento_1.default.hasOne(tbl_animales_1.default, { foreignKey: "ani_id" });
-tbl_animales_1.default.hasOne(tbl_tratamiento_1.default, { foreignKey: "ani_id" });
+tbl_tratamiento_1.default.hasOne(tbl_animales_1.default, { foreignKey: "ani_id", sourceKey: "ani_id" });
+tbl_animales_1.default.belongsTo(tbl_tratamiento_1.default, { foreignKey: "ani_id", targetKey: "ani_id" });
 // * Una vacuna tiene un animal
 tbl_vacuna_1.default.hasOne(tbl_animales_1.default, { foreignKey: "ani_id" });
 tbl_animales_1.default.belongsTo(tbl_vacuna_1.default, { foreignKey: "ani_id" });
