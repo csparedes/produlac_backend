@@ -158,7 +158,31 @@ const postAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         ite_idtipoestado
     };
     const animal = yield tbl_animales_1.default.build(nuevoAnimal);
-    animal.save();
+    yield animal.save();
+    if (ani_idmadre == '' || ani_idpadre == '') {
+        const animalEncontrado = yield tbl_animales_1.default.findOne({
+            where: {
+                ani_codigo,
+                ani_nombre,
+                ani_sexo,
+                ani_fechanacimiento,
+                ani_imagen,
+                ani_raza,
+                ani_etapa,
+                ani_pesonacer,
+                ite_idespecie,
+                fin_id,
+                ite_idtipoestado
+            }
+        });
+        if (!animalEncontrado) {
+            return res.status(400).json({
+                msg: `No se encontro el animal que se acabó de crear`
+            });
+        }
+        //@ts-ignore
+        yield animalEncontrado.update({ ani_idpadre: animalEncontrado['ani_id'], ani_idmadre: animalEncontrado['ani_id'] });
+    }
     res.json({
         msg: `Se ha ingresado un nuevo animal`,
         dato: [animal]
