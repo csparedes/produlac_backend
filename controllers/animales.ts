@@ -176,31 +176,31 @@ export const postAnimal = async (req: Request, res: Response) => {
     const animal = await Animales.build(nuevoAnimal);
     await animal.save();
 
-    if (ani_idmadre == '' || ani_idpadre == '') {
+    if (ani_idmadre == ' ' || ani_idpadre == ' ') {
         const animalEncontrado = await Animales.findOne({
-        where: {
-            ani_codigo,
-            ani_nombre,
-            ani_sexo,
-            ani_fechanacimiento,
-            ani_imagen,
-            ani_raza,
-            ite_idetapa,
-            ani_pesonacer,
-            ite_idespecie,
-            fin_id,
-            ite_idtipoestado
-        }
-    });
+            where: {
+                ani_codigo,
+                ani_nombre,
+                ani_sexo,
+                ani_fechanacimiento,
+                ani_imagen,
+                ani_raza,
+                ite_idetapa,
+                ani_pesonacer,
+                ite_idespecie,
+                fin_id,
+                ite_idtipoestado
+            }
+        });
 
-    if (!animalEncontrado) {
-        return res.status(400).json({
-            msg: `No se encontro el animal que se acabó de crear`
-        })
+        if (!animalEncontrado) {
+            return res.status(400).json({
+                msg: `No se encontro el animal que se acabó de crear`
+            })
+        }
+        //@ts-ignore
+        await animalEncontrado.update({ ani_idpadre: animalEncontrado['ani_id'], ani_idmadre: animalEncontrado['ani_id'] });
     }
-    //@ts-ignore
-    await animalEncontrado.update({ani_idpadre: animalEncontrado['ani_id'], ani_idmadre: animalEncontrado['ani_id']})
-   }
 
 
     res.json({
