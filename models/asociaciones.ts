@@ -31,10 +31,10 @@ Persona.hasOne(Finca, { as: "persona", foreignKey: "per_id" });
 Finca.belongsTo(Persona, { foreignKey: "per_id" });
 
 //* Una persona tiene varias fincas
-FincaPersona.hasOne(Persona, {foreignKey: "per_id"});
-Persona.belongsTo(FincaPersona, { foreignKey: "per_id" });
-FincaPersona.hasOne(Finca, { foreignKey: "fin_id" });
-Finca.belongsTo(FincaPersona, { foreignKey: "fin_id" });
+FincaPersona.hasOne(Persona, {foreignKey: "per_id", sourceKey: "per_id"});
+Persona.belongsTo(FincaPersona, { foreignKey: "per_id", targetKey: "per_id"});
+FincaPersona.hasOne(Finca, { foreignKey: "fin_id", sourceKey: "fin_id" });
+Finca.belongsTo(FincaPersona, { foreignKey: "fin_id", targetKey: "fin_id" });
 
 // * Un animal pertenece a una finca
 Animales.hasOne(Finca, { foreignKey: "fin_id" });

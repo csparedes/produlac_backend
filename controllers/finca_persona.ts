@@ -27,8 +27,8 @@ export const getFincasDePersona = async (req: Request, res: Response) => {
     const { per_id } = req.params;
     const fincasPersonas = await FincaPersona.findAll({
         where: {
-            fper_estado: true,
-            per_id
+            per_id,
+            fper_estado: true
         },
         include: [
             { model: Finca },

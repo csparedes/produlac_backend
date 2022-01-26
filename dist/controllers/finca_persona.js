@@ -40,8 +40,8 @@ const getFincasDePersona = (req, res) => __awaiter(void 0, void 0, void 0, funct
     const { per_id } = req.params;
     const fincasPersonas = yield tbl_fincapersona_1.default.findAll({
         where: {
-            fper_estado: true,
-            per_id
+            per_id,
+            fper_estado: true
         },
         include: [
             { model: tbl_finca_1.default },
