@@ -192,7 +192,7 @@ export const postAnimal = async (req: Request, res: Response) => {
                 ite_idtipoestado
             }
         });
-
+        
         if (!animalEncontrado) {
             return res.status(400).json({
                 msg: `No se encontro el animal que se acabó de crear`
@@ -200,6 +200,8 @@ export const postAnimal = async (req: Request, res: Response) => {
         }
         //@ts-ignore
         await animalEncontrado.update({ ani_idpadre: animalEncontrado['ani_id'], ani_idmadre: animalEncontrado['ani_id'] });
+        
+        
     }
 
 
