@@ -165,8 +165,6 @@ const postAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 ani_codigo,
                 ani_nombre,
                 ani_sexo,
-                ani_fechanacimiento,
-                ani_imagen,
                 ani_raza,
                 ite_idetapa,
                 ani_pesonacer,

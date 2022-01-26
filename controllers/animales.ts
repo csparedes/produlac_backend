@@ -182,8 +182,6 @@ export const postAnimal = async (req: Request, res: Response) => {
                 ani_codigo,
                 ani_nombre,
                 ani_sexo,
-                ani_fechanacimiento,
-                ani_imagen,
                 ani_raza,
                 ite_idetapa,
                 ani_pesonacer,
