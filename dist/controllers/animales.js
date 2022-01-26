@@ -159,7 +159,7 @@ const postAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     };
     const animal = yield tbl_animales_1.default.build(nuevoAnimal);
     yield animal.save();
-    if (ani_idmadre == '' || ani_idpadre == '') {
+    if (ani_idmadre == ' ' || ani_idpadre == ' ') {
         const animalEncontrado = yield tbl_animales_1.default.findOne({
             where: {
                 ani_codigo,
