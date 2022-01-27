@@ -1,18 +1,16 @@
 import { Request, Response } from "express";
+import { QueryTypes } from "sequelize";
 import Finca from "../models/tbl_finca";
 import FincaPersona from "../models/tbl_fincapersona";
 import Persona from "../models/tbl_personas";
 
 export const getFincasPersonas = async (req: Request, res: Response) => {
-    const fincasPersonas = await FincaPersona.findAll({
-        where: {
-            fper_estado: true
-        },
-        include: [
-            { model: Persona },
-            { model: Finca }
-        ]
-    });
+    const fincasPersonas = await FincaPersona.sequelize?.query(`
+    SELECT * FROM tbl_fincapersona as fincapersona
+    INNER JOIN tbl_personas P1 On fincapersona.per_id = P1.per_id
+    INNER JOIN tbl_rol R1 On P1.rol_id = R1.rol_id
+    INNER join tbl_finca F1 ON fincapersona.fin_id = F1.fin_id
+    `, { type: QueryTypes.SELECT })
     if (!fincasPersonas) {
         return res.status(400).json({
             msg: `No existe ningún registro de fincas-personas en la base de datos`
