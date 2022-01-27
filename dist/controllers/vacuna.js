@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteVacuna = exports.putVacuna = exports.postVacuna = exports.getVacuna = exports.getVacunas = void 0;
+exports.deleteVacuna = exports.putVacuna = exports.postVacuna = exports.getVacunasPorAnimal = exports.getVacuna = exports.getVacunas = void 0;
 const tbl_animales_1 = __importDefault(require("../models/tbl_animales"));
 const tbl_vacuna_1 = __importDefault(require("../models/tbl_vacuna"));
 const getVacunas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -57,6 +57,28 @@ const getVacuna = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     });
 });
 exports.getVacuna = getVacuna;
+const getVacunasPorAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { ani_id } = req.params;
+    const vacuna = yield tbl_vacuna_1.default.findAll({
+        where: {
+            ani_id,
+            vac_estado: true
+        },
+        include: {
+            model: tbl_animales_1.default
+        }
+    });
+    if (!vacuna) {
+        return res.status(400).json({
+            msg: `No existe ninguna vacuna con el id: ${ani_id}`
+        });
+    }
+    res.json({
+        msg: `Detalle de Vacuna`,
+        dato: vacuna
+    });
+});
+exports.getVacunasPorAnimal = getVacunasPorAnimal;
 const postVacuna = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { vac_fecha, ani_id, vac_vacuna, vac_enfermedad, vac_descripcion } = req.body;
     const vacuna = yield tbl_vacuna_1.default.build({

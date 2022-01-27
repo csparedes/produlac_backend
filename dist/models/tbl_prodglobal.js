@@ -14,8 +14,8 @@ const ProdGlobal = connection_1.default.define('tbl_prodglobal', {
     pglo_fecha: {
         type: sequelize_1.DataTypes.DATE
     },
-    pglo_horario: {
-        type: sequelize_1.DataTypes.STRING
+    ite_idhorario: {
+        type: sequelize_1.DataTypes.INTEGER
     },
     pglo_litros: {
         type: sequelize_1.DataTypes.STRING

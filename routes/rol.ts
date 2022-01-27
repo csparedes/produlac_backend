@@ -1,5 +1,13 @@
-import { Router } from "express";
-import { deleteRol, getRol, getRoles, postRol, putRol } from "../controllers/rol";
+import {
+    Router
+} from "express";
+import {
+    deleteRol,
+    getRol,
+    getRoles,
+    postRol,
+    putRol
+} from "../controllers/rol";
 import validarJWT from "../helpers/validarJWT";
 import validarCampos from "../middlewares/validar_campos";
 

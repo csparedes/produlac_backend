@@ -13,14 +13,14 @@ const ProdIndividual = db.define('tbl_prodindividual', {
     pro_fecha: {
         type: DataTypes.DATE
     },
-    pro_horario: {
-        type: DataTypes.STRING
-    },
     pro_litros: {
         type: DataTypes.INTEGER
     },
     pro_dieta: {
         type: DataTypes.STRING
+    },
+    ite_idhorario: {
+        type: DataTypes.INTEGER
     },
     pro_estado: {
         type: DataTypes.BOOLEAN,

@@ -1,4 +1,7 @@
-import { Request, Response } from 'express';
+import {
+    Request,
+    Response
+} from 'express';
 import Aborto from '../models/tbl_aborto';
 import Animales from '../models/tbl_animales';
 
@@ -25,7 +28,9 @@ export const getAbortos = async (req: Request, res: Response) => {
 }
 
 export const getAborto = async (req: Request, res: Response) => {
-    const { abo_id } = req.params;
+    const {
+        abo_id
+    } = req.params;
     const aborto = await Aborto.findOne({
         where: {
             abo_id,
@@ -42,6 +47,31 @@ export const getAborto = async (req: Request, res: Response) => {
     res.json({
         msg: `Detalle del aborto`,
         dato: [aborto]
+    });
+}
+export const getAbortosPorAnimal = async (req: Request, res: Response) => {
+    const {
+        ani_id
+    } = req.params;
+    const aborto = await Aborto.findAll({
+        where: {
+            ani_idmadre: ani_id,
+            abo_estado: true
+        },
+        include: {
+            model: Animales
+        }
+    });
+
+    if (!aborto) {
+        return res.status(400).json({
+            msg: `No existe ningún registro de aborto con el id: ${ani_id}`
+        });
+    }
+
+    res.json({
+        msg: `Detalle del aborto`,
+        dato: aborto
     });
 }
 
@@ -66,7 +96,9 @@ export const postAborto = async (req: Request, res: Response) => {
 }
 
 export const putAborto = async (req: Request, res: Response) => {
-    const { abo_id } = req.params;
+    const {
+        abo_id
+    } = req.params;
     const aborto = await Aborto.findOne({
         where: {
             abo_id,
@@ -97,7 +129,9 @@ export const putAborto = async (req: Request, res: Response) => {
 }
 
 export const deleteAborto = async (req: Request, res: Response) => {
-    const { abo_id } = req.params;
+    const {
+        abo_id
+    } = req.params;
     const aborto = await Aborto.findOne({
         where: {
             abo_id,
@@ -111,7 +145,9 @@ export const deleteAborto = async (req: Request, res: Response) => {
         });
     }
 
-    await aborto.update({ abo_estado: false});
+    await aborto.update({
+        abo_estado: false
+    });
 
     res.json({
         msg: `Se elimino el registro de aborto`,

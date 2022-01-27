@@ -1,5 +1,9 @@
 import { Request, Response } from "express";
+<<<<<<< HEAD
 import { QueryTypes } from "sequelize";
+=======
+import { QueryTypes } from 'sequelize';
+>>>>>>> 556e1452e5c3d21b8a60714942b03e6c74f00d6d
 import Finca from "../models/tbl_finca";
 import FincaPersona from "../models/tbl_fincapersona";
 import Persona from "../models/tbl_personas";
@@ -27,11 +31,12 @@ export const getFincasDePersona = async (req: Request, res: Response) => {
     const { per_id } = req.params;
     const fincasPersonas = await FincaPersona.findAll({
         where: {
-            fper_estado: true,
-            per_id
+            per_id,
+            fper_estado: true
         },
         include: [
-            { model: Finca }
+            { model: Finca },
+            { model: Persona}
         ]
     });
     if (!fincasPersonas) {
@@ -52,7 +57,11 @@ export const getFincaPersona = async (req: Request, res: Response) => {
         where: {
             fper_id,
             fper_estado: true
-        }
+        },
+        include: [
+            { model: Persona },
+            { model: Finca}
+        ]
     });
     if (!fincaPersona) {
         return res.status(400).json({
@@ -66,12 +75,13 @@ export const getFincaPersona = async (req: Request, res: Response) => {
 }
 export const getPersonasPorFinca = async (req: Request, res: Response) => {
     const { fin_id } = req.params;
-    const fincaPersona = await FincaPersona.findOne({
-        where: {
-            fin_id,
-            fper_estado: true
-        }
-    });
+    const fincaPersona = await FincaPersona.sequelize?.query(`
+    SELECT * FROM tbl_fincapersona as fincapersona
+    JOIN tbl_personas P1 On fincapersona.per_id = P1.per_id
+    JOIN tbl_rol R1 On P1.rol_id = R1.rol_id
+    INNER join tbl_finca F1 ON fincapersona.fin_id = F1.fin_id
+    WHERE F1.fin_id =${fin_id}
+    `, { type: QueryTypes.SELECT })
     if (!fincaPersona) {
         return res.status(400).json({
             msg: `No existe ningún registro en la base de datos`
@@ -79,7 +89,7 @@ export const getPersonasPorFinca = async (req: Request, res: Response) => {
     }
     res.json({
         msg: `Personas de una Finca`,
-        dato: [fincaPersona]
+        dato: fincaPersona
     })
 }
 

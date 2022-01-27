@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { QueryTypes } from "sequelize";
 import Animales from "../models/tbl_animales";
 import Inseminacion from "../models/tbl_inseminacion";
 import Persona from "../models/tbl_personas";
@@ -13,6 +14,31 @@ export const getInseminaciones = async (req: Request, res: Response) => {
             { model: Persona }
         ] 
     });
+
+    if (!inseminaciones) {
+        return res.status(400).json({
+            msg: `No Existe el listado de inseminaciones`,
+        });
+    }
+
+    res.json({
+        msg: `Lista de inseminaciones`,
+        dato: inseminaciones
+    });
+}
+
+export const getInseminacionesPorAnimal = async (req: Request, res: Response) => {
+    const { ani_id } = req.params;
+    const inseminaciones = await Inseminacion.sequelize?.query(`
+    SELECT inseminacion.* ,A1.ani_id as ani_id_padre, A1.ani_nombre as ani_id_padre_nombre, A1.ani_imagen as ani_id_padre_imagen,
+    A2.ani_id as ani_id_animal, A2.ani_nombre as ani_id_animal_nombre, A2.ani_imagen as ani_id_animal_imagen,
+    P1.*
+    FROM tbl_inseminacion  as inseminacion
+    INNER JOIN tbl_animales A1 On inseminacion.ani_idpadre= A1.ani_id
+    INNER JOIN tbl_animales A2 On inseminacion.ani_id= A2.ani_id
+    INNER JOIN tbl_personas P1 On inseminacion.per_id= P1.per_id
+    WHERE inseminacion.ani_id=${ani_id}
+    `, { type: QueryTypes.SELECT })
 
     if (!inseminaciones) {
         return res.status(400).json({
@@ -78,6 +104,35 @@ export const postInseminacion = async (req: Request, res: Response) => {
         msg: `Se ha creado un nuevo registro de inseminación.`,
         dato: [inseminacion]
     })
+}
+
+export const getInseminacionesPorFinca = async (req: Request, res: Response) => {
+    const { fin_id } = req.params;
+    const inseminaciones = await Inseminacion.sequelize?.query(`
+    
+    SELECT inseminacion.* , 
+    P1.* , 
+    A1.* , 
+    A2.ani_id as ani_id_padre , 
+    A2.ani_nombre as ani_id_padre_nombre , 
+    A2.ani_imagen as ani_id_padre_imagen 
+    FROM tbl_inseminacion as inseminacion
+    INNER JOIN tbl_personas P1 ON inseminacion.per_id=P1.per_id
+    INNER JOIN tbl_animales A1 ON inseminacion.ani_id=A1.ani_id
+    INNER JOIN tbl_animales A2 ON inseminacion.ani_idpadre=A2.ani_id
+    WHERE A1.fin_id=${fin_id}
+    `, { type: QueryTypes.SELECT })
+
+    if (!inseminaciones) {
+        return res.status(400).json({
+            msg: `No Existe el listado de inseminaciones`,
+        });
+    }
+
+    res.json({
+        msg: 'Lista de inseminaciones',
+        dato: inseminaciones
+    });
 }
 
 export const putInseminacion = async (req: Request, res: Response) => {

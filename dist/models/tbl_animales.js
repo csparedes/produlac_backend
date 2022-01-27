@@ -29,7 +29,7 @@ const Animales = connection_1.default.define("tbl_animales", {
     ani_raza: {
         type: sequelize_1.DataTypes.STRING,
     },
-    ani_etapa: {
+    ite_idetapa: {
         type: sequelize_1.DataTypes.STRING,
     },
     ani_idpadre: {
@@ -41,7 +41,7 @@ const Animales = connection_1.default.define("tbl_animales", {
     ani_pesonacer: {
         type: sequelize_1.DataTypes.STRING,
     },
-    esp_id: {
+    ite_idespecie: {
         type: sequelize_1.DataTypes.INTEGER,
     },
     fin_id: {
