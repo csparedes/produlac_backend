@@ -1,9 +1,5 @@
 import { Request, Response } from "express";
-<<<<<<< HEAD
 import { QueryTypes } from "sequelize";
-=======
-import { QueryTypes } from 'sequelize';
->>>>>>> 556e1452e5c3d21b8a60714942b03e6c74f00d6d
 import Finca from "../models/tbl_finca";
 import FincaPersona from "../models/tbl_fincapersona";
 import Persona from "../models/tbl_personas";
