@@ -61,6 +61,7 @@ class Server {
     middlewares() {
         this.app.use(cors_1.default());
         this.app.use(express_1.default.json());
+        this.app.use(express_1.default.static("public"));
     }
     routes() {
         this.app.use(this.apiPaths.personas, personas_1.default);
