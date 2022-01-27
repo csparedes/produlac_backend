@@ -1,5 +1,13 @@
-import { Router } from "express";
-import { deleteMenu, getMenu, getMenus, postMenu, putMenu } from "../controllers/menu";
+import {
+    Router
+} from "express";
+import {
+    deleteMenu,
+    getMenu,
+    getMenus,
+    postMenu,
+    putMenu
+} from "../controllers/menu";
 import validarJWT from "../helpers/validarJWT";
 import validarCampos from "../middlewares/validar_campos";
 

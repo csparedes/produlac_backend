@@ -1,5 +1,15 @@
-import { Router } from "express";
-import { deleteFincaPersona, getFincaPersona, getFincasDePersona, getFincasPersonas, getPersonasPorFinca, postFincaPersona, putFincaPersona } from "../controllers/finca_persona";
+import {
+    Router
+} from "express";
+import {
+    deleteFincaPersona,
+    getFincaPersona,
+    getFincasDePersona,
+    getFincasPersonas,
+    getPersonasPorFinca,
+    postFincaPersona,
+    putFincaPersona
+} from "../controllers/finca_persona";
 import validarJWT from "../helpers/validarJWT";
 import validarCampos from "../middlewares/validar_campos";
 

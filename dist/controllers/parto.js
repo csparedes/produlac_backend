@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteParto = exports.putParto = exports.postParto = exports.getPartosPorAnimal = exports.getParto = exports.getPartos = void 0;
+exports.deleteParto = exports.putParto = exports.postParto = exports.getPartosPorFinca = exports.getPartosPorAnimal = exports.getParto = exports.getPartos = void 0;
 const sequelize_1 = require("sequelize");
 const tbl_parto_1 = __importDefault(require("../models/tbl_parto"));
 const getPartos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -84,6 +84,33 @@ const getPartosPorAnimal = (req, res) => __awaiter(void 0, void 0, void 0, funct
     });
 });
 exports.getPartosPorAnimal = getPartosPorAnimal;
+const getPartosPorFinca = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _c;
+    const { fin_id } = req.params;
+    const partos = yield ((_c = tbl_parto_1.default.sequelize) === null || _c === void 0 ? void 0 : _c.query(`
+    SELECT parto.*,
+    A.ani_id as ani_id_madre,
+    A.ani_nombre as ani_id_madre_nombre,
+    A.ani_imagen as ani_id_madre_imagen,
+    B.ani_id as ani_id_hijo,
+    B.ani_nombre as ani_id_hijo_nombre,
+    B.ani_imagen as ani_id_hijo_imagen
+    FROM tbl_parto as parto
+    INNER JOIN tbl_animales A on parto.ani_idmadre = A.ani_id
+    INNER JOIN tbl_animales B on parto.ani_idhijo = B.ani_id
+    WHERE A.fin_id = ${fin_id}
+    `, { type: sequelize_1.QueryTypes.SELECT }));
+    if (!partos) {
+        return res.status(400).json({
+            msg: `No existe partos de la finca de id: ${fin_id}`
+        });
+    }
+    res.json({
+        msg: `Detalle de parto`,
+        dato: partos
+    });
+});
+exports.getPartosPorFinca = getPartosPorFinca;
 const postParto = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { par_fecha, ani_idmadre, ani_idhijo, par_descripcion } = req.body;
     const parto = yield tbl_parto_1.default.build({

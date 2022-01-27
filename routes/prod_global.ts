@@ -1,5 +1,15 @@
-import { Router } from "express";
-import { deleteProdGlobar, getProdGlobal, getProdGlobales, getProdGlobalesPorFinca, getProdGlobalesPorFincaEditar, postProdGlobal, putProdGlobal } from "../controllers/prod_global";
+import {
+    Router
+} from "express";
+import {
+    deleteProdGlobar,
+    getProdGlobal,
+    getProdGlobales,
+    getProdGlobalesPorFinca,
+    getProdGlobalesPorFincaEditar,
+    postProdGlobal,
+    putProdGlobal
+} from "../controllers/prod_global";
 import validarJWT from "../helpers/validarJWT";
 import validarCampos from "../middlewares/validar_campos";
 

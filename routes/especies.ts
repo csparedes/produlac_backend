@@ -1,5 +1,13 @@
-import { Router } from "express";
-import { deleteEspecie, getEspecie, getEspecies, postEspecie, putEspecie } from "../controllers/especie";
+import {
+    Router
+} from "express";
+import {
+    deleteEspecie,
+    getEspecie,
+    getEspecies,
+    postEspecie,
+    putEspecie
+} from "../controllers/especie";
 import validarJWT from "../helpers/validarJWT";
 import validarCampos from "../middlewares/validar_campos";
 

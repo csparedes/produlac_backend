@@ -1,5 +1,15 @@
-import { Router } from "express";
-import { deleteProdIndividual, getProdIndividual, getProdIndividuales, getProdIndividualPorFinca, postProdIndividuales, postProdIndividualPorAnimal, putProdIndividual } from "../controllers/prod_individual";
+import {
+    Router
+} from "express";
+import {
+    deleteProdIndividual,
+    getProdIndividual,
+    getProdIndividuales,
+    getProdIndividualPorFinca,
+    postProdIndividuales,
+    postProdIndividualPorAnimal,
+    putProdIndividual
+} from "../controllers/prod_individual";
 import validarJWT from "../helpers/validarJWT";
 import validarCampos from "../middlewares/validar_campos";
 
