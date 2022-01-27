@@ -128,7 +128,9 @@ const deleteAborto = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             msg: `No existe ningún registro de aborto con el id: ${abo_id}`
         });
     }
-    yield aborto.update({ abo_estado: false });
+    yield aborto.update({
+        abo_estado: false
+    });
     res.json({
         msg: `Se elimino el registro de aborto`,
         dato: [aborto]
