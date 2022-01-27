@@ -81,8 +81,8 @@ tbl_personas_1.default.belongsTo(tbl_venta_1.default, { foreignKey: "per_id", ta
 tbl_tratamiento_1.default.hasOne(tbl_animales_1.default, { foreignKey: "ani_id", sourceKey: "ani_id" });
 tbl_animales_1.default.belongsTo(tbl_tratamiento_1.default, { foreignKey: "ani_id", targetKey: "ani_id" });
 // * Una vacuna tiene un animal
-tbl_vacuna_1.default.hasOne(tbl_animales_1.default, { foreignKey: "ani_id" });
-tbl_animales_1.default.belongsTo(tbl_vacuna_1.default, { foreignKey: "ani_id" });
+tbl_vacuna_1.default.hasOne(tbl_animales_1.default, { foreignKey: "ani_id", sourceKey: "ani_id" });
+tbl_animales_1.default.belongsTo(tbl_vacuna_1.default, { foreignKey: "ani_id", targetKey: "ani_id" });
 // * Producción individual tiene un animal
 tbl_prodindividual_1.default.hasOne(tbl_animales_1.default, { foreignKey: "ani_id" });
 tbl_animales_1.default.belongsTo(tbl_prodindividual_1.default, { foreignKey: "ani_id" });
@@ -90,8 +90,8 @@ tbl_animales_1.default.belongsTo(tbl_prodindividual_1.default, { foreignKey: "an
 tbl_prodglobal_1.default.hasOne(tbl_finca_1.default, { foreignKey: "fin_id" });
 tbl_finca_1.default.belongsTo(tbl_prodglobal_1.default, { foreignKey: "fin_id" });
 // * IngresoEgreso tiene una finca
-tbl_ingresoegreso_1.default.hasOne(tbl_finca_1.default, { foreignKey: "fin_id" });
-tbl_finca_1.default.belongsTo(tbl_ingresoegreso_1.default, { foreignKey: "fin_id" });
+tbl_ingresoegreso_1.default.hasOne(tbl_finca_1.default, { foreignKey: "fin_id", sourceKey: "fin_id" });
+tbl_finca_1.default.belongsTo(tbl_ingresoegreso_1.default, { foreignKey: "fin_id", targetKey: "fin_id" });
 // * IngresoEgreso tiene un item
 tbl_ingresoegreso_1.default.hasOne(tbl_item_1.default, { foreignKey: "ite_id", sourceKey: "ite_idingresoegreso" });
 tbl_item_1.default.belongsTo(tbl_ingresoegreso_1.default, { foreignKey: "ite_id", targetKey: "ite_idingresoegreso" });
