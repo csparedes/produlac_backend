@@ -94,12 +94,12 @@ Venta.hasOne(Persona, { foreignKey: "per_id", sourceKey: "per_idvendedor" });
 Persona.belongsTo(Venta, { foreignKey: "per_id", targetKey: "per_idvendedor" });
 
 // * Un tratamiento tiene un animal
-Tratamiento.hasOne(Animales, { foreignKey: "ani_id" });
-Animales.hasOne(Tratamiento, { foreignKey: "ani_id" });
+Tratamiento.hasOne(Animales, { foreignKey: "ani_id", sourceKey: "ani_id"});
+Animales.belongsTo(Tratamiento, { foreignKey: "ani_id", targetKey: "ani_id" });
 
 // * Una vacuna tiene un animal
-Vacuna.hasOne(Animales, { foreignKey: "ani_id" });
-Animales.belongsTo(Vacuna, { foreignKey: "ani_id" });
+Vacuna.hasOne(Animales, { foreignKey: "ani_id", sourceKey: "ani_id" });
+Animales.belongsTo(Vacuna, { foreignKey: "ani_id", targetKey: "ani_id" });
 
 // * Producción individual tiene un animal
 ProdIndividual.hasOne(Animales, { foreignKey: "ani_id" });
@@ -110,8 +110,8 @@ ProdGlobal.hasOne(Finca, { foreignKey: "fin_id" });
 Finca.belongsTo(ProdGlobal, { foreignKey: "fin_id" });
 
 // * IngresoEgreso tiene una finca
-IngresoEgreso.hasOne(Finca, { foreignKey: "fin_id" });
-Finca.belongsTo(IngresoEgreso, { foreignKey: "fin_id" });
+IngresoEgreso.hasOne(Finca, { foreignKey: "fin_id", sourceKey: "fin_id" });
+Finca.belongsTo(IngresoEgreso, { foreignKey: "fin_id", targetKey: "fin_id" });
 
 // * IngresoEgreso tiene un item
 IngresoEgreso.hasOne(Item, { foreignKey: "ite_id", sourceKey: "ite_idingresoegreso" });

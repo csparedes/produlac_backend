@@ -66,11 +66,6 @@ const postPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             per_estado: true
         }
     });
-    if (personaBuscada) {
-        return res.status(401).json({
-            msg: "Ya existe aquella persona en la base de datos"
-        });
-    }
     const salt = bcrypt_1.default.genSaltSync();
     const nuevaPersona = {
         per_nombre,

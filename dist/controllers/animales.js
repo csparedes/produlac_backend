@@ -137,11 +137,6 @@ const postAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             ani_estado: true
         },
     });
-    if (animalBuscado) {
-        return res.status(400).json({
-            msg: `El animal ${ani_nombre}, ya existe en sistema`
-        });
-    }
     const nuevoAnimal = {
         ani_codigo,
         ani_nombre,

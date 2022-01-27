@@ -150,13 +150,6 @@ export const postAnimal = async (req: Request, res: Response) => {
         },
         
     });
-
-    if (animalBuscado) {
-        return res.status(400).json({
-            msg: `El animal ${ani_nombre}, ya existe en sistema`
-        });
-    }
-
     const nuevoAnimal = {
         ani_codigo,
         ani_nombre,
