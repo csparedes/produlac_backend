@@ -1,5 +1,14 @@
-import { Router } from "express";
-import { deleteVacuna, getVacuna, getVacunaPorAnimal, getVacunas, postVacuna, putVacuna } from "../controllers/vacuna";
+import {
+    Router
+} from "express";
+import {
+    deleteVacuna,
+    getVacuna,
+    getVacunaPorAnimal,
+    getVacunas,
+    postVacuna,
+    putVacuna
+} from "../controllers/vacuna";
 import validarJWT from "../helpers/validarJWT";
 import validarCampos from "../middlewares/validar_campos";
 

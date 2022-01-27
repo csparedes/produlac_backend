@@ -1,5 +1,14 @@
-import { Router } from "express";
-import { deleteVenta, getVenta, getVentas, getVentasPorFinca, postVenta, putVenta } from "../controllers/venta";
+import {
+    Router
+} from "express";
+import {
+    deleteVenta,
+    getVenta,
+    getVentas,
+    getVentasPorFinca,
+    postVenta,
+    putVenta
+} from "../controllers/venta";
 import validarJWT from "../helpers/validarJWT";
 import validarCampos from "../middlewares/validar_campos";
 

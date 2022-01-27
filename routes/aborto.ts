@@ -1,5 +1,14 @@
-import { Router } from "express";
-import { deleteAborto, getAborto, getAbortos, getAbortosPorAnimal, postAborto, putAborto } from "../controllers/aborto";
+import {
+    Router
+} from "express";
+import {
+    deleteAborto,
+    getAborto,
+    getAbortos,
+    getAbortosPorAnimal,
+    postAborto,
+    putAborto
+} from "../controllers/aborto";
 import validarJWT from "../helpers/validarJWT";
 import validarCampos from "../middlewares/validar_campos";
 

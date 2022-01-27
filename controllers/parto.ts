@@ -75,6 +75,34 @@ export const getPartosPorAnimal = async (req: Request, res: Response) => {
     })
 }
 
+export const getPartosPorFinca = async (req: Request, res: Response) => {
+    const { fin_id } = req.params;
+    const partos = await Parto.sequelize?.query(`
+    SELECT parto.*,
+    A.ani_id as ani_id_madre,
+    A.ani_nombre as ani_id_madre_nombre,
+    A.ani_imagen as ani_id_madre_imagen,
+    B.ani_id as ani_id_hijo,
+    B.ani_nombre as ani_id_hijo_nombre,
+    B.ani_imagen as ani_id_hijo_imagen
+    FROM tbl_parto as parto
+    INNER JOIN tbl_animales A on parto.ani_idmadre = A.ani_id
+    INNER JOIN tbl_animales B on parto.ani_idhijo = B.ani_id
+    WHERE A.fin_id = ${fin_id}
+    `, { type: QueryTypes.SELECT });
+
+    if (!partos) {
+        return res.status(400).json({
+            msg: `No existe partos de la finca de id: ${fin_id}`
+        });
+    }
+
+    res.json({
+        msg: `Detalle de parto`,
+        dato: partos
+    })
+}
+
 export const postParto = async (req: Request, res: Response) => {
     const {
         par_fecha,

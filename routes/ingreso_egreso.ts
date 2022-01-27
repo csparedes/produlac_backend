@@ -1,5 +1,14 @@
-import { Router } from "express";
-import { deleteIngresoEgreso, getIngresoEgreso, getIngresosEgresos, getIngresosEgresosPorFinca, postIngresoEgreso, putIngresoEgreso } from "../controllers/ingreso_egreso";
+import {
+    Router
+} from "express";
+import {
+    deleteIngresoEgreso,
+    getIngresoEgreso,
+    getIngresosEgresos,
+    getIngresosEgresosPorFinca,
+    postIngresoEgreso,
+    putIngresoEgreso
+} from "../controllers/ingreso_egreso";
 import validarJWT from "../helpers/validarJWT";
 import validarCampos from "../middlewares/validar_campos";
 

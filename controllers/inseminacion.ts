@@ -106,6 +106,35 @@ export const postInseminacion = async (req: Request, res: Response) => {
     })
 }
 
+export const getInseminacionesPorFinca = async (req: Request, res: Response) => {
+    const { fin_id } = req.params;
+    const inseminaciones = await Inseminacion.sequelize?.query(`
+    
+    SELECT inseminacion.* , 
+    P1.* , 
+    A1.* , 
+    A2.ani_id as ani_id_padre , 
+    A2.ani_nombre as ani_id_padre_nombre , 
+    A2.ani_imagen as ani_id_padre_imagen 
+    FROM tbl_inseminacion as inseminacion
+    INNER JOIN tbl_personas P1 ON inseminacion.per_id=P1.per_id
+    INNER JOIN tbl_animales A1 ON inseminacion.ani_id=A1.ani_id
+    INNER JOIN tbl_animales A2 ON inseminacion.ani_idpadre=A2.ani_id
+    WHERE A1.fin_id=${fin_id}
+    `, { type: QueryTypes.SELECT })
+
+    if (!inseminaciones) {
+        return res.status(400).json({
+            msg: `No Existe el listado de inseminaciones`,
+        });
+    }
+
+    res.json({
+        msg: 'Lista de inseminaciones',
+        dato: inseminaciones
+    });
+}
+
 export const putInseminacion = async (req: Request, res: Response) => {
     const { ins_id } = req.params;
     const inseminacion = await Inseminacion.findOne({

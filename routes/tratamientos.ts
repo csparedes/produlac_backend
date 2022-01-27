@@ -1,5 +1,14 @@
-import { Router } from "express";
-import { deleteTratamiento, getTratamiento, getTratamientoAnimal, getTratamientos, postTratamiento, putTratamiento } from "../controllers/tratamiento";
+import {
+    Router
+} from "express";
+import {
+    deleteTratamiento,
+    getTratamiento,
+    getTratamientoAnimal,
+    getTratamientos,
+    postTratamiento,
+    putTratamiento
+} from "../controllers/tratamiento";
 import validarJWT from "../helpers/validarJWT";
 import validarCampos from "../middlewares/validar_campos";
 
