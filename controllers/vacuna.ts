@@ -43,9 +43,9 @@ export const getVacuna =async (req:Request, res:Response) => {
         dato: [vacuna]
     })
 }
-export const getVacunaPorAnimal =async (req:Request, res:Response) => {
+export const getVacunasPorAnimal =async (req:Request, res:Response) => {
     const { ani_id } = req.params;
-    const vacuna = await Vacuna.findOne({
+    const vacuna = await Vacuna.findAll({
         where: {
             ani_id,
             vac_estado: true
@@ -60,7 +60,7 @@ export const getVacunaPorAnimal =async (req:Request, res:Response) => {
     }
     res.json({
         msg: `Detalle de Vacuna`,
-        dato: [vacuna]
+        dato: vacuna
     })
 }
 

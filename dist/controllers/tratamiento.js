@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteTratamiento = exports.putTratamiento = exports.postTratamiento = exports.getTratamientoAnimal = exports.getTratamiento = exports.getTratamientos = void 0;
+exports.deleteTratamiento = exports.putTratamiento = exports.postTratamiento = exports.getTratamientosAnimal = exports.getTratamiento = exports.getTratamientos = void 0;
 const tbl_animales_1 = __importDefault(require("../models/tbl_animales"));
 const tbl_tratamiento_1 = __importDefault(require("../models/tbl_tratamiento"));
 const getTratamientos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -55,9 +55,9 @@ const getTratamiento = (req, res) => __awaiter(void 0, void 0, void 0, function*
     });
 });
 exports.getTratamiento = getTratamiento;
-const getTratamientoAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getTratamientosAnimal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { ani_id } = req.params;
-    const tratamiento = yield tbl_tratamiento_1.default.findOne({
+    const tratamiento = yield tbl_tratamiento_1.default.findAll({
         where: {
             ani_id,
             tra_estado: true
@@ -71,10 +71,10 @@ const getTratamientoAnimal = (req, res) => __awaiter(void 0, void 0, void 0, fun
     }
     res.json({
         msg: `Detalle de tratamiento`,
-        dato: [tratamiento]
+        dato: tratamiento
     });
 });
-exports.getTratamientoAnimal = getTratamientoAnimal;
+exports.getTratamientosAnimal = getTratamientosAnimal;
 const postTratamiento = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { tra_fecha, ani_id, tra_diagnostico, tra_medicamento, tra_diastratamiento, tra_descripcion } = req.body;
     const tratamiento = yield tbl_tratamiento_1.default.build({

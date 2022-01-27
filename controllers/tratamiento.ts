@@ -42,9 +42,9 @@ export const getTratamiento = async (req: Request, res: Response) => {
         dato: [tratamiento]
     })
 }
-export const getTratamientoAnimal = async (req: Request, res: Response) => {
+export const getTratamientosAnimal = async (req: Request, res: Response) => {
     const { ani_id } = req.params;
-    const tratamiento = await Tratamiento.findOne({
+    const tratamiento = await Tratamiento.findAll({
         where: {
             ani_id,
             tra_estado: true
@@ -58,7 +58,7 @@ export const getTratamientoAnimal = async (req: Request, res: Response) => {
     }
     res.json({
         msg: `Detalle de tratamiento`,
-        dato: [tratamiento]
+        dato: tratamiento
     })
 }
 
