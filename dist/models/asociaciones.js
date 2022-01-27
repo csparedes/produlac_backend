@@ -30,13 +30,13 @@ tbl_personas_1.default.belongsTo(tbl_rol_1.default, { foreignKey: "rol_id" });
 tbl_personas_1.default.hasOne(tbl_finca_1.default, { as: "persona", foreignKey: "per_id" });
 tbl_finca_1.default.belongsTo(tbl_personas_1.default, { foreignKey: "per_id" });
 //* Una persona tiene varias fincas
-tbl_fincapersona_1.default.hasOne(tbl_personas_1.default, { foreignKey: "per_id" });
-tbl_personas_1.default.belongsTo(tbl_fincapersona_1.default, { foreignKey: "per_id" });
-tbl_fincapersona_1.default.hasOne(tbl_finca_1.default, { foreignKey: "fin_id" });
-tbl_finca_1.default.belongsTo(tbl_fincapersona_1.default, { foreignKey: "fin_id" });
+tbl_fincapersona_1.default.hasOne(tbl_personas_1.default, { foreignKey: "per_id", sourceKey: "per_id" });
+tbl_personas_1.default.belongsTo(tbl_fincapersona_1.default, { foreignKey: "per_id", targetKey: "per_id" });
+tbl_fincapersona_1.default.hasOne(tbl_finca_1.default, { foreignKey: "fin_id", sourceKey: "fin_id" });
+tbl_finca_1.default.belongsTo(tbl_fincapersona_1.default, { foreignKey: "fin_id", targetKey: "fin_id" });
 // * Un animal pertenece a una finca
-tbl_animales_1.default.hasOne(tbl_finca_1.default, { foreignKey: "fin_id" });
-tbl_finca_1.default.belongsTo(tbl_animales_1.default, { foreignKey: "fin_id" });
+tbl_animales_1.default.hasOne(tbl_finca_1.default, { foreignKey: "fin_id", sourceKey: "fin_id" });
+tbl_finca_1.default.belongsTo(tbl_animales_1.default, { foreignKey: "fin_id", targetKey: "fin_id" });
 // * Un animal tiene un estado
 tbl_animales_1.default.hasOne(tbl_item_1.default, { foreignKey: "ite_id" });
 tbl_item_1.default.belongsTo(tbl_animales_1.default, { foreignKey: "ite_id" });
