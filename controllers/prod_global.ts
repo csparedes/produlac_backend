@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import sequelize from "sequelize";
+import sequelize, {QueryTypes} from "sequelize";
 import Finca from "../models/tbl_finca";
 import Item from "../models/tbl_item";
 import ProdGlobal from "../models/tbl_prodglobal";
@@ -25,28 +25,69 @@ export const getProdGlobales = async (req: Request, res: Response) => {
     });
 }
 
-export const getProdGlobalesPorFinca = async (req: Request, res: Response) => {
-    const { fin_id } = req.params;
-    const prodGlobales = await ProdGlobal.findAll({
-        where: {
-            fin_id,
-            pglo_estado: true
-        },
-        group: 'pglo_fecha',
-        attributes: [
-            [sequelize.fn('SUM',sequelize.col('pglo_litros')),'sum_pglo_litros'], 'pglo_fecha'
-        ]
-    });
-    if (!prodGlobales) {
-        return res.status(400).json({
-            msg: `No existe ningún registro para la finca: ${fin_id}`
-        })
+// export const getProdGlobalesPorFinca = async (req: Request, res: Response) => {
+//     const { fin_id } = req.params;
+//     const prodGlobales = await ProdGlobal.findAll({
+//         where: {
+//             fin_id,
+//             pglo_estado: true
+//         },
+//         group: 'pglo_fecha',
+//         attributes: [
+//             [sequelize.fn('SUM',sequelize.col('pglo_litros')),'sum_pglo_litros'], 'pglo_fecha'
+//         ]
+//     });
+//     if (!prodGlobales) {
+//         return res.status(400).json({
+//             msg: `No existe ningún registro para la finca: ${fin_id}`
+//         })
+//     }
+//     res.json({
+//         msg: `Lista de prodGlobales`,
+//         dato: prodGlobales
+//     });
+// }
+
+export const postProdGlobalesPorFinca = async (req: Request, res: Response) => {
+    const { fin_id , fecha_inicio , fecha_fin } = req.body;
+    if(fecha_inicio != "" && fecha_fin !=""){
+        const prodGlobales = await ProdGlobal.sequelize?.query(
+        `SELECT * , SUM(pglo_litros) as sum_pglo_litros FROM tbl_prodglobal
+        WHERE pglo_fecha BETWEEN "${fecha_inicio}" and "${fecha_fin}" AND fin_id = ${fin_id}
+        GROUP BY pglo_fecha`
+        ,
+        { type: QueryTypes.SELECT })
+        if (!prodGlobales) {
+            return res.status(400).json({
+                msg: `No existe ningún registro para la finca: ${fin_id}`,
+                dato : [],
+            })
+        }
+        res.json({
+            msg: `Lista de prodGlobales por fechas`,
+            dato: prodGlobales,
+        });
+    }else{
+        const prodGlobales = await ProdGlobal.sequelize?.query(
+        `SELECT * , SUM(pglo_litros) as sum_pglo_litros FROM tbl_prodglobal
+        WHERE  fin_id = ${fin_id}
+        GROUP BY pglo_fecha`
+        ,
+        { type: QueryTypes.SELECT })
+        if (!prodGlobales) {
+            return res.status(400).json({
+                msg: `No existe ningún registro para la finca: ${fin_id}`,
+                dato : []
+            })
+        }
+        res.json({
+            msg: `Lista de prodGlobales`,
+            dato: prodGlobales
+        });
     }
-    res.json({
-        msg: `Lista de prodGlobales`,
-        dato: prodGlobales
-    });
+
 }
+
 export const getProdGlobalesPorFincaEditar = async (req: Request, res: Response) => {
     const { fin_id } = req.params;
     const prodGlobales = await ProdGlobal.findAll({

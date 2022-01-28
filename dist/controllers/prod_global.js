@@ -12,8 +12,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteProdGlobar = exports.putProdGlobal = exports.postProdGlobal = exports.getProdGlobal = exports.getProdGlobalesPorFincaEditar = exports.getProdGlobalesPorFinca = exports.getProdGlobales = void 0;
-const sequelize_1 = __importDefault(require("sequelize"));
+exports.deleteProdGlobar = exports.putProdGlobal = exports.postProdGlobal = exports.getProdGlobal = exports.getProdGlobalesPorFincaEditar = exports.postProdGlobalesPorFinca = exports.getProdGlobales = void 0;
+const sequelize_1 = require("sequelize");
 const tbl_finca_1 = __importDefault(require("../models/tbl_finca"));
 const tbl_item_1 = __importDefault(require("../models/tbl_item"));
 const tbl_prodglobal_1 = __importDefault(require("../models/tbl_prodglobal"));
@@ -38,29 +38,63 @@ const getProdGlobales = (req, res) => __awaiter(void 0, void 0, void 0, function
     });
 });
 exports.getProdGlobales = getProdGlobales;
-const getProdGlobalesPorFinca = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { fin_id } = req.params;
-    const prodGlobales = yield tbl_prodglobal_1.default.findAll({
-        where: {
-            fin_id,
-            pglo_estado: true
-        },
-        group: 'pglo_fecha',
-        attributes: [
-            [sequelize_1.default.fn('SUM', sequelize_1.default.col('pglo_litros')), 'sum_pglo_litros'], 'pglo_fecha'
-        ]
-    });
-    if (!prodGlobales) {
-        return res.status(400).json({
-            msg: `No existe ningún registro para la finca: ${fin_id}`
+// export const getProdGlobalesPorFinca = async (req: Request, res: Response) => {
+//     const { fin_id } = req.params;
+//     const prodGlobales = await ProdGlobal.findAll({
+//         where: {
+//             fin_id,
+//             pglo_estado: true
+//         },
+//         group: 'pglo_fecha',
+//         attributes: [
+//             [sequelize.fn('SUM',sequelize.col('pglo_litros')),'sum_pglo_litros'], 'pglo_fecha'
+//         ]
+//     });
+//     if (!prodGlobales) {
+//         return res.status(400).json({
+//             msg: `No existe ningún registro para la finca: ${fin_id}`
+//         })
+//     }
+//     res.json({
+//         msg: `Lista de prodGlobales`,
+//         dato: prodGlobales
+//     });
+// }
+const postProdGlobalesPorFinca = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a, _b;
+    const { fin_id, fecha_inicio, fecha_fin } = req.body;
+    if (fecha_inicio != "" && fecha_fin != "") {
+        const prodGlobales = yield ((_a = tbl_prodglobal_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query(`SELECT * , SUM(pglo_litros) as sum_pglo_litros FROM tbl_prodglobal
+        WHERE pglo_fecha BETWEEN "${fecha_inicio}" and "${fecha_fin}" AND fin_id = ${fin_id}
+        GROUP BY pglo_fecha`, { type: sequelize_1.QueryTypes.SELECT }));
+        if (!prodGlobales) {
+            return res.status(400).json({
+                msg: `No existe ningún registro para la finca: ${fin_id}`,
+                dato: [],
+            });
+        }
+        res.json({
+            msg: `Lista de prodGlobales por fechas`,
+            dato: prodGlobales,
         });
     }
-    res.json({
-        msg: `Lista de prodGlobales`,
-        dato: prodGlobales
-    });
+    else {
+        const prodGlobales = yield ((_b = tbl_prodglobal_1.default.sequelize) === null || _b === void 0 ? void 0 : _b.query(`SELECT * , SUM(pglo_litros) as sum_pglo_litros FROM tbl_prodglobal
+        WHERE  fin_id = ${fin_id}
+        GROUP BY pglo_fecha`, { type: sequelize_1.QueryTypes.SELECT }));
+        if (!prodGlobales) {
+            return res.status(400).json({
+                msg: `No existe ningún registro para la finca: ${fin_id}`,
+                dato: []
+            });
+        }
+        res.json({
+            msg: `Lista de prodGlobales`,
+            dato: prodGlobales
+        });
+    }
 });
-exports.getProdGlobalesPorFinca = getProdGlobalesPorFinca;
+exports.postProdGlobalesPorFinca = postProdGlobalesPorFinca;
 const getProdGlobalesPorFincaEditar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { fin_id } = req.params;
     const prodGlobales = yield tbl_prodglobal_1.default.findAll({
