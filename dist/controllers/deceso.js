@@ -98,7 +98,8 @@ const postDeceso = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             msg: `No se encontro el animal para deceso`
         });
     }
-    yield animal.update({ ite_idetipoestado: 7 });
+    // await animal.update({ ite_idetipoestado: 7 });
+    yield animal.update({ ite_idtipoestado: 7, ani_estado: 0 });
     res.json({
         msg: `Se creó un nuevo Deceso :(`,
         dato: [deceso]

@@ -92,7 +92,8 @@ export const postDeceso = async (req: Request, res: Response) => {
             msg: `No se encontro el animal para deceso`
         });
     }
-    await animal.update({ ite_idetipoestado: 7 });
+    // await animal.update({ ite_idetipoestado: 7 });
+    await animal.update({ ite_idtipoestado: 7 , ani_estado:0});
     
     
     res.json({
