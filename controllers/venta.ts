@@ -87,6 +87,22 @@ export const postVenta = async (req: Request, res: Response) => {
         ven_valor
     });
     venta.save();
+
+    //Buscamos el animal
+    const animal = await Animales.findOne({
+        where: {
+            ani_id,
+            ani_estado: true
+        }
+    });
+
+    if (!animal) {
+        return res.status(400).json({
+            msg: `No se encontró el animal para vender`
+        });
+    }
+    await animal.update({ ite_idtipoestado: 7 , ani_estado:0});
+
     res.json({
         msg: `Se creó un nuevo registro de venta`,
         dato: [venta]
