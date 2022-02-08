@@ -72,7 +72,7 @@ export const getFincaPersona = async (req: Request, res: Response) => {
 export const getPersonasPorFinca = async (req: Request, res: Response) => {
     const { fin_id } = req.params;
     const fincaPersona = await FincaPersona.sequelize?.query(`
-    SELECT 
+	SELECT 
     F1.fin_id,
     F1.fin_nombre,
     F1.fin_extension,
