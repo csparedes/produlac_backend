@@ -72,23 +72,7 @@ export const getFincaPersona = async (req: Request, res: Response) => {
 export const getPersonasPorFinca = async (req: Request, res: Response) => {
     const { fin_id } = req.params;
     const fincaPersona = await FincaPersona.sequelize?.query(`
-	SELECT 
-    F1.fin_id,
-    F1.fin_nombre,
-    F1.fin_extension,
-    F1.fin_imagen,
-    F1.fin_pais,
-    F1.fin_provincia,
-    F1.fin_ciudad,
-    F1.fin_telefono,
-    F1.fin_estado,
-    R1.*,
-    P1.*
-    FROM tbl_fincapersona as fincapersona
-    JOIN tbl_personas P1 On fincapersona.per_id = P1.per_id
-    JOIN tbl_rol R1 On P1.rol_id = R1.rol_id
-    INNER join tbl_finca F1 ON fincapersona.fin_id = F1.fin_id
-    WHERE F1.fin_id =${fin_id}
+	SELECT F1.fin_id, F1.fin_nombre, F1.fin_extension, F1.fin_imagen, F1.fin_pais, F1.fin_provincia, F1.fin_ciudad, F1.fin_telefono, F1.fin_estado, R1.rol_nombre, R1.rol_estado, P1.* FROM tbl_fincapersona as fincapersona JOIN tbl_personas P1 On fincapersona.per_id = P1.per_id JOIN tbl_rol R1 On P1.rol_id = R1.rol_id INNER join tbl_finca F1 ON fincapersona.fin_id = F1.fin_id WHERE F1.fin_id =${fin_id}
     `, { type: QueryTypes.SELECT })
     if (!fincaPersona) {
         return res.status(400).json({

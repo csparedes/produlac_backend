@@ -86,11 +86,7 @@ const getPersonasPorFinca = (req, res) => __awaiter(void 0, void 0, void 0, func
     var _b;
     const { fin_id } = req.params;
     const fincaPersona = yield ((_b = tbl_fincapersona_1.default.sequelize) === null || _b === void 0 ? void 0 : _b.query(`
-    SELECT * FROM tbl_fincapersona as fincapersona
-    JOIN tbl_personas P1 On fincapersona.per_id = P1.per_id
-    JOIN tbl_rol R1 On P1.rol_id = R1.rol_id
-    INNER join tbl_finca F1 ON fincapersona.fin_id = F1.fin_id
-    WHERE F1.fin_id =${fin_id}
+	SELECT F1.fin_id, F1.fin_nombre, F1.fin_extension, F1.fin_imagen, F1.fin_pais, F1.fin_provincia, F1.fin_ciudad, F1.fin_telefono, F1.fin_estado, R1.rol_nombre, R1.rol_estado, P1.* FROM tbl_fincapersona as fincapersona JOIN tbl_personas P1 On fincapersona.per_id = P1.per_id JOIN tbl_rol R1 On P1.rol_id = R1.rol_id INNER join tbl_finca F1 ON fincapersona.fin_id = F1.fin_id WHERE F1.fin_id =${fin_id}
     `, { type: sequelize_1.QueryTypes.SELECT }));
     if (!fincaPersona) {
         return res.status(400).json({
